@@ -24,6 +24,8 @@ endif ()
 
 if (DEFINED rdf4cpp_SHARED_LIBS)
     set(BUILD_SHARED_LIBS "${rdf4cpp_SHARED_LIBS}")
+else()
+    set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 endif ()
 
 # find packages
