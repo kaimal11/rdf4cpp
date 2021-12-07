@@ -5,6 +5,7 @@
 #include <rdf4cpp/rdf/IRI.hpp>
 #include <rdf4cpp/rdf/Literal.hpp>
 #include <rdf4cpp/rdf/query/Variable.hpp>
+#include <rdf4cpp/rdf/storage/node/IRIBackend.hpp>
 
 namespace rdf4cpp::rdf {
 
@@ -110,7 +111,8 @@ bool Node::operator==(const Node &other) const noexcept {
                 case RDFNodeType::BNode:
                     return this->handle_.bnode_backend() == other.handle_.bnode_backend();
                 case RDFNodeType::Literal:
-                    return this->handle_.literal_backend() == other.handle_.literal_backend();
+                    return (Literal)(*this) == Literal(other);
+                //return this->handle_.literal_backend() == other.handle_.literal_backend();
                 case RDFNodeType::Variable:
                     return this->handle_.variable_backend() == other.handle_.variable_backend();
             }
