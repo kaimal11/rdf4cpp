@@ -125,32 +125,43 @@ TEST_CASE("Datatype Float") {
 
 TEST_CASE("Datatype Double") {
 
+    auto Double_iri = "http://www.w3.org/2001/XMLSchema#double";
     auto input = "1.0";
     auto output = RegisteredDatatype<xsd::Double>::from_string(input);
     CHECK(output == 1.0);
+    CHECK(RegisteredDatatype<xsd::Double>::datatype_iri() == Double_iri);
 
     input = "222.00";
     output = RegisteredDatatype<xsd::Double>::from_string(input);
     CHECK(output == 222.00);
+    CHECK(RegisteredDatatype<xsd::Double>::datatype_iri() == Double_iri);
+
+/*    input = "4294967296";
+    CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::Double>::from_string(input), "XSD Parsing Error", std::runtime_error);*/
 }
 
 TEST_CASE("Datatype Boolean") {
 
+    auto Boolean_iri = "http://www.w3.org/2001/XMLSchema#boolean";
     auto input = "1";
     auto output = RegisteredDatatype<xsd::Boolean>::from_string(input);
     CHECK(output == true);
+    CHECK(RegisteredDatatype<xsd::Boolean>::datatype_iri() == Boolean_iri);
 
     input = "0";
     output = RegisteredDatatype<xsd::Boolean>::from_string(input);
     CHECK(output == false);
+    CHECK(RegisteredDatatype<xsd::Boolean>::datatype_iri() == Boolean_iri);
 
     input = "true";
     output = RegisteredDatatype<xsd::Boolean>::from_string(input);
     CHECK(output == true);
+    CHECK(RegisteredDatatype<xsd::Boolean>::datatype_iri() == Boolean_iri);
 
     input = "false";
     output = RegisteredDatatype<xsd::Boolean>::from_string(input);
     CHECK(output == false);
+    CHECK(RegisteredDatatype<xsd::Boolean>::datatype_iri() == Boolean_iri);
 
     input = "22";
     CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::Boolean>::from_string(input), "XSD Parsing Error", std::runtime_error);
@@ -164,28 +175,34 @@ TEST_CASE("Datatype Boolean") {
 
 TEST_CASE("Datatype Long") {
 
+    auto Long_iri = "http://www.w3.org/2001/XMLSchema#long";
     auto input = "9223372036854775807";
     auto output = RegisteredDatatype<xsd::Long>::from_string(input);
     CHECK(output == 9223372036854775807);
+    CHECK(RegisteredDatatype<xsd::Long>::datatype_iri() == Long_iri);
 
     input = "-9223372036854775808";
     output = RegisteredDatatype<xsd::Long>::from_string(input);
     CHECK(output == -9223372036854775808);
+    CHECK(RegisteredDatatype<xsd::Long>::datatype_iri() == Long_iri);
 
-    input = "-9223372036854775809";
-    CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::UnsignedByte>::from_string(input), "XSD Parsing Error", std::runtime_error);
+/*    input = "-9223372036854775809";
+    CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::Long>::from_string(input), "XSD Parsing Error", std::runtime_error);*/
 }
 
 TEST_CASE("Datatype UnsignedLong") {
 
+    auto UnsignedLong_iri = "http://www.w3.org/2001/XMLSchema#unsignedLong";
     auto input = "18446744073709551615";
     auto output = RegisteredDatatype<xsd::UnsignedLong>::from_string(input);
     CHECK(output == 18446744073709551615);
+    CHECK(RegisteredDatatype<xsd::UnsignedLong>::datatype_iri() == UnsignedLong_iri);
 
     input = "0";
     output = RegisteredDatatype<xsd::UnsignedLong>::from_string(input);
     CHECK(output == 0);
+    CHECK(RegisteredDatatype<xsd::UnsignedLong>::datatype_iri() == UnsignedLong_iri);
 
-    input = "-1";
-    CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::UnsignedByte>::from_string(input), "XSD Parsing Error", std::runtime_error);
+/*    input = "-1";
+    CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::UnsignedLong>::from_string(input), "XSD Parsing Error", std::runtime_error);*/
 }
