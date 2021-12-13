@@ -12,6 +12,7 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Boolean.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Long.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/UnsignedLong.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Time.hpp>
 
 /**
  * Namespace where datatypes from XSD are implemented.

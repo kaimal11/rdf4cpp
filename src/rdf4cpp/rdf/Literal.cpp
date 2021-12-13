@@ -82,9 +82,9 @@ std::strong_ordering Literal::operator<=>(const Literal &other) const {
     }
 }
 bool Literal::operator==(const Literal &other) const {
-    if (this->handle_ == other.handle_) {
+    if (this->lexical_form() == other.lexical_form()) {
         return true;
-    } else if (this->handle_.literal_backend().datatype_id() != other.handle_.literal_backend().datatype_id()) {
+    } else if (this->datatype() != other.datatype()) {
         return false;
     } else {
         if(this->handle_.type() == RDFNodeType::Literal) return this->handle_.literal_backend() == other.handle_.literal_backend();

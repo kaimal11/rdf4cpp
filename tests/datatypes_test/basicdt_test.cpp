@@ -165,12 +165,6 @@ TEST_CASE("Datatype Boolean") {
 
     input = "22";
     CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::Boolean>::from_string(input), "XSD Parsing Error", std::runtime_error);
-
-    auto lit1 = rdf4cpp::rdf::Literal{"0", RegisteredDatatype<xsd::Boolean>::datatype_iri()};
-    auto lit2 = rdf4cpp::rdf::Literal{"1", RegisteredDatatype<xsd::Int>::datatype_iri()};
-
-    if(lit1 == lit2) std::cout << "True" << std::endl;
-    else std::cout << "False" << std::endl;
 }
 
 TEST_CASE("Datatype Long") {
@@ -205,4 +199,25 @@ TEST_CASE("Datatype UnsignedLong") {
 
 /*    input = "-1";
     CHECK_THROWS_WITH_AS(output = RegisteredDatatype<xsd::UnsignedLong>::from_string(input), "XSD Parsing Error", std::runtime_error);*/
+}
+
+TEST_CASE("Datatype Time"){
+    auto Time_iri = "http://www.w3.org/2001/XMLSchema#time";
+    auto input = "19:32:00";
+    auto output = RegisteredDatatype<xsd::Time>::from_string(input);
+
+    char str[32];
+    std::strftime(str, 32, "%H:%M:%S", std::localtime(&output));
+    std::string time_str(str);
+
+    CHECK(time_str == "19:32:00");
+    CHECK(RegisteredDatatype<xsd::Time>::datatype_iri() == Time_iri);
+}
+
+TEST_CASE("Compare Literals"){
+    auto lit1 = rdf4cpp::rdf::Literal{"0", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Boolean>::datatype_iri()}};
+    auto lit2 = rdf4cpp::rdf::Literal{"1", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Boolean>::datatype_iri()}};
+
+    if(lit1 == lit2) std::cout << "True" << std::endl;
+    else std::cout << "False" << std::endl;
 }

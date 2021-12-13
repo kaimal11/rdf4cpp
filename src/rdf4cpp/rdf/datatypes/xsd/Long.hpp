@@ -1,6 +1,3 @@
-//
-// Created by kaimal on 02.12.21.
-//
 
 #ifndef RDF4CPP_XSD_LONG_HPP
 #define RDF4CPP_XSD_LONG_HPP
@@ -10,7 +7,7 @@
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using Long = long;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#long">xsd:long</a>
+using Long = int64_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#long">xsd:long</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
