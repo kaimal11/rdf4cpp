@@ -11,11 +11,12 @@ using Long = int64_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema
 }
 
 namespace rdf4cpp::rdf::datatypes {
+constexpr const char xsd_long[] = "xsd::Long";
 template<>
-inline std::string RegisteredDatatype<xsd::Long>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#long"; }
+inline std::string RegisteredDatatype<xsd::Long, xsd_long>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#long"; }
 
 template<>
-inline xsd::Long RegisteredDatatype<xsd::Long>::from_string(const std::string &s) {
+inline xsd::Long RegisteredDatatype<xsd::Long, xsd_long>::from_string(const std::string &s) {
     return std::stol(s);
 }
 }  // namespace rdf4cpp::rdf::datatypes

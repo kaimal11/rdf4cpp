@@ -15,15 +15,15 @@ using Time = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 
 namespace rdf4cpp::rdf::datatypes {
 
-constexpr const char time[] = "xsd::Time";
+constexpr const char xsd_time[] = "xsd::Time";
 
 template<>
-inline std::string RegisteredDatatype<xsd::Time, time>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#time"; }
+inline std::string RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#time"; }
 
 template<>
-inline xsd::Time RegisteredDatatype<xsd::Time, time>::from_string(const std::string &s) {
+inline xsd::Time RegisteredDatatype<xsd::Time, xsd_time>::from_string(const std::string &s) {
     const std::regex time_regex(R"((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    if(std::regex_match(s, time_regex)){
+    if (std::regex_match(s, time_regex)) {
 
         const char *str = s.c_str();
         tm tm{};
@@ -31,7 +31,7 @@ inline xsd::Time RegisteredDatatype<xsd::Time, time>::from_string(const std::str
 
         return mktime(&tm);
 
-    }else{
+    } else {
         throw std::runtime_error("XSD Parsing Error");
     }
 }

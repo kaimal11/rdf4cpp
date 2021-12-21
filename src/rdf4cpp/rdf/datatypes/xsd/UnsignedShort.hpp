@@ -1,6 +1,3 @@
-//
-// Created by kaimal on 29.11.21.
-//
 
 /**
  * @file Registers xsd:unsignedShort with DatatypeRegistry
@@ -18,13 +15,14 @@ using UnsignedShort = uint16_t ;  //!< Implements <a href="http://www.w3.org/200
 }
 
 namespace rdf4cpp::rdf::datatypes {
+constexpr const char xsd_ushort[] = "xsd::UnsignedShort";
 template<>
-inline std::string RegisteredDatatype<xsd::UnsignedShort>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedShort"; }
+inline std::string RegisteredDatatype<xsd::UnsignedShort, xsd_ushort>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedShort"; }
 
 template<>
-inline xsd::UnsignedShort RegisteredDatatype<xsd::UnsignedShort>::from_string(const std::string &s) {
+inline xsd::UnsignedShort RegisteredDatatype<xsd::UnsignedShort, xsd_ushort>::from_string(const std::string &s) {
     auto int16_val = std::stoi(s);
-    if(int16_val < 0 || int16_val > 65535) throw std::runtime_error("XSD Parsing Error");
+    if (int16_val < 0 || int16_val > 65535) throw std::runtime_error("XSD Parsing Error");
     return int16_val;
 }
 }  // namespace rdf4cpp::rdf::datatypes

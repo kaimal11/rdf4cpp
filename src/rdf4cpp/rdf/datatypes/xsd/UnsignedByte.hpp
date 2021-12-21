@@ -1,6 +1,3 @@
-//
-// Created by kaimal on 29.11.21.
-//
 
 /**
  * @file Registers xsd:unsignedByte with DatatypeRegistry
@@ -18,13 +15,14 @@ namespace rdf4cpp::rdf::datatypes::xsd {
 }
 
 namespace rdf4cpp::rdf::datatypes {
+constexpr const char xsd_ubyte[] = "xsd::UnsignedByte";
 template<>
-inline std::string RegisteredDatatype<xsd::UnsignedByte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedByte"; }
+inline std::string RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedByte"; }
 
 template<>
-inline xsd::UnsignedByte RegisteredDatatype<xsd::UnsignedByte>::from_string(const std::string &s) {
+inline xsd::UnsignedByte RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::from_string(const std::string &s) {
     auto int8_val = std::stoi(s);
-    if(int8_val < 0 || int8_val > 255) throw std::runtime_error("XSD Parsing Error");
+    if (int8_val < 0 || int8_val > 255) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }
 }  // namespace rdf4cpp::rdf::datatypes

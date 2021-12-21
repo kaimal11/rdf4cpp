@@ -14,12 +14,13 @@ using Int = int32_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 }
 
 namespace rdf4cpp::rdf::datatypes {
+constexpr const char xsd_int[] = "xsd::Int";
 template<>
-inline std::string RegisteredDatatype<xsd::Int>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#int"; }
+inline std::string RegisteredDatatype<xsd::Int, xsd_int>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#int"; }
 
 template<>
-inline xsd::Int RegisteredDatatype<xsd::Int>::from_string(std::string_view s) {
-    return std::stoi(std::string{s});
+inline xsd::Int RegisteredDatatype<xsd::Int, xsd_int>::from_string(const std::string &s) {
+    return std::stoi(s);
 }
 }  // namespace rdf4cpp::rdf::datatypes
 #endif  //RDF4CPP_XSD_INT_HPP

@@ -1,6 +1,3 @@
-//
-// Created by kaimal on 26.11.21.
-//
 
 /**
  * @file Registers xsd:byte with DatatypeRegistry
@@ -19,13 +16,15 @@ using Byte = int8_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 
 
 namespace rdf4cpp::rdf::datatypes {
+
+constexpr const char xsd_byte[] = "xsd::Byte";
 template<>
-inline std::string RegisteredDatatype<xsd::Byte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#byte"; }
+inline std::string RegisteredDatatype<xsd::Byte, xsd_byte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#byte"; }
 
 template<>
-inline xsd::Byte RegisteredDatatype<xsd::Byte>::from_string(const std::string &s) {
+inline xsd::Byte RegisteredDatatype<xsd::Byte, xsd_byte>::from_string(const std::string &s) {
     auto int8_val = std::stoi(s);
-    if(int8_val < -128 || int8_val > 127) throw std::runtime_error("XSD Parsing Error");
+    if (int8_val < -128 || int8_val > 127) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }
 }  // namespace rdf4cpp::rdf::datatypes

@@ -1,6 +1,3 @@
-//
-// Created by kaimal on 26.11.21.
-//
 
 /**
  * @file Registers xsd:short with DatatypeRegistry
@@ -19,13 +16,14 @@ using Short = int16_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchem
 
 
 namespace rdf4cpp::rdf::datatypes {
+constexpr const char xsd_short[] = "xsd::Short";
 template<>
-inline std::string RegisteredDatatype<xsd::Short>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#short"; }
+inline std::string RegisteredDatatype<xsd::Short, xsd_short>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#short"; }
 
 template<>
-inline xsd::Short RegisteredDatatype<xsd::Short>::from_string(const std::string &s) {
+inline xsd::Short RegisteredDatatype<xsd::Short, xsd_short>::from_string(const std::string &s) {
     auto int16_val = std::stoi(s);
-    if(int16_val < -32768 || int16_val > 32767) throw std::runtime_error("XSD Parsing Error");
+    if (int16_val < -32768 || int16_val > 32767) throw std::runtime_error("XSD Parsing Error");
     return int16_val;
 }
 }  // namespace rdf4cpp::rdf::datatypes

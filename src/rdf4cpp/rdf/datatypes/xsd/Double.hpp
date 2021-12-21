@@ -1,6 +1,3 @@
-//
-// Created by kaimal on 26.11.21.
-//
 
 /**
  * @file Registers xsd:double with DatatypeRegistry
@@ -18,10 +15,11 @@ using Double = double;  //!< Implements <a href="http://www.w3.org/2001/XMLSchem
 
 
 namespace rdf4cpp::rdf::datatypes {
+constexpr const char xsd_double[] = "xsd::Double";
 template<>
-inline std::string RegisteredDatatype<xsd::Double>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#double"; }
+inline std::string RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#double"; }
 template<>
-inline double RegisteredDatatype<xsd::Double>::from_string(const std::string &s) {
+inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(const std::string &s) {
     return std::stod(s);
 }
 }  // namespace rdf4cpp::rdf::datatypes
