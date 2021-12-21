@@ -14,11 +14,14 @@ using Time = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 }
 
 namespace rdf4cpp::rdf::datatypes {
-template<>
-inline std::string RegisteredDatatype<xsd::Time>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#time"; }
+
+constexpr const char time[] = "xsd::Time";
 
 template<>
-inline xsd::Time RegisteredDatatype<xsd::Time>::from_string(const std::string &s) {
+inline std::string RegisteredDatatype<xsd::Time, time>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#time"; }
+
+template<>
+inline xsd::Time RegisteredDatatype<xsd::Time, time>::from_string(const std::string &s) {
     const std::regex time_regex(R"((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
     if(std::regex_match(s, time_regex)){
 

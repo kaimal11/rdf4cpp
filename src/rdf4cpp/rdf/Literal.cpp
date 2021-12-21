@@ -87,8 +87,9 @@ bool Literal::operator==(const Literal &other) const {
     } else if (this->datatype() != other.datatype()) {
         return false;
     } else {
-        if(this->handle_.type() == RDFNodeType::Literal) return this->handle_.literal_backend() == other.handle_.literal_backend();
-        else return false;
+        return false;
+        /*if(this->handle_.type() == RDFNodeType::Literal) return this->handle_.literal_backend() == other.handle_.literal_backend();
+        else return false;*/
     }
 }
 
@@ -103,6 +104,4 @@ std::any Literal::value() const {
     else
         return {};
 }
-
-
 }  // namespace rdf4cpp::rdf

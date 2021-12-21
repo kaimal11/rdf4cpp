@@ -111,7 +111,7 @@ public:
  * If datatype_t does not overload `operator<<`, to_string(const datatype_t &value) must be specialized.
  * @tparam datatype_t datatype that is being registered
  */
-template<typename datatype_t>
+template<typename datatype_t, const char* xsd_string>
 struct RegisteredDatatype {
 private:
     /**
@@ -162,9 +162,9 @@ private:
     // Force `dummy` to be instantiated, even though it's unused.
     static constexpr std::integral_constant<decltype(&dummy), &dummy> dummy_helper{};
 };
-template<typename datatype_t>
-std::nullptr_t RegisteredDatatype<datatype_t>::init() {
-    DatatypeRegistry::add<RegisteredDatatype<datatype_t>>();
+template<typename xsd_datatype_t, const char* xsd_string>
+std::nullptr_t RegisteredDatatype<xsd_datatype_t, xsd_string>::init() {
+    DatatypeRegistry::add<RegisteredDatatype<xsd_datatype_t, xsd_string>>();
     return nullptr;
 }
 

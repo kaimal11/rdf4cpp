@@ -97,7 +97,7 @@ public:
      */
     template<typename T>
     T value() const {
-        return datatypes::RegisteredDatatype<std::decay_t<T>>::from_string(this->lexical_form());
+        return datatypes::RegisteredDatatype<std::decay_t<T>, typeid(T).name()>::from_string(this->lexical_form());
     }
 
     friend class Node;
