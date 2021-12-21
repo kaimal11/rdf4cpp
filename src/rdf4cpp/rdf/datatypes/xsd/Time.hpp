@@ -15,10 +15,7 @@ using Time = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 
 namespace rdf4cpp::rdf::datatypes {
 
-constexpr const char xsd_time[] = "xsd::Time";
-
-template<>
-inline std::string RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#time"; }
+constexpr const char xsd_time[] = "http://www.w3.org/2001/XMLSchema#time";
 
 template<>
 inline xsd::Time RegisteredDatatype<xsd::Time, xsd_time>::from_string(const std::string &s) {

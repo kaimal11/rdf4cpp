@@ -1,6 +1,4 @@
-//
-// Created by kaimal on 29.11.21.
-//
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include <doctest/doctest.h>
 #include <rdf4cpp/rdf.hpp>
@@ -212,8 +210,10 @@ TEST_CASE("Datatype UnsignedLong") {
 TEST_CASE("Datatype Time") {
     auto Time_iri = "http://www.w3.org/2001/XMLSchema#time";
     auto input = "19:32:00";
-    static constexpr const char xsd_time[] = "xsd::Time";
+    // we can use the predefined constexpr c string
     auto output = RegisteredDatatype<xsd::Time, xsd_time>::from_string(input);
+    // or use a c string constant in place:
+    output = RegisteredDatatype<xsd::Time, "http://www.w3.org/2001/XMLSchema#time">::from_string(input);
 
     char str[32];
     std::strftime(str, 32, "%H:%M:%S", std::localtime(&output));
