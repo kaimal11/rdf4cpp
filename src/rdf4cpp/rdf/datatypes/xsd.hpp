@@ -13,6 +13,8 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Long.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/UnsignedLong.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Time.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Date.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/DateTime.hpp>
 
 /**
  * Namespace where datatypes from XSD are implemented.

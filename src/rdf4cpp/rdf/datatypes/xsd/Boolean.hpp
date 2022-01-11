@@ -12,7 +12,7 @@ using Boolean = bool;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema
 
 namespace rdf4cpp::rdf::datatypes {
 
-constexpr const char xsd_boolean[] = "xsd::Boolean";
+constexpr const char xsd_boolean[] = "http://www.w3.org/2001/XMLSchema#boolean";
 
 template<>
 inline std::string RegisteredDatatype<xsd::Boolean, xsd_boolean>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#boolean"; }

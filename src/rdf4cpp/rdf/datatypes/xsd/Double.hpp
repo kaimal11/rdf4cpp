@@ -15,7 +15,7 @@ using Double = double;  //!< Implements <a href="http://www.w3.org/2001/XMLSchem
 
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_double[] = "xsd::Double";
+constexpr const char xsd_double[] = "http://www.w3.org/2001/XMLSchema#double";
 template<>
 inline std::string RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#double"; }
 template<>

@@ -15,7 +15,7 @@ using UnsignedInt = uint32_t;  //!< Implements <a href="http://www.w3.org/2001/X
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_uint[] = "xsd::UnsignedInt";
+constexpr const char xsd_uint[] = "http://www.w3.org/2001/XMLSchema#unsignedInt";
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedInt, xsd_uint>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedInt"; }
 

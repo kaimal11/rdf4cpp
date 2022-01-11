@@ -7,11 +7,11 @@
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using UnsignedLong = ulong;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#unsignedLong">xsd:unsignedLong</a>
+using UnsignedLong = u_int64_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#unsignedLong">xsd:unsignedLong</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_ulong[] = "xsd::UnsignedLong";
+constexpr const char xsd_ulong[] = "http://www.w3.org/2001/XMLSchema#unsignedLong";
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedLong, xsd_ulong>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedLong"; }
 

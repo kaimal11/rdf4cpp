@@ -15,7 +15,7 @@ namespace rdf4cpp::rdf::datatypes::xsd {
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_ubyte[] = "xsd::UnsignedByte";
+constexpr const char xsd_ubyte[] = "http://www.w3.org/2001/XMLSchema#unsignedByte";
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedByte"; }
 

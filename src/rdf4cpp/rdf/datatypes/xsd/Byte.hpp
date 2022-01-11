@@ -17,7 +17,7 @@ using Byte = int8_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 
 namespace rdf4cpp::rdf::datatypes {
 
-constexpr const char xsd_byte[] = "xsd::Byte";
+constexpr const char xsd_byte[] = "http://www.w3.org/2001/XMLSchema#byte";
 template<>
 inline std::string RegisteredDatatype<xsd::Byte, xsd_byte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#byte"; }
 

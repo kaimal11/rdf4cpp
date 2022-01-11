@@ -15,7 +15,7 @@ using UnsignedShort = uint16_t ;  //!< Implements <a href="http://www.w3.org/200
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_ushort[] = "xsd::UnsignedShort";
+constexpr const char xsd_ushort[] = "http://www.w3.org/2001/XMLSchema#unsignedShort";
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedShort, xsd_ushort>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedShort"; }
 

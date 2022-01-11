@@ -16,7 +16,7 @@ using Short = int16_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchem
 
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_short[] = "xsd::Short";
+constexpr const char xsd_short[] = "http://www.w3.org/2001/XMLSchema#short";
 template<>
 inline std::string RegisteredDatatype<xsd::Short, xsd_short>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#short"; }
 

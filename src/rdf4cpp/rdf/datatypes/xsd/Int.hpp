@@ -14,7 +14,7 @@ using Int = int32_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_int[] = "xsd::Int";
+constexpr const char xsd_int[] = "http://www.w3.org/2001/XMLSchema#int";
 template<>
 inline std::string RegisteredDatatype<xsd::Int, xsd_int>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#int"; }
 
