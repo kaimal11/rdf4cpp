@@ -212,14 +212,12 @@ TEST_CASE("Datatype Time") {
     auto input = "19:32:00";
     // we can use the predefined constexpr c string
     auto output = RegisteredDatatype<xsd::Time, xsd_time>::from_string(input);
-    // or use a c string constant in place:
-    output = RegisteredDatatype<xsd::Time, xsd_time>::from_string(input);
 
     char str[32];
     std::strftime(str, 32, "%H:%M:%S", std::localtime(&output));
     std::string time_str(str);
 
-    CHECK(time_str == "19:32:00");
+    CHECK(time_str == input);
     CHECK(RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri() == Time_iri);
 }
 
@@ -228,8 +226,6 @@ TEST_CASE("Datatype Date") {
     auto input = "2021-12-23";
     // we can use the predefined constexpr c string
     auto output = RegisteredDatatype<xsd::Date, xsd_date>::from_string(input);
-    // or use a c string constant in place:
-    output = RegisteredDatatype<xsd::Date, xsd_date>::from_string(input);
 
     char str[32];
     std::strftime(str, 32, "%Y-%m-%d", std::localtime(&output));
@@ -244,14 +240,26 @@ TEST_CASE("Datatype DateTime") {
     auto input = "2021-12-23T10:11:12";
     // we can use the predefined constexpr c string
     auto output = RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(input);
-    // or use a c string constant in place:
-    output = RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(input);
 
     char str[32];
     std::strftime(str, 32, "%Y-%m-%dT%H:%M:%S", std::localtime(&output));
     std::string time_str(str);
 
     CHECK(time_str == "2021-12-23T10:11:12");
+    CHECK(RegisteredDatatype<xsd::DateTime, xsd_dateTime>::datatype_iri() == dateTime_iri);
+}
+
+TEST_CASE("Datatype Duration") {
+    auto dateTime_iri = "http://www.w3.org/2001/XMLSchema#duration";
+    auto input = "P15D";
+    // we can use the predefined constexpr c string
+    auto output = RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(input);
+
+    char str[32];
+    std::strftime(str, 32, "P%dD", std::localtime(&output));
+    std::string time_str(str);
+
+    CHECK(time_str == input);
     CHECK(RegisteredDatatype<xsd::DateTime, xsd_dateTime>::datatype_iri() == dateTime_iri);
 }
 

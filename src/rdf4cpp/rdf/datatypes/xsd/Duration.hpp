@@ -12,7 +12,7 @@
 #include <sstream>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using Duration = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#time">xsd:duration</a>
+using Duration = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#duration">xsd:duration</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
@@ -32,11 +32,42 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
                                       "|([0-9]+(\\.[0-9]+)?S))))");
     if (std::regex_match(s, duration_regex)) {
 
-        std::string fmt = "P";
+        std::vector<std::string> result;
+        std::stringstream ss (s);
+        std::string item;
+
+        while (getline (ss, item, 'T')) {
+            result.push_back (item);
+        }
+
+        char *fmt = "P";
         bool first = true;
         if(s.find('Y')){
             first = false;
-            fmt.append("%Y");
+            strcat(fmt, "%Y");
+        }
+        if(s.find('M')){
+            auto str = "%m";
+            if(!first){
+                str = "-%m";
+            }
+            first = false;
+            strcat(fmt, str);
+        }
+        if(s.find('D')){
+            auto str = "%d";
+            if(!first){
+                str = "-%d";
+            }
+            first = false;
+            strcat(fmt, str);
+        }
+
+        strcat(fmt, "T");
+        first = true;
+
+        if(s.find('H')){
+            strcat(fmt, "%H");
         }
         if(s.find('M')){
             auto str = "%M";
@@ -44,24 +75,19 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
                 str = "-%M";
             }
             first = false;
-            fmt.append(str);
+            strcat(fmt, str);
         }
-        if(s.find('D')){
-            auto str = "%D";
+        if(s.find('S')){
+            auto str = "%S";
             if(!first){
-                str = "-%D";
+                str = "-%S";
             }
             first = false;
-            fmt.append(str);
+            strcat(fmt, str);
         }
-        fmt.append("T");
-        if(s.find('Y')){
-            fmt.append("%Y");
-        }
-
 
         tm tm{};
-        strptime(s.c_str(), "%M-%D", &tm);
+        strptime(s.c_str(), fmt, &tm);
 
         return mktime(&tm);
 

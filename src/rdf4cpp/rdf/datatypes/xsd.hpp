@@ -15,6 +15,7 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Time.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Date.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DateTime.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Duration.hpp>
 
 /**
  * Namespace where datatypes from XSD are implemented.
