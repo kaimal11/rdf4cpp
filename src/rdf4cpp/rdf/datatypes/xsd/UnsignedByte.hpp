@@ -11,17 +11,18 @@
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-    using UnsignedByte = uint8_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#unsignedByte">xsd:unsignedByte</a>
+using UnsignedByte = uint8_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#unsignedByte">xsd:unsignedByte</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_ubyte[] = "http://www.w3.org/2001/XMLSchema#unsignedByte";
+
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedByte"; }
 
 template<>
 inline xsd::UnsignedByte RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::from_string(const std::string &s) {
-    auto int8_val = std::stoi(s);
+    uint8_t int8_val = std::stoi(s);
     if (int8_val < 0 || int8_val > 255) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }

@@ -11,11 +11,12 @@
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using UnsignedShort = uint16_t ;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#unsignedShort">xsd:unsignedShort</a>
+using UnsignedShort = uint16_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#unsignedShort">xsd:unsignedShort</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_ushort[] = "http://www.w3.org/2001/XMLSchema#unsignedShort";
+
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedShort, xsd_ushort>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedShort"; }
 

@@ -15,8 +15,10 @@ using Float = float;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 
 namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_float[] = "http://www.w3.org/2001/XMLSchema#float";
+
 template<>
 inline std::string RegisteredDatatype<xsd::Float, xsd_float>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#float"; }
+
 template<>
 inline float RegisteredDatatype<xsd::Float, xsd_float>::from_string(const std::string &s) {
     return std::stof(s);

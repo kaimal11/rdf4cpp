@@ -1,21 +1,27 @@
 
+/**
+ * @file Registers xsd:time with DatatypeRegistry
+ */
+
 #ifndef RDF4CPP_XSD_TIME_HPP
 #define RDF4CPP_XSD_TIME_HPP
 
-#include <cstdint>
-#include <ostream>
 #include <algorithm>
+#include <cstdint>
+#include <iomanip>
+#include <ostream>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 #include <regex>
-#include <iomanip>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
 using Time = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#time">xsd:time</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
-
 constexpr const char xsd_time[] = "http://www.w3.org/2001/XMLSchema#time";
+
+template<>
+inline std::string RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#time"; }
 
 template<>
 inline xsd::Time RegisteredDatatype<xsd::Time, xsd_time>::from_string(const std::string &s) {

@@ -1,4 +1,8 @@
 
+/**
+ * @file Registers xsd:dateTime with DatatypeRegistry
+ */
+
 #ifndef RDF4CPP_XSD_DATETIME_H
 #define RDF4CPP_XSD_DATETIME_H
 
@@ -8,16 +12,18 @@
 #include <ostream>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 #include <regex>
-#include <vector>
 #include <sstream>
+#include <vector>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using DateTime = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#time">xsd:dateTime</a>
+using DateTime = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#dateTime">xsd:dateTime</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
-
 constexpr const char xsd_dateTime[] = "http://www.w3.org/2001/XMLSchema#dateTime";
+
+template<>
+inline std::string RegisteredDatatype<xsd::DateTime, xsd_dateTime>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#dateTime"; }
 
 template<>
 inline xsd::DateTime RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(const std::string &s) {

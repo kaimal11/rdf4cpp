@@ -1,4 +1,8 @@
 
+/**
+ * @file Registers xsd:gYear with DatatypeRegistry
+ */
+
 #ifndef RDF4CPP_XSD_GYEAR_HPP
 #define RDF4CPP_XSD_GYEAR_HPP
 
@@ -8,16 +12,18 @@
 #include <ostream>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 #include <regex>
-#include <vector>
 #include <sstream>
+#include <vector>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using GYear = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#time">xsd:gYear</a>
+using GYear = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#gYear">xsd:gYear</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
-
 constexpr const char xsd_gYear[] = "http://www.w3.org/2001/XMLSchema#gYear";
+
+template<>
+inline std::string RegisteredDatatype<xsd::GYear, xsd_gYear>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#gYear"; }
 
 template<>
 inline xsd::GYear RegisteredDatatype<xsd::GYear, xsd_gYear>::from_string(const std::string &s) {

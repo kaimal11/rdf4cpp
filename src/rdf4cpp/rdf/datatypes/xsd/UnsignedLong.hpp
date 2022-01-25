@@ -1,4 +1,8 @@
 
+/**
+ * @file Registers xsd:unsignedLong with DatatypeRegistry
+ */
+
 #ifndef RDF4CPP_UNSIGNEDLONG_HPP
 #define RDF4CPP_UNSIGNEDLONG_HPP
 
@@ -12,6 +16,7 @@ using UnsignedLong = u_int64_t;  //!< Implements <a href="http://www.w3.org/2001
 
 namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_ulong[] = "http://www.w3.org/2001/XMLSchema#unsignedLong";
+
 template<>
 inline std::string RegisteredDatatype<xsd::UnsignedLong, xsd_ulong>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedLong"; }
 

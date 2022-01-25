@@ -1,3 +1,4 @@
+
 /**
  * @file Registers xsd:int with DatatypeRegistry
  */
@@ -15,12 +16,15 @@ using Int = int32_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#
 
 namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_int[] = "http://www.w3.org/2001/XMLSchema#int";
+
 template<>
 inline std::string RegisteredDatatype<xsd::Int, xsd_int>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#int"; }
 
 template<>
 inline xsd::Int RegisteredDatatype<xsd::Int, xsd_int>::from_string(const std::string &s) {
-    return std::stoi(s);
+    auto int32_val = std::stoi(s);
+    if (int32_val < -2147483648 || int32_val > 2147483647) throw std::runtime_error("XSD Parsing Error");
+    return int32_val;
 }
 }  // namespace rdf4cpp::rdf::datatypes
 #endif  //RDF4CPP_XSD_INT_HPP

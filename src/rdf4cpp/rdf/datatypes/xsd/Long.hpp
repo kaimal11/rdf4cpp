@@ -1,4 +1,8 @@
 
+/**
+ * @file Registers xsd:long with DatatypeRegistry
+ */
+
 #ifndef RDF4CPP_XSD_LONG_HPP
 #define RDF4CPP_XSD_LONG_HPP
 
@@ -12,6 +16,7 @@ using Long = int64_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema
 
 namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_long[] = "http://www.w3.org/2001/XMLSchema#long";
+
 template<>
 inline std::string RegisteredDatatype<xsd::Long, xsd_long>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#long"; }
 

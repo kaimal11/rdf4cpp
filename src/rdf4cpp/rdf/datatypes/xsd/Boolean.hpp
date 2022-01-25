@@ -1,4 +1,8 @@
 
+/**
+* @file Registers xsd:boolean with DatatypeRegistry
+*/
+
 #ifndef RDF4CPP_XSD_BOOLEAN_HPP
 #define RDF4CPP_XSD_BOOLEAN_HPP
 
@@ -11,7 +15,6 @@ using Boolean = bool;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema
 }
 
 namespace rdf4cpp::rdf::datatypes {
-
 constexpr const char xsd_boolean[] = "http://www.w3.org/2001/XMLSchema#boolean";
 
 template<>

@@ -1,6 +1,10 @@
 
-#ifndef RDF4CPP_DURATION_HPP
-#define RDF4CPP_DURATION_HPP
+/**
+* @file Registers xsd:duration with DatatypeRegistry
+*/
+
+#ifndef RDF4CPP_XSD_DURATION_HPP
+#define RDF4CPP_XSD_DURATION_HPP
 
 #include <algorithm>
 #include <cstdint>
@@ -12,24 +16,31 @@
 #include <sstream>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using Duration = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#duration">xsd:duration</a>
+using Duration = int*;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#duration">xsd:duration</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
-
 constexpr const char xsd_duration[] = "http://www.w3.org/2001/XMLSchema#duration";
 
 template<>
+inline std::string RegisteredDatatype<xsd::Duration , xsd_duration>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#duration"; }
+
+template<>
 inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_string(const std::string &s) {
+    int Y=0, m=1, d=2, H=3, M=4, S=5, max = 6;
+    int* duration = new int[6];
+    for(int i = 0; i < max;i++) {
+        duration[i] = 0;
+    }
     const std::regex duration_regex("-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?"
-                                      "|([0-9]+M)([0-9]+D)?"
-                                      "|([0-9]+D))"
-                                      "(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?"
-                                      "|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?"
-                                      "|([0-9]+(\\.[0-9]+)?S)))?)"
-                                      "|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?"
-                                      "|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?"
-                                      "|([0-9]+(\\.[0-9]+)?S))))");
+                                    "|([0-9]+M)([0-9]+D)?"
+                                    "|([0-9]+D))"
+                                    "(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?"
+                                    "|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?"
+                                    "|([0-9]+(\\.[0-9]+)?S)))?)"
+                                    "|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?"
+                                    "|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?"
+                                    "|([0-9]+(\\.[0-9]+)?S))))");
     if (std::regex_match(s, duration_regex)) {
 
         std::vector<std::string> result;
@@ -40,56 +51,52 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
             result.push_back (item);
         }
 
-        char *fmt = "P";
-        bool first = true;
-        if(s.find('Y')){
-            first = false;
-            strcat(fmt, "%Y");
+        ulong start = 0, end;
+        start = result[0].find('P');
+        end = result[0].find('Y');
+        if(end != std::string::npos){
+            start++;
+            duration[Y] = std::stoi(result[0].substr(start, end-1));
+            start = end;
         }
-        if(s.find('M')){
-            auto str = "%m";
-            if(!first){
-                str = "-%m";
-            }
-            first = false;
-            strcat(fmt, str);
+        end = result[0].find('M');
+        if(end != std::string::npos){
+            start++;
+            duration[m] = std::stoi(result[0].substr(start, end-1));
+            start = end;
         }
-        if(s.find('D')){
-            auto str = "%d";
-            if(!first){
-                str = "-%d";
-            }
-            first = false;
-            strcat(fmt, str);
+        end = result[0].find('D');
+        if(end != std::string::npos){
+            start++;
+            duration[d] = std::stoi(result[0].substr(start, end-1));
+            start = end;
         }
 
-        strcat(fmt, "T");
-        first = true;
+        end = s.find('T');
+        if(end != std::string::npos){
 
-        if(s.find('H')){
-            strcat(fmt, "%H");
-        }
-        if(s.find('M')){
-            auto str = "%M";
-            if(!first){
-                str = "-%M";
+            end = result[1].find('H');
+            if(end != std::string::npos){
+                start++;
+                duration[H] = std::stoi(result[1].substr(start, end-1));
+                start = end;
             }
-            first = false;
-            strcat(fmt, str);
-        }
-        if(s.find('S')){
-            auto str = "%S";
-            if(!first){
-                str = "-%S";
+
+            end = result[1].find('M');
+            if(end != std::string::npos){
+                start++;
+                duration[M] = std::stoi(result[1].substr(start, end-1));
+                start = end;
             }
-            first = false;
-            strcat(fmt, str);
+
+            end = result[1].find('S');
+            if(end != std::string::npos){
+                start++;
+                duration[S] = std::stoi(result[1].substr(start, end-1));
+                start = end;
+            }
         }
-
-        tm tm{};
-        strptime(s.c_str(), fmt, &tm);
-
-        return mktime(&tm);
+        return duration;
 
     } else {
         throw std::runtime_error("XSD Parsing Error");
@@ -97,4 +104,4 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
-#endif  //RDF4CPP_DURATION_HPP
+#endif  //RDF4CPP_XSD_DURATION_HPP
