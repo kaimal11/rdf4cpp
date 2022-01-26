@@ -27,7 +27,7 @@ inline std::string RegisteredDatatype<xsd::DayTimeDuration, xsd_dayTimeDuration>
 
 template<>
 inline xsd::DayTimeDuration RegisteredDatatype<xsd::DayTimeDuration, xsd_dayTimeDuration>::from_string(const std::string &s) {
-    int Y = 0, m = 1, d = 2, H = 3, M = 4, S = 5, max = 6;
+    int d = 2, H = 3, M = 4, S = 5, max = 6;
     int *duration = new int[6];
     for (int i = 0; i < max; i++) {
         duration[i] = 0;
