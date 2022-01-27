@@ -15,7 +15,7 @@ using Decimal = double;  //!< Implements <a href="http://www.w3.org/2001/XMLSche
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_decimal[] = "xsd::Decimal";
+constexpr const char xsd_decimal[] = "http://www.w3.org/2001/XMLSchema#decimal";
 
 template<>
 inline std::string RegisteredDatatype<xsd::Decimal, xsd_decimal>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#decimal"; }

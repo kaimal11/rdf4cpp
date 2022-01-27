@@ -326,6 +326,243 @@ TEST_CASE("Datatype UnsignedLong") {
     CHECK(lit5.value<xsd::UnsignedLong,xsd_ulong>() == value);*/
 }
 
+TEST_CASE("Datatype Integer") {
+
+    double value = 1;
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
+    CHECK(lit1.value<xsd::Integer, xsd_integer>() == value);
+
+    value = -2147483648;
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
+    CHECK(lit2.value<xsd::Integer, xsd_integer>() == value);
+
+    value = 2147483647;
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
+    CHECK(lit3.value<xsd::Integer, xsd_integer>() == value);
+
+    value = 1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
+    CHECK(lit4.value<xsd::Integer, xsd_integer>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+
+    if (lit1 == lit2) CHECK(false);
+    else
+        CHECK(true);
+
+    if (lit1 == lit4) CHECK(true);
+    else
+        CHECK(false);
+
+    /*    value = 2147483649;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
+    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit4.value<xsd::Integer,xsd_integer>() == value);
+
+    value = -2147483649;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
+    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::Integer,xsd_integer>() == value);*/
+}
+
+TEST_CASE("Datatype PositiveInteger") {
+
+    auto value = 1;
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::PositiveInteger, xsd_positiveInteger>(value);
+    CHECK(lit1.value<xsd::PositiveInteger, xsd_positiveInteger>() == value);
+
+    value = 18446744073709;
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::PositiveInteger, xsd_positiveInteger>(value);
+    CHECK(lit2.value<xsd::PositiveInteger, xsd_positiveInteger>() == value);
+
+    value = 2147483647;
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::PositiveInteger, xsd_positiveInteger>(value);
+    CHECK(lit3.value<xsd::PositiveInteger, xsd_positiveInteger>() == value);
+
+    value = 1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::PositiveInteger, xsd_positiveInteger>(value);
+    CHECK(lit4.value<xsd::PositiveInteger, xsd_positiveInteger>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+
+    if (lit1 == lit2) CHECK(false);
+    else
+        CHECK(true);
+
+    if (lit1 == lit4) CHECK(true);
+    else
+        CHECK(false);
+
+    /*    value = -1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::PositiveInteger, xsd_positiveInteger>(value);
+    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit4.value<xsd::PositiveInteger,xsd_positiveInteger>() == value);
+
+    value = 12.0555;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::PositiveInteger, xsd_positiveInteger>(value);
+    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::PositiveInteger,xsd_positiveInteger>() == value);*/
+}
+
+TEST_CASE("Datatype NegativeInteger") {
+
+    auto value = -1;
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
+    CHECK(lit1.value<xsd::NegativeInteger, xsd_negativeInteger>() == value);
+
+    value = -18446744073709;
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
+    CHECK(lit2.value<xsd::NegativeInteger, xsd_negativeInteger>() == value);
+
+    value = -2147483647;
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
+    CHECK(lit3.value<xsd::NegativeInteger, xsd_negativeInteger>() == value);
+
+    value = -1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
+    CHECK(lit4.value<xsd::NegativeInteger, xsd_negativeInteger>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+
+    if (lit1 == lit2) CHECK(false);
+    else
+        CHECK(true);
+
+    if (lit1 == lit4) CHECK(true);
+    else
+        CHECK(false);
+
+    /*    value = 1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
+    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit4.value<xsd::NegativeInteger,xsd_negativeInteger>() == value);
+
+    value = -12.0555;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
+    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::NegativeInteger,xsd_negativeInteger>() == value);*/
+}
+
+TEST_CASE("Datatype NonNegativeInteger") {
+
+    auto value = 1;
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::NonNegativeInteger, xsd_nonNegativeInteger>(value);
+    CHECK(lit1.value<xsd::NonNegativeInteger, xsd_nonNegativeInteger>() == value);
+
+    value = 18446744073709;
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::NonNegativeInteger, xsd_nonNegativeInteger>(value);
+    CHECK(lit2.value<xsd::NonNegativeInteger, xsd_nonNegativeInteger>() == value);
+
+    value = 0;
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::NonNegativeInteger, xsd_nonNegativeInteger>(value);
+    CHECK(lit3.value<xsd::NonNegativeInteger, xsd_nonNegativeInteger>() == value);
+
+    value = 1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NonNegativeInteger, xsd_nonNegativeInteger>(value);
+    CHECK(lit4.value<xsd::NonNegativeInteger, xsd_nonNegativeInteger>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+
+    if (lit1 == lit2) CHECK(false);
+    else
+        CHECK(true);
+
+    if (lit1 == lit4) CHECK(true);
+    else
+        CHECK(false);
+
+    /*    value = -1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NonNegativeInteger, xsd_nonNegativeInteger>(value);
+    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit4.value<xsd::NonNegativeInteger,xsd_nonNegativeInteger>() == value);
+
+    value = 0.985;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::NonNegativeInteger, xsd_nonNegativeInteger>(value);
+    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::NonNegativeInteger,xsd_nonNegativeInteger>() == value);*/
+}
+
+TEST_CASE("Datatype NonPositiveInteger") {
+
+    auto value = -1;
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
+    CHECK(lit1.value<xsd::NonPositiveInteger, xsd_nonPositiveInteger>() == value);
+
+    value = -18446744073709;
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
+    CHECK(lit2.value<xsd::NonPositiveInteger, xsd_nonPositiveInteger>() == value);
+
+    value = 0;
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
+    CHECK(lit3.value<xsd::NonPositiveInteger, xsd_nonPositiveInteger>() == value);
+
+    value = -1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
+    CHECK(lit4.value<xsd::NonPositiveInteger, xsd_nonPositiveInteger>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+
+    if (lit1 == lit2) CHECK(false);
+    else
+        CHECK(true);
+
+    if (lit1 == lit4) CHECK(true);
+    else
+        CHECK(false);
+
+    /*    value = 1;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
+    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit4.value<xsd::NonPositiveInteger,xsd_nonPositiveInteger>() == value);
+
+    value = -12.0555;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
+    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::NonPositiveInteger,xsd_nonPositiveInteger>() == value);*/
+}
+
+TEST_CASE("Datatype String") {
+
+    std::string value = "123";
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
+    CHECK(lit1.value<xsd::String, xsd_string>() == value);
+
+    value = "a";
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
+    CHECK(lit2.value<xsd::String, xsd_string>() == value);
+
+    value = "b";
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
+    CHECK(lit3.value<xsd::String, xsd_string>() == value);
+
+    value = "123";
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
+    CHECK(lit4.value<xsd::String, xsd_string>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+
+    if (lit1 == lit4) CHECK(true);
+    else
+        CHECK(false);
+
+
+    /*    value = 22;
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
+    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit4.value<xsd::String,xsd_string>() == value);
+
+    value = -1;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
+    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::String,xsd_string>() == value);*/
+}
+
 TEST_CASE("Datatype Boolean") {
 
     bool value = true;
@@ -488,7 +725,7 @@ TEST_CASE("Datatype Double") {
 
 TEST_CASE("Datatype Date") {
 
-    /*    auto input = "2021-12-23";
+    auto input = "2021-12-23";
     auto output = RegisteredDatatype<xsd::Date, xsd_date>::from_string(input);
 
     char str[32];
@@ -506,35 +743,7 @@ TEST_CASE("Datatype Date") {
 
     if (lit1 == lit2) CHECK(true);
     else
-        CHECK(false);*/
-
-    using namespace std::chrono;
-    auto value = year_month_day{year{2022}, month{01}, day{01}};
-    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Date, xsd_date>(value);
-    CHECK(lit1.value<xsd::Date, xsd_date>() == value);
-
-    /*    value = 6458988.2350;
-    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit2.value<xsd::Double, xsd_double>() == value);
-
-    value = -6452389.2350;
-    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit3.value<xsd::Double, xsd_double>() == value);
-
-    value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit4.value<xsd::Double, xsd_double>() == value);*/
-
-    /*    CHECK(lit1 != lit2);
-    CHECK(lit2 != lit3);
-
-    if (lit1 == lit2) CHECK(false);
-    else
-        CHECK(true);
-
-    if (lit1 == lit4) CHECK(true);
-    else
-        CHECK(false);*/
+        CHECK(false);
 }
 
 TEST_CASE("Datatype Time") {
@@ -583,52 +792,4 @@ TEST_CASE("Datatype Duration") {
         std::cout << output[i] << " ";
     }
     CHECK(RegisteredDatatype<xsd::Duration, xsd_duration>::datatype_iri() == duration_iri);
-}
-
-/*
-TEST_CASE("Compare Literals"){
-    auto lit1 = rdf4cpp::rdf::Literal{"0", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Boolean>::datatype_iri()}};
-    auto lit2 = rdf4cpp::rdf::Literal{"1", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Boolean>::datatype_iri()}};
-
-    if(lit1 == lit2) std::cout << "True" << std::endl;
-    else std::cout << "False" << std::endl;
-}*/
-
-TEST_CASE("TEST") {
-
-    /*using namespace std;
-    using namespace std::chrono;
-    typedef duration<int, ratio_multiply<hours::period, ratio<24> >::type> days;
-
-    const std::chrono::time_point<std::chrono::system_clock> now{std::chrono::system_clock::now()};
-    const std::chrono::year_month_day ymd{std::chrono::floor<std::chrono::days>(now)};
-    std::chrono::year y{2022};
-    std::chrono::month m{2022};
-    std::chrono::year_month_day{std::chrono::year{2022}, std::chrono::month{2022}, std::chrono::day{12}};
-
-    system_clock::time_point now = system_clock::now();
-    system_clock::duration tp = now.time_since_epoch();
-    days d = duration_cast<days>(tp);
-    tp -= d;
-    hours h = duration_cast<hours>(tp);
-    tp -= h;
-    minutes m = duration_cast<minutes>(tp);
-    tp -= m;
-    seconds s = duration_cast<seconds>(tp);
-    tp -= s;
-    std::cout << d.count() << "d " << h.count() << ':'
-              << m.count() << ':' << s.count();
-    std::cout << " " << tp.count() << "["
-              << system_clock::duration::period::num << '/'
-              << system_clock::duration::period::den << "]\n";
-
-    time_t tt = system_clock::to_time_t(now);
-    tm utc_tm = *gmtime(&tt);
-    tm local_tm = *localtime(&tt);
-    std::cout << utc_tm.tm_year + 1900 << '-';
-    std::cout << utc_tm.tm_mon + 1 << '-';
-    std::cout << utc_tm.tm_mday << ' ';
-    std::cout << utc_tm.tm_hour << ':';
-    std::cout << utc_tm.tm_min << ':';
-    std::cout << utc_tm.tm_sec << '\n';*/
 }

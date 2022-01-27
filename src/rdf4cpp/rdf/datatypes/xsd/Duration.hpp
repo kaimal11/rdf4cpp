@@ -29,12 +29,12 @@ inline std::string RegisteredDatatype<xsd::Duration , xsd_duration>::datatype_ir
 template<>
 inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_string(const std::string &s) {
 
-    /*    int Y=0, m=1, d=2, H=3, M=4, S=5, max = 6;
-    int* duration = new int[6];
-    for(int i = 0; i < max;i++) {
+    int Y = 0, m = 1, d = 2, H = 3, M = 4, S = 5, max = 6;
+    int *duration = new int[6];
+    for (int i = 0; i < max; i++) {
         duration[i] = 0;
-    }*/
-    /*    const std::regex duration_regex("-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?"
+    }
+    const std::regex duration_regex("-?P((([0-9]+Y([0-9]+M)?([0-9]+D)?"
                                     "|([0-9]+M)([0-9]+D)?"
                                     "|([0-9]+D))"
                                     "(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?"
@@ -102,7 +102,7 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
 
     } else {
         throw std::runtime_error("XSD Parsing Error");
-    }*/
+    }
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
