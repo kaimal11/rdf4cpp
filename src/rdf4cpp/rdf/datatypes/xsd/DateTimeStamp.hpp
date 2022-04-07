@@ -14,7 +14,7 @@
 #include <regex>
 #include <sstream>
 #include <vector>
-#include "DateTime.hpp"
+#include "tests_DateTime.hpp"
 
 namespace rdf4cpp::rdf::datatypes::xsd {
 using DateTimeStamp = xsd::DateTime;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#dateTimeStamp">xsd:dateTimeStamp</a>

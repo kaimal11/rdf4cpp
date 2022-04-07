@@ -9,14 +9,85 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(DocTest)
 
-add_executable(basicdt_test datatype/tests_BasicDataType.cpp)
-target_link_libraries(basicdt_test
+# add the executable for all tests
+add_executable(tests_BasicDataType datatype/tests_BasicDataType.cpp)
+target_link_libraries(tests_BasicDataType
         doctest
         rdf4cpp
         )
-set_property(TARGET basicdt_test PROPERTY CXX_STANDARD 20)
+set_property(TARGET tests_BasicDataType PROPERTY CXX_STANDARD 20)
 
-# add the executable for all tests
+add_executable(tests_String datatype/tests_String.cpp)
+target_link_libraries(tests_String
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_String PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Boolean datatype/tests_Boolean.cpp)
+target_link_libraries(tests_Boolean
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Boolean PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Decimal datatype/tests_Decimal.cpp)
+target_link_libraries(tests_Decimal
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Decimal PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Integer datatype/tests_Integer.cpp)
+target_link_libraries(tests_Integer
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Integer PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Double datatype/tests_Double.cpp)
+target_link_libraries(tests_Double
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Double PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Float datatype/tests_Float.cpp)
+target_link_libraries(tests_Float
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Float PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Date datatype/tests_Date.cpp)
+target_link_libraries(tests_Date
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Date PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Time datatype/tests_Time.cpp)
+target_link_libraries(tests_Time
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Time PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_DateTime datatype/tests_DateTime.cpp)
+target_link_libraries(tests_DateTime
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DateTime PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_DateTimeStamp datatype/tests_DateTimeStamp.cpp)
+target_link_libraries(tests_DateTimeStamp
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DateTimeStamp PROPERTY CXX_STANDARD 20)
+
+############################################################################
 add_executable(tests_hello_test hello_test/main.cpp)
 target_link_libraries(tests_hello_test
         doctest
