@@ -26,13 +26,13 @@ template<>
 inline std::string RegisteredDatatype<xsd::DateTime, xsd_dateTime>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#dateTime"; }
 
 template<>
-inline xsd::DateTime RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(const std::string &s) {
+inline xsd::DateTime RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(std::string_view s) {
     const std::regex dateTime_regex("(-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])"
                                     "T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    if (std::regex_match(s, dateTime_regex)) {
+    if (std::regex_match(s.data(), dateTime_regex)) {
 
         tm tm{};
-        strptime(s.c_str(), "%Y-%m-%dT%H:%M:%S", &tm);
+        strptime(s.data(), "%Y-%m-%dT%H:%M:%S", &tm);
 
         return mktime(&tm);
 

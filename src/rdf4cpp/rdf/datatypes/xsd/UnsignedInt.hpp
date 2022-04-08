@@ -21,8 +21,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::UnsignedInt, xsd_uint>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedInt"; }
 
 template<>
-inline xsd::UnsignedInt RegisteredDatatype<xsd::UnsignedInt, xsd_uint>::from_string(const std::string &s) {
-    auto int32_val = std::stol(s);
+inline xsd::UnsignedInt RegisteredDatatype<xsd::UnsignedInt, xsd_uint>::from_string(std::string_view s) {
+    auto int32_val = std::strtol(s.data(), nullptr, 10);
     if (int32_val < 0 || int32_val > 4294967295) throw std::runtime_error("XSD Parsing Error");
     return int32_val;
 }

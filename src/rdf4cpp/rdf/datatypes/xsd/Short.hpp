@@ -21,8 +21,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::Short, xsd_short>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#short"; }
 
 template<>
-inline xsd::Short RegisteredDatatype<xsd::Short, xsd_short>::from_string(const std::string &s) {
-    auto int16_val = std::stoi(s);
+inline xsd::Short RegisteredDatatype<xsd::Short, xsd_short>::from_string(std::string_view s) {
+    auto int16_val = std::strtol(s.data(), nullptr, 10);
     if (int16_val < -32768 || int16_val > 32767) throw std::runtime_error("XSD Parsing Error");
     return int16_val;
 }

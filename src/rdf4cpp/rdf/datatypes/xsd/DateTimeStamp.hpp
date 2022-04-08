@@ -14,7 +14,7 @@
 #include <regex>
 #include <sstream>
 #include <vector>
-#include "tests_DateTime.hpp"
+#include "DateTime.hpp"
 
 namespace rdf4cpp::rdf::datatypes::xsd {
 using DateTimeStamp = xsd::DateTime;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#dateTimeStamp">xsd:dateTimeStamp</a>
@@ -27,18 +27,18 @@ template<>
 inline std::string RegisteredDatatype<xsd::DateTimeStamp, xsd_dateTimeStamp>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#dateTimeStamp"; }
 
 template<>
-inline xsd::DateTimeStamp RegisteredDatatype<xsd::DateTimeStamp, xsd_dateTimeStamp>::from_string(const std::string &s) {
+inline xsd::DateTimeStamp RegisteredDatatype<xsd::DateTimeStamp, xsd_dateTimeStamp>::from_string(std::string_view s) {
     const std::regex dateTimeStamp_regex("(-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])"
                                     "T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    if (std::regex_match(s, dateTimeStamp_regex)) {
+    if (std::regex_match(s.data(), dateTimeStamp_regex)) {
 
         tm tm{};
         if(s.find('Z') != std::string::npos)
         {
-            strptime(s.c_str(), "%Y-%m-%dT%H:%M:%SZ", &tm);
+            strptime(s.data(), "%Y-%m-%dT%H:%M:%SZ", &tm);
             return mktime(&tm);
         }else if (s.find('+') || s.find('-')){
-            strptime(s.c_str(), "%Y-%m-%dT%H:%M:%S %z", &tm);
+            strptime(s.data(), "%Y-%m-%dT%H:%M:%S %z", &tm);
             return mktime(&tm);
         }else{
             throw std::runtime_error("XSD Parsing Error");

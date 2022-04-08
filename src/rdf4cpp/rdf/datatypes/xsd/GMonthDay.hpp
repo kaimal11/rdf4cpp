@@ -26,12 +26,12 @@ template<>
 inline std::string RegisteredDatatype<xsd::GMonthDay, xsd_gMonthDay>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#gMonthDay"; }
 
 template<>
-inline xsd::GMonthDay RegisteredDatatype<xsd::GMonthDay , xsd_gMonthDay>::from_string(const std::string &s) {
+inline xsd::GMonthDay RegisteredDatatype<xsd::GMonthDay , xsd_gMonthDay>::from_string(std::string_view s) {
     const std::regex gMonthDay_regex("--(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    if (std::regex_match(s, gMonthDay_regex)) {
+    if (std::regex_match(s.data(), gMonthDay_regex)) {
 
         tm tm{};
-        strptime(s.c_str(), "%M-%D", &tm);
+        strptime(s.data(), "%M-%D", &tm);
 
         return mktime(&tm);
 

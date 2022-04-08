@@ -20,8 +20,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::Float, xsd_float>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#float"; }
 
 template<>
-inline float RegisteredDatatype<xsd::Float, xsd_float>::from_string(const std::string &s) {
-    return std::stof(s);
+inline float RegisteredDatatype<xsd::Float, xsd_float>::from_string(std::string_view s) {
+    return std::strtof(s.data(), nullptr);
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

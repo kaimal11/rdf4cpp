@@ -21,8 +21,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::Long, xsd_long>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#long"; }
 
 template<>
-inline xsd::Long RegisteredDatatype<xsd::Long, xsd_long>::from_string(const std::string &s) {
-    return std::stol(s);
+inline xsd::Long RegisteredDatatype<xsd::Long, xsd_long>::from_string(std::string_view s) {
+    return std::strtol(s.data(), nullptr, 10);
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

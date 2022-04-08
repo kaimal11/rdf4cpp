@@ -21,7 +21,7 @@ template<>
 inline std::string RegisteredDatatype<xsd::Boolean, xsd_boolean>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#boolean"; }
 
 template<>
-inline xsd::Boolean RegisteredDatatype<xsd::Boolean, xsd_boolean>::from_string(const std::string &s) {
+inline xsd::Boolean RegisteredDatatype<xsd::Boolean, xsd_boolean>::from_string(std::string_view s) {
     if (s == "true" || s == "1") return true;
     else if (s == "false" || s == "0")
         return false;

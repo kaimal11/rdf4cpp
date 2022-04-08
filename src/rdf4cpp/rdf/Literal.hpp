@@ -83,7 +83,7 @@ public:
 
     bool operator==(const Literal &other) const;
 
-    std::strong_ordering operator<=>(const Literal &other) const;
+    std::partial_ordering operator<=>(const Literal &other) const;
 
     /**
      * Constructs a datatype specific container from Literal.

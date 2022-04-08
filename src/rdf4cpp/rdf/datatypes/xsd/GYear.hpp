@@ -26,12 +26,12 @@ template<>
 inline std::string RegisteredDatatype<xsd::GYear, xsd_gYear>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#gYear"; }
 
 template<>
-inline xsd::GYear RegisteredDatatype<xsd::GYear, xsd_gYear>::from_string(const std::string &s) {
+inline xsd::GYear RegisteredDatatype<xsd::GYear, xsd_gYear>::from_string(std::string_view s) {
     const std::regex gYear_regex("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    if (std::regex_match(s, gYear_regex)) {
+    if (std::regex_match(s.data(), gYear_regex)) {
 
         tm tm{};
-        strptime(s.c_str(), "%Y", &tm);
+        strptime(s.data(), "%Y", &tm);
 
         return mktime(&tm);
 

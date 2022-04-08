@@ -24,7 +24,7 @@ std::ostream &operator<<(std::ostream &os, const IRI &iri) {
     os << (std::string) iri;
     return os;
 }
-std::string_view IRI::identifier() const {
+const std::basic_string_view<char> IRI::identifier() const {
     return handle_.iri_backend().identifier;
 }
 

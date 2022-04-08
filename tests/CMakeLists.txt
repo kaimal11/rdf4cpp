@@ -10,7 +10,7 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(DocTest)
 
 # add the executable for all tests
-add_executable(tests_BasicDataType datatype/tests_BasicDataType.cpp)
+add_executable(tests_BasicDataType datatype/tests_BasicDataType.cpp datatype/tests_DateTime.cpp)
 target_link_libraries(tests_BasicDataType
         doctest
         rdf4cpp
@@ -73,6 +73,13 @@ target_link_libraries(tests_Time
         )
 set_property(TARGET tests_Time PROPERTY CXX_STANDARD 20)
 
+add_executable(tests_DateTimeStamp datatype/tests_DateTimeStamp.cpp)
+target_link_libraries(tests_DateTimeStamp
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DateTimeStamp PROPERTY CXX_STANDARD 20)
+
 add_executable(tests_DateTime datatype/tests_DateTime.cpp)
 target_link_libraries(tests_DateTime
         doctest
@@ -80,12 +87,6 @@ target_link_libraries(tests_DateTime
         )
 set_property(TARGET tests_DateTime PROPERTY CXX_STANDARD 20)
 
-add_executable(tests_DateTimeStamp datatype/tests_DateTimeStamp.cpp)
-target_link_libraries(tests_DateTimeStamp
-        doctest
-        rdf4cpp
-        )
-set_property(TARGET tests_DateTimeStamp PROPERTY CXX_STANDARD 20)
 
 ############################################################################
 add_executable(tests_hello_test hello_test/main.cpp)

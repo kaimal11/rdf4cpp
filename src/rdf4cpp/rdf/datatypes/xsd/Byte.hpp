@@ -21,8 +21,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::Byte, xsd_byte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#byte"; }
 
 template<>
-inline xsd::Byte RegisteredDatatype<xsd::Byte, xsd_byte>::from_string(const std::string &s) {
-    auto int8_val = std::stoi(s.c_str());
+inline xsd::Byte RegisteredDatatype<xsd::Byte, xsd_byte>::from_string(std::string_view s) {
+    auto int8_val = std::strtol(s.data(), nullptr, 10);
     if (int8_val < -128 || int8_val > 127) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }

@@ -23,12 +23,12 @@ template<>
 inline std::string RegisteredDatatype<xsd::NonPositiveInteger, xsd_nonPositiveInteger>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#nonPositiveInteger"; }
 
 template<>
-inline xsd::NonPositiveInteger RegisteredDatatype<xsd::NonPositiveInteger, xsd_nonPositiveInteger>::from_string(const std::string &s) {
+inline xsd::NonPositiveInteger RegisteredDatatype<xsd::NonPositiveInteger, xsd_nonPositiveInteger>::from_string(std::string_view s) {
 
     const std::regex npInteger_regex("[\\-]?[0-9]+");
 
-    if (std::regex_match(s, npInteger_regex)) {
-        xsd::NonPositiveInteger val =  std::stod(s);
+    if (std::regex_match(s.data(), npInteger_regex)) {
+        xsd::NonPositiveInteger val =  std::strtod(s.data(), nullptr);
 
         if(val <= 0) {
             return  val;

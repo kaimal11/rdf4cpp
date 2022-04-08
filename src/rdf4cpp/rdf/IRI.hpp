@@ -29,7 +29,7 @@ public:
      * Get the IRI string of this.
      * @return IRI string
      */
-    [[nodiscard]] std::string_view identifier() const;
+    [[nodiscard]] const std::basic_string_view<char> identifier() const;
 
     [[nodiscard]] explicit operator std::string() const;
 

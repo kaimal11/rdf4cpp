@@ -26,7 +26,7 @@ template<>
 inline std::string RegisteredDatatype<xsd::DayTimeDuration, xsd_dayTimeDuration>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#dayTimeDuration"; }
 
 template<>
-inline xsd::DayTimeDuration RegisteredDatatype<xsd::DayTimeDuration, xsd_dayTimeDuration>::from_string(const std::string &s) {
+inline xsd::DayTimeDuration RegisteredDatatype<xsd::DayTimeDuration, xsd_dayTimeDuration>::from_string(std::string_view s) {
     int d = 2, H = 3, M = 4, S = 5, max = 6;
     int *duration = new int[6];
     for (int i = 0; i < max; i++) {
@@ -40,10 +40,10 @@ inline xsd::DayTimeDuration RegisteredDatatype<xsd::DayTimeDuration, xsd_dayTime
                                     "|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?"
                                     "|([0-9]+(\\.[0-9]+)?S))))");
 
-    if (std::regex_match(s, duration_regex)) {
+    if (std::regex_match(s.data(), duration_regex)) {
 
         std::vector<std::string> result;
-        std::stringstream ss(s);
+        std::stringstream ss(s.data());
         std::string item;
 
         while (getline(ss, item, 'T')) {

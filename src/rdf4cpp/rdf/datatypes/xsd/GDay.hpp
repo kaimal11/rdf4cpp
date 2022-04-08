@@ -26,12 +26,12 @@ template<>
 inline std::string RegisteredDatatype<xsd::GDay, xsd_gDay>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#gDay"; }
 
 template<>
-inline xsd::GDay RegisteredDatatype<xsd::GDay , xsd_gDay>::from_string(const std::string &s) {
+inline xsd::GDay RegisteredDatatype<xsd::GDay , xsd_gDay>::from_string(std::string_view s) {
     const std::regex gDay_regex("---(0[1-9]|[12][0-9]|3[01])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    if (std::regex_match(s, gDay_regex)) {
+    if (std::regex_match(s.data(), gDay_regex)) {
 
         tm tm{};
-        strptime(s.c_str(), "%D", &tm);
+        strptime(s.data(), "%D", &tm);
 
         return mktime(&tm);
 

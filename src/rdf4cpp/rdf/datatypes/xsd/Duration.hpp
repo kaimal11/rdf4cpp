@@ -27,7 +27,7 @@ template<>
 inline std::string RegisteredDatatype<xsd::Duration , xsd_duration>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#duration"; }
 
 template<>
-inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_string(const std::string &s) {
+inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_string(std::string_view s) {
 
     int Y = 0, m = 1, d = 2, H = 3, M = 4, S = 5, max = 6;
     int *duration = new int[6];
@@ -43,10 +43,10 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
                                     "|(T(([0-9]+H)([0-9]+M)?([0-9]+(\\.[0-9]+)?S)?"
                                     "|([0-9]+M)([0-9]+(\\.[0-9]+)?S)?"
                                     "|([0-9]+(\\.[0-9]+)?S))))");
-    if (std::regex_match(s, duration_regex)) {
+    if (std::regex_match(s.data(), duration_regex)) {
 
         std::vector<std::string> result;
-        std::stringstream ss (s);
+        std::stringstream ss (s.data());
         std::string item;
 
         while (getline (ss, item, 'T')) {

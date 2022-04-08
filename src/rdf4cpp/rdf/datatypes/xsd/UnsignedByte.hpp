@@ -21,8 +21,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedByte"; }
 
 template<>
-inline xsd::UnsignedByte RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::from_string(const std::string &s) {
-    uint8_t int8_val = std::stoi(s);
+inline xsd::UnsignedByte RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::from_string(std::string_view s) {
+    uint8_t int8_val = std::strtol(s.data(), nullptr, 10);
     if (int8_val < 0 || int8_val > 255) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }

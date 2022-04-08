@@ -1,7 +1,7 @@
 #include "Literal.hpp"
 
 #include <rdf4cpp/rdf/IRI.hpp>
-#include <rdf4cpp/rdf/storage/node/LiteralBackend.hpp>
+#include <rdf4cpp/rdf/storage/node/reference_node_storage/LiteralBackend.hpp>
 
 namespace rdf4cpp::rdf {
 
@@ -61,8 +61,8 @@ bool Literal::is_blank_node() const { return false; }
 bool Literal::is_iri() const { return false; }
 Literal::Literal(Node::NodeBackendHandle handle) : Node(handle) {}
 
-std::strong_ordering Literal::operator<=>(const Literal &other) const {
-    auto type = handle_.literal_backend().datatype_id().type();
+std::partial_ordering Literal::operator<=>(const Literal &other) const {
+    auto type = handle_.type();
     if (auto comp_id = this->handle_ <=> other.handle_; comp_id == std::partial_ordering::equivalent) {
         return std::strong_ordering::equal;
     } else if (auto comp_type = this->handle_.type() <=> other.handle_.type(); comp_type != std::strong_ordering::equal) {
@@ -104,4 +104,6 @@ std::any Literal::value() const {
     else
         return {};
 }
+
+
 }  // namespace rdf4cpp::rdf

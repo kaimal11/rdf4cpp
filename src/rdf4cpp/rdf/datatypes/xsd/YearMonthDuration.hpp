@@ -26,27 +26,27 @@ template<>
 inline std::string RegisteredDatatype<xsd::YearMonthDuration, xsd_yearMonthDuration>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#yearMonthDuration"; }
 
 template<>
-inline xsd::YearMonthDuration RegisteredDatatype<xsd::YearMonthDuration, xsd_yearMonthDuration>::from_string(const std::string &s) {
+inline xsd::YearMonthDuration RegisteredDatatype<xsd::YearMonthDuration, xsd_yearMonthDuration>::from_string(std::string_view s) {
     int Y = 0, m = 1, d = 2, max = 3;
     int *duration = new int[6];
     for (int i = 0; i < max; i++) {
         duration[i] = 0;
     }
     const std::regex duration_regex("-?P((([0-9]+Y)([0-9]+M)?)|([0-9]+M))");
-    if (std::regex_match(s, duration_regex)) {
+    if (std::regex_match(s.data(), duration_regex)) {
 
         ulong start = 0, end;
         start = s.find('P');
         end = s.find('Y');
         if (end != std::string::npos) {
             start++;
-            duration[Y] = std::stoi(s.substr(start, end - 1));
+            //duration[Y] = std::strtol(s.data().substr(start, end - 1), nullptr, 10);
             start = end;
         }
         end = s.find('M');
         if (end != std::string::npos) {
             start++;
-            duration[m] = std::stoi(s.substr(start, end - 1));
+            //duration[m] = std::stoi(s.substr(start, end - 1));
             start = end;
         }
 

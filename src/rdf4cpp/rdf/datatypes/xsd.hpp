@@ -22,7 +22,7 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Double.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Date.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Time.hpp>
-#include <rdf4cpp/rdf/datatypes/xsd/tests_DateTime.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/DateTime.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DateTimeStamp.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/GYear.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/GMonth.hpp>

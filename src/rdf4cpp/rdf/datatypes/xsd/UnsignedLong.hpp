@@ -21,8 +21,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::UnsignedLong, xsd_ulong>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#unsignedLong"; }
 
 template<>
-inline xsd::UnsignedLong RegisteredDatatype<xsd::UnsignedLong, xsd_ulong>::from_string(const std::string &s) {
-    return std::stoull(s);
+inline xsd::UnsignedLong RegisteredDatatype<xsd::UnsignedLong, xsd_ulong>::from_string(std::string_view s) {
+    return std::strtoul(s.data(), nullptr, 10);
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

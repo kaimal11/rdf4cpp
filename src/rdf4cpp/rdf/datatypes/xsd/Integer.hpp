@@ -23,12 +23,12 @@ template<>
 inline std::string RegisteredDatatype<xsd::Integer , xsd_integer>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#integer"; }
 
 template<>
-inline xsd::Integer RegisteredDatatype<xsd::Integer , xsd_integer>::from_string(const std::string &s) {
+inline xsd::Integer RegisteredDatatype<xsd::Integer , xsd_integer>::from_string(std::string_view s) {
 
     const std::regex integer_regex("[\\-+]?[0-9]+");
 
-    if (std::regex_match(s, integer_regex)) {
-        return std::stod(s);
+    if (std::regex_match(s.data(), integer_regex)) {
+        return std::strtod(s.data(), nullptr);
     }else {
         throw std::runtime_error("XSD Parsing Error");
     }

@@ -20,8 +20,8 @@ template<>
 inline std::string RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#double"; }
 
 template<>
-inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(const std::string &s) {
-    return std::stod(s);
+inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(std::string_view s) {
+    return std::strtod(s.data(), nullptr);
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
