@@ -7,7 +7,7 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype NegativeInteger") {
 
-    auto value = -1;
+    int64_t value = -1;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);
     CHECK(lit1.value<xsd::NegativeInteger, xsd_negativeInteger>() == value);
 
@@ -25,14 +25,10 @@ TEST_CASE("Datatype NegativeInteger") {
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
+    CHECK(lit1 == lit4);
 
-    if (lit1 == lit2) CHECK(false);
-    else
-        CHECK(true);
-
+    // testing == of Literals
     if (lit1 == lit4) CHECK(true);
-    else
-        CHECK(false);
 
     /*    value = 1;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NegativeInteger, xsd_negativeInteger>(value);

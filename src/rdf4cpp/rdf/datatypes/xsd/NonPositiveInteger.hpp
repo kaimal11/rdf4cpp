@@ -28,7 +28,7 @@ inline xsd::NonPositiveInteger RegisteredDatatype<xsd::NonPositiveInteger, xsd_n
     const std::regex npInteger_regex("[\\-]?[0-9]+");
 
     if (std::regex_match(s.data(), npInteger_regex)) {
-        xsd::NonPositiveInteger val =  std::strtod(s.data(), nullptr);
+        xsd::NonPositiveInteger val =  std::strtol(s.data(), nullptr, 10);
 
         if(val <= 0) {
             return  val;

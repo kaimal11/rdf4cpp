@@ -28,7 +28,7 @@ inline xsd::NegativeInteger RegisteredDatatype<xsd::NegativeInteger, xsd_negativ
     const std::regex negativeInteger_regex("[\\-][0-9]+");
 
     if (std::regex_match(s.data(), negativeInteger_regex)) {
-        xsd::NegativeInteger val =  std::strtod(s.data(), nullptr);
+        xsd::NegativeInteger val =  std::strtol(s.data(), nullptr, 10);
 
         if(val < 0) {
             return  val;

@@ -13,7 +13,7 @@
 #include "Decimal.hpp"
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using Integer = xsd::Decimal;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a>
+using Integer = int64_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#integer">xsd:integer</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
@@ -28,7 +28,7 @@ inline xsd::Integer RegisteredDatatype<xsd::Integer , xsd_integer>::from_string(
     const std::regex integer_regex("[\\-+]?[0-9]+");
 
     if (std::regex_match(s.data(), integer_regex)) {
-        return std::strtod(s.data(), nullptr);
+        return std::strtol(s.data(), nullptr, 10);
     }else {
         throw std::runtime_error("XSD Parsing Error");
     }

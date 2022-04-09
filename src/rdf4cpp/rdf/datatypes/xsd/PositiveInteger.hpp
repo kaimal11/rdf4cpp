@@ -28,7 +28,7 @@ inline xsd::Integer RegisteredDatatype<xsd::PositiveInteger, xsd_positiveInteger
     const std::regex positiveInteger_regex("[\\+]?[0-9]+");
 
     if (std::regex_match(s.data(), positiveInteger_regex)) {
-        xsd::PositiveInteger val =  std::strtod(s.data(), nullptr);
+        xsd::PositiveInteger val =  std::strtol(s.data(), nullptr, 10);
 
         if(val > 0) {
             return  val;
