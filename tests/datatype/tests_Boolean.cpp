@@ -25,14 +25,12 @@ TEST_CASE("Datatype Boolean") {
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
+    CHECK(lit1 == lit3);
+    CHECK(lit2 == lit4);
 
+    // testing == of Literals
     if (lit1 == lit3) CHECK(true);
-    else
-        CHECK(false);
-
     if (lit2 == lit4) CHECK(true);
-    else
-        CHECK(false);
 
     /*    value = 22;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(value);

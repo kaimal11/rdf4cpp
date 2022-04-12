@@ -25,14 +25,10 @@ TEST_CASE("Datatype UnsignedShort") {
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
+    CHECK(lit1 == lit4);
 
-    if (lit1 == lit2) CHECK(false);
-    else
-        CHECK(true);
-
+    // testing == of Literals
     if (lit1 == lit4) CHECK(true);
-    else
-        CHECK(false);
 
     /*    value = 65536;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::UnsignedShort, xsd_ushort>(value);

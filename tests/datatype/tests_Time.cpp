@@ -21,9 +21,10 @@ TEST_CASE("Datatype Time") {
     auto lit2 = rdf4cpp::rdf::Literal{"19:32:01", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri()}};
     auto lit3 = rdf4cpp::rdf::Literal{"20:21:22", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri()}};
 
+    CHECK(lit1 == lit2);
+    CHECK(lit2 != lit3);
     CHECK(lit1 != lit3);
 
+    // testing == of Literals
     if (lit1 == lit2) CHECK(true);
-    else
-        CHECK(false);
 }

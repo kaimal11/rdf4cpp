@@ -11,11 +11,11 @@ TEST_CASE("Datatype Decimal") {
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);
     CHECK(lit1.value<xsd::Decimal, xsd_decimal>() == value);
 
-    value = 6458988.2350;
+    value = 64582165456988.235046;
     auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);
     CHECK(lit2.value<xsd::Decimal, xsd_decimal>() == value);
 
-    value = -6452389.2350;
+    value = -64524654389.2345650;
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);
     CHECK(lit3.value<xsd::Decimal, xsd_decimal>() == value);
 

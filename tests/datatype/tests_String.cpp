@@ -25,11 +25,10 @@ TEST_CASE("Datatype String") {
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
+    CHECK(lit1 == lit4);
 
+    // testing == of Literals
     if (lit1 == lit4) CHECK(true);
-    else
-        CHECK(false);
-
 
     /*    value = 22;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);

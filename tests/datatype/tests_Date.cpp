@@ -24,6 +24,5 @@ TEST_CASE("Datatype Date") {
     CHECK(lit1 != lit3);
 
     if (lit1 == lit2) CHECK(true);
-    else
-        CHECK(false);
+
 }

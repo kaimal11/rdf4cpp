@@ -25,15 +25,10 @@ TEST_CASE("Datatype Int") {
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
+    CHECK(lit1 == lit4);
 
-    if (lit1 == lit2) CHECK(false);
-    else
-        CHECK(true);
-
+    // testing == of Literals
     if (lit1 == lit4) CHECK(true);
-    else
-        CHECK(false);
-
     /*    value = 2147483649;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Int, xsd_int>(value);
     CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
