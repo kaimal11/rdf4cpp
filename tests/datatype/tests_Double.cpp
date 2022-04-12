@@ -11,11 +11,11 @@ TEST_CASE("Datatype Double") {
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
     CHECK(lit1.value<xsd::Double, xsd_double>() == value);
 
-    value = 6458988.2350;
+    value = 987456321123456.123586987;
     auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
     CHECK(lit2.value<xsd::Double, xsd_double>() == value);
 
-    value = -6452389.2350;
+    value = -64545352389.2352345670;
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
     CHECK(lit3.value<xsd::Double, xsd_double>() == value);
 
@@ -33,6 +33,7 @@ TEST_CASE("Datatype Double") {
     if (lit1 == lit4) CHECK(true);
     else
         CHECK(false);
+
 
     /*    value = 4294967296.2446;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
