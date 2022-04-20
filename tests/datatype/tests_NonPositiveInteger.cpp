@@ -27,9 +27,6 @@ TEST_CASE("Datatype NonPositiveInteger") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
 
-    // testing == of Literals
-    if (lit1 == lit4) CHECK(true);
-
     /*    value = 1;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::NonPositiveInteger, xsd_nonPositiveInteger>(value);
     CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);

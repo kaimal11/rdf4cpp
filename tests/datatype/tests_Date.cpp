@@ -22,7 +22,6 @@ TEST_CASE("Datatype Date") {
     auto lit3 = rdf4cpp::rdf::Literal{"2021-01-11", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri()}};
 
     CHECK(lit1 != lit3);
-
-    if (lit1 == lit2) CHECK(true);
+    CHECK(lit1 == lit2);
 
 }

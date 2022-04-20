@@ -27,9 +27,6 @@ TEST_CASE("Datatype UnsignedLong") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
 
-    // testing == of Literals
-    if (lit1 == lit4) CHECK(true);
-
     /*    value = 18446744073709551616;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::UnsignedLong, xsd_ulong>(value);
     CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);

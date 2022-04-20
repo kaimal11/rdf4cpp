@@ -27,9 +27,6 @@ TEST_CASE("Datatype Long") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
 
-    // testing == of Literals
-    if (lit1 == lit4) CHECK(true);
-
     /*    value = 9223372036854775809;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Long, xsd_long>(value);
     CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);

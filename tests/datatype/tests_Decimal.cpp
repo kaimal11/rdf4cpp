@@ -25,14 +25,8 @@ TEST_CASE("Datatype Decimal") {
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
-
-    if (lit1 == lit2) CHECK(false);
-    else
-        CHECK(true);
-
-    if (lit1 == lit4) CHECK(true);
-    else
-        CHECK(false);
+    CHECK(lit1 == lit2);
+    CHECK(lit1 == lit4);
 
     /*    value = 4294967296.2446;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);

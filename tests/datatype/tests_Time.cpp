@@ -25,6 +25,4 @@ TEST_CASE("Datatype Time") {
     CHECK(lit2 != lit3);
     CHECK(lit1 != lit3);
 
-    // testing == of Literals
-    if (lit1 == lit2) CHECK(true);
 }

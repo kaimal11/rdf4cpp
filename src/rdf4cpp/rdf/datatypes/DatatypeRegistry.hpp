@@ -194,6 +194,7 @@ public:
         // Get string from output string stream
         std::string str = str_os.str();
         return str;
+
     }
 
     /**
