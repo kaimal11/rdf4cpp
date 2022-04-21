@@ -32,6 +32,7 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Duration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/YearMonthDuration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DayTimeDuration.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/HexBinary.hpp>
 
 /**
  * Namespace where datatypes from XSD are implemented.

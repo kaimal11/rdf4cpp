@@ -23,10 +23,8 @@ inline std::string RegisteredDatatype<xsd::Boolean, xsd_boolean>::datatype_iri()
 template<>
 inline xsd::Boolean RegisteredDatatype<xsd::Boolean, xsd_boolean>::from_string(std::string_view s) {
     if (s == "true" || s == "1") return true;
-    else if (s == "false" || s == "0")
-        return false;
-    else
-        throw std::runtime_error("XSD Parsing Error");
+    else if (s == "false" || s == "0") return false;
+    else throw std::runtime_error("XSD Parsing Error");
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

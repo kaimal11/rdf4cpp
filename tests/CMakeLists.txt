@@ -17,7 +17,7 @@ target_link_libraries(tests_String
         )
 set_property(TARGET tests_String PROPERTY CXX_STANDARD 20)
 
-add_executable(tests_Boolean datatype/tests_Boolean.cpp datatype/tests_GDay.cpp)
+add_executable(tests_Boolean datatype/tests_Boolean.cpp)
 target_link_libraries(tests_Boolean
         doctest
         rdf4cpp
@@ -86,6 +86,13 @@ target_link_libraries(tests_Byte
         rdf4cpp
         )
 set_property(TARGET tests_Byte PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_HexBinary datatype/tests_HexBinary.cpp)
+target_link_libraries(tests_HexBinary
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_HexBinary PROPERTY CXX_STANDARD 20)
 
 add_executable(tests_Short datatype/tests_Short.cpp)
 target_link_libraries(tests_Short
@@ -164,19 +171,12 @@ target_link_libraries(tests_NonNegativeInteger
         )
 set_property(TARGET tests_NonNegativeInteger PROPERTY CXX_STANDARD 20)
 
-add_executable(tests_Duration datatype/tests_Duration.cpp datatype/tests_GDay.cpp)
+add_executable(tests_Duration datatype/tests_Duration.cpp)
 target_link_libraries(tests_Duration
         doctest
         rdf4cpp
         )
 set_property(TARGET tests_Duration PROPERTY CXX_STANDARD 20)
-
-add_executable(tests_GDay datatype/tests_GDay.cpp)
-target_link_libraries(tests_GDay
-        doctest
-        rdf4cpp
-        )
-set_property(TARGET tests_GDay PROPERTY CXX_STANDARD 20)
 
 add_executable(tests_hello_test hello_test/main.cpp)
 target_link_libraries(tests_hello_test

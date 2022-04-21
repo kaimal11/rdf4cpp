@@ -183,7 +183,7 @@ public:
      */
     inline static std::string to_string(const datatype_t &value) {
 
-        /*std::stringstream str_s;
+/*        std::stringstream str_s;
         str_s << value;
         return str_s.str();*/
 
