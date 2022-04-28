@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <iostream>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
@@ -22,7 +23,7 @@ inline std::string RegisteredDatatype<xsd::Byte, xsd_byte>::datatype_iri() noexc
 
 template<>
 inline xsd::Byte RegisteredDatatype<xsd::Byte, xsd_byte>::from_string(std::string_view s) {
-    auto int8_val = std::strtol(s.data(), nullptr, 10);
+    auto int8_val = std::stoi(s.data(), nullptr, 8);
     if (int8_val < -128 || int8_val > 127) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }

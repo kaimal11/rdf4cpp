@@ -28,13 +28,13 @@ TEST_CASE("Datatype Boolean") {
     CHECK(lit1 == lit3);
     CHECK(lit2 == lit4);
 
-    /*    value = 22;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(value);
-    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit4.value<xsd::Boolean,xsd_boolean>() == value);
+    auto er_value = 22;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(er_value);
+    //CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::Boolean,xsd_boolean>() == er_value);
 
-    value = -1;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(value);
-    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::Boolean,xsd_boolean>() == value);*/
+    er_value = -1;
+    auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(er_value);
+    //CHECK_THROWS_WITH_AS(lit6, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit6.value<xsd::Boolean,xsd_boolean>() == er_value);
 }

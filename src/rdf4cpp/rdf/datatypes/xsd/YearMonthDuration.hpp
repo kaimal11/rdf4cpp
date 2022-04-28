@@ -16,7 +16,7 @@
 #include <vector>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using YearMonthDuration = int *;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#yearMonthDuration">xsd:yearMonthDuration</a>
+using YearMonthDuration = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#yearMonthDuration">xsd:yearMonthDuration</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
@@ -50,7 +50,9 @@ inline xsd::YearMonthDuration RegisteredDatatype<xsd::YearMonthDuration, xsd_yea
             start = end;
         }
 
-        return duration;
+        //return duration;
+        time_t tm {};
+        return tm;
 
     } else {
         throw std::runtime_error("XSD Parsing Error");

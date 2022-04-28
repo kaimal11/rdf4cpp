@@ -28,13 +28,15 @@ inline std::string RegisteredDatatype<xsd::GYear, xsd_gYear>::datatype_iri() noe
 template<>
 inline xsd::GYear RegisteredDatatype<xsd::GYear, xsd_gYear>::from_string(std::string_view s) {
     const std::regex gYear_regex("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    if (std::regex_match(s.data(), gYear_regex)) {
+    auto gYear_l = std::strtol(s.data(), nullptr, 10);
 
-        tm tm{};
-        strptime(s.data(), "%Y", &tm);
+    char str[32];
+    std::strftime(str, 32, "%Y", std::localtime(&gYear_l));
+    std::string value(str);
+    value.insert(0, "-");
 
-        return mktime(&tm);
-
+    if (std::regex_match(value, gYear_regex)) {
+        return gYear_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }

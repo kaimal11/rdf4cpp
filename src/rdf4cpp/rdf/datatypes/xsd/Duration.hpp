@@ -17,7 +17,7 @@
 #include <chrono>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using Duration = int*;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#duration">xsd:duration</a>
+using Duration = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#duration">xsd:duration</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
@@ -98,7 +98,10 @@ inline xsd::Duration RegisteredDatatype<xsd::Duration , xsd_duration>::from_stri
                 start = end;
             }
         }
-        return duration;
+        //return duration;
+
+        time_t tm {};
+        return tm;
 
     } else {
         throw std::runtime_error("XSD Parsing Error");

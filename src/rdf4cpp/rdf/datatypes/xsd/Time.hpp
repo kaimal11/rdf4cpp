@@ -26,14 +26,14 @@ inline std::string RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri() noexc
 template<>
 inline xsd::Time RegisteredDatatype<xsd::Time, xsd_time>::from_string(std::string_view s) {
     const std::regex time_regex(R"((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    if (std::regex_match(s.data(), time_regex)) {
+    auto time_l = std::strtol(s.data(), nullptr, 10);
 
-        const char *str = s.data();
-        tm tm{};
-        strptime(str, "%H:%M:%S", &tm);
+    char str[32];
+    std::strftime(str, 32, "%H:%M:%S", std::localtime(&time_l));
+    std::string value(str);
 
-        return mktime(&tm);
-
+    if (std::regex_match(str, time_regex)) {
+        return time_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }

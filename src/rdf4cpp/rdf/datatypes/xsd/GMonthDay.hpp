@@ -28,13 +28,15 @@ inline std::string RegisteredDatatype<xsd::GMonthDay, xsd_gMonthDay>::datatype_i
 template<>
 inline xsd::GMonthDay RegisteredDatatype<xsd::GMonthDay , xsd_gMonthDay>::from_string(std::string_view s) {
     const std::regex gMonthDay_regex("--(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    if (std::regex_match(s.data(), gMonthDay_regex)) {
+    auto gMonthDay_l = std::strtol(s.data(), nullptr, 10);
 
-        tm tm{};
-        strptime(s.data(), "%M-%D", &tm);
+    char str[32];
+    std::strftime(str, 32, "%m-%d", std::localtime(&gMonthDay_l));
+    std::string value(str);
+    value.insert(0, "--");
 
-        return mktime(&tm);
-
+    if (std::regex_match(value, gMonthDay_regex)) {
+        return gMonthDay_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }

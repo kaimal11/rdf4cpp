@@ -27,13 +27,13 @@ TEST_CASE("Datatype Int") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
 
-    /*    value = 2147483649;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Int, xsd_int>(value);
-    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit4.value<xsd::Int,xsd_int>() == value);
+    auto er_value = 2147483649;
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Int, xsd_int>(er_value);
+    //CHECK_THROWS_WITH_AS(auto x = lit5.value<xsd::Int,xsd_int>(), "XSD Parsing Error", std::runtime_error);
+    CHECK(lit5.value<xsd::Int,xsd_int>() == er_value);
 
-    value = -2147483649;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Int, xsd_int>(value);
-    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::Int,xsd_int>() == value);*/
+    er_value = -2147483649;
+    auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Int, xsd_int>(er_value);
+    //CHECK_THROWS_WITH_AS(lit6, "XSD Parsing Error", std::runtime_error);
+    CHECK(lit6.value<xsd::Int,xsd_int>() == er_value);
 }

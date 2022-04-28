@@ -8,20 +8,20 @@ using namespace rdf4cpp::rdf::datatypes;
 TEST_CASE("Datatype HexBinary") {
 
     /*std::vector<std::byte> value = {std::byte{0x36}, std::byte{0xd0}};
-    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_integer>(value);
-    CHECK(lit1.value<xsd::Integer, xsd_integer>() == value);
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
+    CHECK(lit1.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
     value = -2147483648;
-    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
-    CHECK(lit2.value<xsd::Integer, xsd_integer>() == value);
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
+    CHECK(lit2.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
     value = 2147483647;
-    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
-    CHECK(lit3.value<xsd::Integer, xsd_integer>() == value);
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
+    CHECK(lit3.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
     value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
-    CHECK(lit4.value<xsd::Integer, xsd_integer>() == value);
+    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
+    CHECK(lit4.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);

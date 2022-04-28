@@ -29,13 +29,14 @@ template<>
 inline xsd::DateTime RegisteredDatatype<xsd::DateTime, xsd_dateTime>::from_string(std::string_view s) {
     const std::regex dateTime_regex("(-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])"
                                     "T(([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\\.[0-9]+)?|(24:00:00(\\.0+)?))(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    if (std::regex_match(s.data(), dateTime_regex)) {
+    auto dateTime_l = std::strtol(s.data(), nullptr, 10);
 
-        tm tm{};
-        strptime(s.data(), "%Y-%m-%dT%H:%M:%S", &tm);
+    char str[32];
+    std::strftime(str, 32, "%Y-%m-%dT%H:%M:%S", std::localtime(&dateTime_l));
+    std::string value(str);
 
-        return mktime(&tm);
-
+    if (std::regex_match(str, dateTime_regex)) {
+        return dateTime_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }

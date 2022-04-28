@@ -178,6 +178,55 @@ target_link_libraries(tests_Duration
         )
 set_property(TARGET tests_Duration PROPERTY CXX_STANDARD 20)
 
+add_executable(tests_GDay datatype/tests_GDay.cpp)
+target_link_libraries(tests_GDay
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_GDay PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_GMonth datatype/tests_GMonth.cpp)
+target_link_libraries(tests_GMonth
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_GMonth PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_GYear datatype/tests_GYear.cpp)
+target_link_libraries(tests_GYear
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_GYear PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_GYearMonth datatype/tests_GYearMonth.cpp)
+target_link_libraries(tests_GYearMonth
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_GYearMonth PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_GMonthDay datatype/tests_GMonthDay.cpp)
+target_link_libraries(tests_GMonthDay
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_GMonthDay PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_YearMonthDuration datatype/tests_YearMonthDuration.cpp)
+target_link_libraries(tests_YearMonthDuration
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_YearMonthDuration PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_DayTimeDuration datatype/tests_DayTimeDuration.cpp)
+target_link_libraries(tests_DayTimeDuration
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DayTimeDuration PROPERTY CXX_STANDARD 20)
+
 add_executable(tests_hello_test hello_test/main.cpp)
 target_link_libraries(tests_hello_test
         doctest

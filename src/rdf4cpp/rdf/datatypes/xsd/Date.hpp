@@ -27,30 +27,14 @@ inline std::string RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri() noexc
 template<>
 inline xsd::Date RegisteredDatatype<xsd::Date, xsd_date>::from_string(std::string_view s) {
     const std::regex date_regex(R"(-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    if (std::regex_match(s.data(), date_regex)) {
+    auto date_l = std::strtol(s.data(), nullptr, 10);
 
-        /*        std::vector<std::string> result;
-        std::stringstream ss(s);
-        std::string item;
+    char str[32];
+    std::strftime(str, 32, "%Y-%m-%d", std::localtime(&date_l));
+    std::string value(str);
 
-        while (getline(ss, item, '-')) {
-            result.push_back(item);
-        }
-
-        using namespace std::chrono;
-
-        auto y = std::stoi(result[0]);
-        uint8_t m = std::stoi(result[1]);
-        uint8_t d = std::stoi(result[2]);
-
-        return year_month_day{year{y}, month{m}, day{d}};*/
-
-        const char *str = s.data();
-        tm tm{};
-        strptime(str, "%Y-%m-%d", &tm);
-
-        return mktime(&tm);
-
+    if (std::regex_match(str, date_regex)) {
+        return date_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }

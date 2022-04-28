@@ -7,21 +7,38 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Date") {
 
-    auto input = "2021-12-23";
-    auto output = RegisteredDatatype<xsd::Date, xsd_date>::from_string(input);
+    time_t value;
+    struct tm tm{};
 
-    char str[32];
-    std::strftime(str, 32, "%Y-%m-%d", std::localtime(&output));
-    std::string value(str);
+    // Fill in values for Date
+    tm.tm_year = 2022 - 1900; // year since 1900
+    tm.tm_mon = 4 - 1; // month of year from 0 to 11
+    tm.tm_mday = 22;
+    value = mktime(&tm);
 
-    CHECK(value == input);
-    CHECK(RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri() == xsd_date);
+    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Date, xsd_date>(value);
+    CHECK(lit1.value<xsd::Date, xsd_date>() == value);
 
-    auto lit1 = rdf4cpp::rdf::Literal{"2021-01-01", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri()}};
-    auto lit2 = rdf4cpp::rdf::Literal{"2021-01-01", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri()}};
-    auto lit3 = rdf4cpp::rdf::Literal{"2021-01-11", rdf4cpp::rdf::IRI{RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri()}};
+    // Fill in values for Date
+    tm.tm_year = 2022 - 1900; // year since 1900
+    tm.tm_mon = 5 - 1; // month of year from 0 to 11
+    tm.tm_mday = 21;
+    value = mktime(&tm);
 
-    CHECK(lit1 != lit3);
-    CHECK(lit1 == lit2);
+    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Date, xsd_date>(value);
+    CHECK(lit2.value<xsd::Date, xsd_date>() == value);
+
+    // Fill in values for Date
+    tm.tm_year = 2022 - 1900; // year since 1900
+    tm.tm_mon = 4 - 1; // month of year from 0 to 11
+    tm.tm_mday = 22;
+    value = mktime(&tm);
+
+    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Date, xsd_date>(value);
+    CHECK(lit3.value<xsd::Date, xsd_date>() == value);
+
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+    CHECK(lit1 == lit3);
 
 }
