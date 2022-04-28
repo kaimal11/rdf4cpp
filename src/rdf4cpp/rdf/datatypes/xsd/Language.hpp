@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <regex>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
@@ -22,7 +23,12 @@ inline std::string RegisteredDatatype<xsd::Language, xsd_language>::datatype_iri
 
 template<>
 inline xsd::Language RegisteredDatatype<xsd::Language, xsd_language>::from_string(std::string_view s) {
-    return s.data();
+    const std::regex language_regex("[a-zA-Z]{1,8}(-[a-zA-Z0-9]{1,8})*");
+    if (std::regex_match(s.data(), language_regex)) {
+        return s.data();
+    } else {
+        throw std::runtime_error("XSD Parsing Error");
+    }
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <regex>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
@@ -22,7 +23,12 @@ inline std::string RegisteredDatatype<xsd::Name, xsd_Name>::datatype_iri() noexc
 
 template<>
 inline xsd::Name RegisteredDatatype<xsd::Name, xsd_Name>::from_string(std::string_view s) {
-    return s.data();
+    const std::regex name_regex("\\n|\\s{1,}");
+    if (std::regex_match(s.data(), name_regex)) {
+        throw std::runtime_error("XSD Parsing Error");
+    } else {
+        return s.data();
+    }
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
