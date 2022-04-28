@@ -33,6 +33,13 @@
 #include <rdf4cpp/rdf/datatypes/xsd/YearMonthDuration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DayTimeDuration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/HexBinary.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Language.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Token.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/NMTOKEN.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Name.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/NCName.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/AnyURI.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/NormalizedString.hpp>
 
 /**
  * Namespace where datatypes from XSD are implemented.

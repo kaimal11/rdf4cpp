@@ -11,21 +11,21 @@ TEST_CASE("Datatype GMonth") {
     struct tm tm{};
 
     // Fill in values for GMonth
-    tm.tm_mon = 4 - 1; // month of year from 0 to 11
+    tm.tm_mon = 11 - 1; // month of year from 0 to 11
     value = mktime(&tm);
 
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::GMonth, xsd_gMonth>(value);
     CHECK(lit1.value<xsd::GMonth, xsd_gMonth>() == value);
 
     // Fill in values for GMonth
-    tm.tm_mon = 5 - 1; // month of year from 0 to 11
+    tm.tm_mon = 1 - 1; // month of year from 0 to 11
     value = mktime(&tm);
 
     auto lit2 = rdf4cpp::rdf::Literal::make<xsd::GMonth, xsd_gMonth>(value);
     CHECK(lit2.value<xsd::GMonth, xsd_gMonth>() == value);
 
     // Fill in values for GMonth
-    tm.tm_mon = 4 - 1; // month of year from 0 to 11
+    tm.tm_mon = 11 - 1; // month of year from 0 to 11
     value = mktime(&tm);
 
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::GMonth, xsd_gMonth>(value);

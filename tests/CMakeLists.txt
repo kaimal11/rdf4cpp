@@ -227,6 +227,55 @@ target_link_libraries(tests_DayTimeDuration
         )
 set_property(TARGET tests_DayTimeDuration PROPERTY CXX_STANDARD 20)
 
+add_executable(tests_Language datatype/tests_Language.cpp)
+target_link_libraries(tests_Language
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Language PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Token datatype/tests_Token.cpp)
+target_link_libraries(tests_Token
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Token PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_Name datatype/tests_Name.cpp)
+target_link_libraries(tests_Name
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Name PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_NCName datatype/tests_NCName.cpp)
+target_link_libraries(tests_NCName
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_NCName PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_NMTOKEN datatype/tests_NMTOKEN.cpp)
+target_link_libraries(tests_NMTOKEN
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_NMTOKEN PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_AnyURI datatype/tests_AnyURI.cpp)
+target_link_libraries(tests_AnyURI
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_AnyURI PROPERTY CXX_STANDARD 20)
+
+add_executable(tests_NormalizedString datatype/tests_NormalizedString.cpp)
+target_link_libraries(tests_NormalizedString
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_NormalizedString PROPERTY CXX_STANDARD 20)
+
 add_executable(tests_hello_test hello_test/main.cpp)
 target_link_libraries(tests_hello_test
         doctest
