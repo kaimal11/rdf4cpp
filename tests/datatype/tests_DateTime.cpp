@@ -16,7 +16,8 @@ TEST_CASE("Datatype DateTime") {
     tm.tm_hour = 5; // hours of day from 0 to 24
     tm.tm_year = 2022 - 1900; // year since 1900
     tm.tm_mon = 4 - 1; // month of year from 0 to 11
-    tm.tm_mday = 22;
+    tm.tm_mday = 22; // date of the month
+    tm.tm_isdst = -1; // value should be set even if not used
     value = mktime(&tm);
 
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::DateTime, xsd_dateTime>(value);
@@ -28,7 +29,8 @@ TEST_CASE("Datatype DateTime") {
     tm.tm_hour = 10; // hours of day from 0 to 24
     tm.tm_year = 2022 - 1900; // year since 1900
     tm.tm_mon = 5 - 1; // month of year from 0 to 11
-    tm.tm_mday = 21;
+    tm.tm_mday = 21; // date of the month
+    tm.tm_isdst = -1; // value should be set even if not used
     value = mktime(&tm);
 
     auto lit2 = rdf4cpp::rdf::Literal::make<xsd::DateTime, xsd_dateTime>(value);
@@ -40,11 +42,13 @@ TEST_CASE("Datatype DateTime") {
     tm.tm_hour = 5; // hours of day from 0 to 24
     tm.tm_year = 2022 - 1900; // year since 1900
     tm.tm_mon = 4 - 1; // month of year from 0 to 11
-    tm.tm_mday = 22;
+    tm.tm_mday = 22; // date of the month
+    tm.tm_isdst = -1; // value should be set even if not used
     value = mktime(&tm);
 
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::DateTime, xsd_dateTime>(value);
     CHECK(lit3.value<xsd::DateTime, xsd_dateTime>() == value);
+    std::cout<<lit1;
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);

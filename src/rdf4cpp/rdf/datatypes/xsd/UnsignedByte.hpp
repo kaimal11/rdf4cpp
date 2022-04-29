@@ -22,7 +22,7 @@ inline std::string RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::datatype_ir
 
 template<>
 inline xsd::UnsignedByte RegisteredDatatype<xsd::UnsignedByte, xsd_ubyte>::from_string(std::string_view s) {
-    uint8_t int8_val = std::strtol(s.data(), nullptr, 10);
+    auto int8_val = static_cast<uint8_t>(s[0]);
     if (int8_val < 0 || int8_val > 255) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }
