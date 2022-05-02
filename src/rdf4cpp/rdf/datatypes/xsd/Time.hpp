@@ -26,17 +26,30 @@ inline std::string RegisteredDatatype<xsd::Time, xsd_time>::datatype_iri() noexc
 template<>
 inline xsd::Time RegisteredDatatype<xsd::Time, xsd_time>::from_string(std::string_view s) {
     const std::regex time_regex(R"((([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](\.[0-9]+)?|(24:00:00(\.0+)?))(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
-    auto time_l = std::strtol(s.data(), nullptr, 10);
 
-    char str[32];
-    std::strftime(str, 32, "%H:%M:%S", std::localtime(&time_l));
-    std::string value(str);
+    if (std::regex_match(s.data(), time_regex)) {
+        struct tm tm{};
+        strptime(s.data(), "%H:%M:%S", &tm);
 
-    if (std::regex_match(str, time_regex)) {
-        return time_l;
+        //default values
+        tm.tm_year = 1900; // year since 1900
+        tm.tm_mon = 0; // month of year from 0 to 11
+        tm.tm_mday = 1; //date of the month
+        tm.tm_isdst = -1; // value should be set even if not used
+
+        return mktime(&tm);
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
+}
+template<>
+inline std::string RegisteredDatatype<xsd::Time, xsd_time>::to_string(const xsd::Time &value) {
+
+    char str[32];
+    std::strftime(str, 32, "%H:%M:%S", std::localtime(&value));
+
+    return std::string{str};
+
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

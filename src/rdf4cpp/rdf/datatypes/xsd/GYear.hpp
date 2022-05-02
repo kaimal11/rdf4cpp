@@ -28,18 +28,33 @@ inline std::string RegisteredDatatype<xsd::GYear, xsd_gYear>::datatype_iri() noe
 template<>
 inline xsd::GYear RegisteredDatatype<xsd::GYear, xsd_gYear>::from_string(std::string_view s) {
     const std::regex gYear_regex("-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    auto gYear_l = std::strtol(s.data(), nullptr, 10);
 
-    char str[32];
-    std::strftime(str, 32, "%Y", std::localtime(&gYear_l));
-    std::string value(str);
-    value.insert(0, "-");
+    if (std::regex_match(s.data(), gYear_regex)) {
 
-    if (std::regex_match(value, gYear_regex)) {
-        return gYear_l;
+        struct tm tm{};
+        strptime(s.data(), "-%Y", &tm);
+
+        //default values
+        tm.tm_sec = 0; // seconds of minutes from 0 to 61
+        tm.tm_min = 0; // minutes of hour from 0 to 59
+        tm.tm_hour = 0; // hours of day from 0 to 24
+        tm.tm_mon = 0; // month of year from 0 to 11
+        tm.tm_mday = 1; // date of the month
+        tm.tm_isdst = -1; // value should be set even if not used
+
+        return mktime(&tm);
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
+}
+
+template<>
+inline std::string RegisteredDatatype<xsd::GYear, xsd_gYear>::to_string(const xsd::GYear &value) {
+
+    char str[32];
+    std::strftime(str, 32,"-%Y", std::localtime(&value));
+
+    return std::string{str};
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

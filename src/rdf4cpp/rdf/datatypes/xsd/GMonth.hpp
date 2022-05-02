@@ -28,18 +28,33 @@ inline std::string RegisteredDatatype<xsd::GMonth, xsd_gMonth>::datatype_iri() n
 template<>
 inline xsd::GMonth RegisteredDatatype<xsd::GMonth, xsd_gMonth>::from_string(std::string_view s) {
     const std::regex gMonth_regex("--(0[1-9]|1[0-2])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    auto gMonth_l = std::strtol(s.data(), nullptr, 10);
 
-    char str[32];
-    std::strftime(str, 32, "%m", std::localtime(&gMonth_l));
-    std::string value(str);
-    value.insert(0, "--");
+    if (std::regex_match(s.data(), gMonth_regex)) {
 
-    if (std::regex_match(value, gMonth_regex)) {
-        return gMonth_l;
+        struct tm tm{};
+        strptime(s.data(), "--%m", &tm);
+
+        //default values
+        tm.tm_sec = 0; // seconds of minutes from 0 to 61
+        tm.tm_min = 0; // minutes of hour from 0 to 59
+        tm.tm_hour = 0; // hours of day from 0 to 24
+        tm.tm_year = 1900; // year since 1900
+        tm.tm_mday = 1; // month of year from 0 to 11
+        tm.tm_isdst = -1; // value should be set even if not used
+
+        return mktime(&tm);
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
+}
+
+template<>
+inline std::string RegisteredDatatype<xsd::GMonth, xsd_gMonth>::to_string(const xsd::GMonth &value) {
+
+    char str[32];
+    std::strftime(str, 32,"--%m", std::localtime(&value));
+
+    return std::string{str};;
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
