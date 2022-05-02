@@ -28,18 +28,34 @@ inline std::string RegisteredDatatype<xsd::GDay, xsd_gDay>::datatype_iri() noexc
 template<>
 inline xsd::GDay RegisteredDatatype<xsd::GDay , xsd_gDay>::from_string(std::string_view s) {
     const std::regex gDay_regex("---(0[1-9]|[12][0-9]|3[01])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
-    auto gDay_l = std::strtol(s.data(), nullptr, 10);
 
-    char str[32];
-    std::strftime(str, 32, "%d", std::localtime(&gDay_l));
-    std::string value(str);
-    value.insert(0, "---");
+    if (std::regex_match(s.data(), gDay_regex)) {
 
-    if (std::regex_match(value, gDay_regex)) {
-        return gDay_l;
+        struct tm tm{};
+        strptime(s.data(), "---%d", &tm);
+
+        //default values
+        tm.tm_sec = 0; // seconds of minutes from 0 to 61
+        tm.tm_min = 0; // minutes of hour from 0 to 59
+        tm.tm_hour = 0; // hours of day from 0 to 24
+        tm.tm_year = 1900; // year since 1900
+        tm.tm_mon = 0; // month of year from 0 to 11
+        tm.tm_isdst = -1; // value should be set even if not used
+
+        return mktime(&tm);
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
+}
+
+template<>
+inline std::string RegisteredDatatype<xsd::GDay, xsd_gDay>::to_string(const xsd::GDay &value) {
+
+    char str[32];
+    std::strftime(str, 32,"---%d", std::localtime(&value));
+
+    return std::string{str};
+
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
