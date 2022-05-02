@@ -28,32 +28,18 @@ inline std::string RegisteredDatatype<xsd::GYearMonth , xsd_gYearMonth>::datatyp
 template<>
 inline xsd::GYearMonth RegisteredDatatype<xsd::GYearMonth , xsd_gYearMonth>::from_string(std::string_view s) {
     const std::regex gYearMonth_regex("-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])(Z|(\\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?");
+    auto gYearMonth_l = std::strtol(s.data(), nullptr, 10);
 
-    if (std::regex_match(s.data(), gYearMonth_regex)) {
+    char str[32];
+    std::strftime(str, 32, "%Y-%m", std::localtime(&gYearMonth_l));
+    std::string value(str);
+    value.insert(0, "-");
 
-        struct tm tm{};
-        strptime(s.data(), "-%Y-%m", &tm);
-
-        //default values
-        tm.tm_sec = 0; // seconds of minutes from 0 to 61
-        tm.tm_min = 0; // minutes of hour from 0 to 59
-        tm.tm_hour = 0; // hours of day from 0 to 24
-        tm.tm_mday = 1; // date of the month
-        tm.tm_isdst = -1; // value should be set even if not used
-
-        return mktime(&tm);
+    if (std::regex_match(value, gYearMonth_regex)) {
+        return gYearMonth_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
-}
-
-template<>
-inline std::string RegisteredDatatype<xsd::GYearMonth, xsd_gYearMonth>::to_string(const xsd::GYearMonth &value) {
-
-    char str[32];
-    std::strftime(str, 32,"-%Y-%m", std::localtime(&value));
-
-    return std::string{str};
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

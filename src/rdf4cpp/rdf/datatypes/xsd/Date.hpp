@@ -12,6 +12,7 @@
 #include <ostream>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 #include <regex>
+#include <chrono>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
 using Date = time_t;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#date">xsd:date</a>
@@ -26,31 +27,17 @@ inline std::string RegisteredDatatype<xsd::Date, xsd_date>::datatype_iri() noexc
 template<>
 inline xsd::Date RegisteredDatatype<xsd::Date, xsd_date>::from_string(std::string_view s) {
     const std::regex date_regex(R"(-?([1-9][0-9]{3,}|0[0-9]{3})-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?)");
+    auto date_l = std::strtol(s.data(), nullptr, 10);
 
-    if (std::regex_match(s.data(), date_regex)) {
-        struct tm tm{};
-        strptime(s.data(), "%Y-%m-%d", &tm);
+    char str[32];
+    std::strftime(str, 32, "%Y-%m-%d", std::localtime(&date_l));
+    std::string value(str);
 
-        //default values
-        tm.tm_sec = 0; // seconds of minutes from 0 to 61
-        tm.tm_min = 0; // minutes of hour from 0 to 59
-        tm.tm_hour = 0; // hours of day from 0 to 24
-        tm.tm_isdst = -1; // daylight saving
-
-        return mktime(&tm);
+    if (std::regex_match(str, date_regex)) {
+        return date_l;
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
-}
-
-template<>
-inline std::string RegisteredDatatype<xsd::Date, xsd_date>::to_string(const xsd::Date &value) {
-
-    char str[32];
-    std::strftime(str, 32, "%Y-%m-%d", std::localtime(&value));
-
-    return std::string{str};
-
 }
 }  // namespace rdf4cpp::rdf::datatypes
 
