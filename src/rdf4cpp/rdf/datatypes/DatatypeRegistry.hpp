@@ -183,17 +183,9 @@ public:
      */
     inline static std::string to_string(const datatype_t &value) {
 
-/*      std::stringstream str_s;
+        std::stringstream str_s;
         str_s << value;
-        return str_s.str();*/
-
-        std::ostringstream str_os;
-        // Set Fixed -Point Notation
-        str_os << std::fixed;
-        str_os << value;
-        // Get string from output string stream
-        std::string str = str_os.str();
-        return str;
+        return str_s.str();
     }
 
     /**

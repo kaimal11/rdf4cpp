@@ -23,6 +23,18 @@ template<>
 inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(std::string_view s) {
     return std::strtod(s.data(), nullptr);
 }
+template<>
+inline std::string RegisteredDatatype<xsd::Double, xsd_double>::to_string(const xsd::Double &value) {
+
+    std::ostringstream str_os;
+    // Set Fixed -Point Notation
+    str_os << std::fixed;
+    str_os << value;
+    // Get string from output string stream
+    std::string str = str_os.str();
+    return str;
+
+}
 }  // namespace rdf4cpp::rdf::datatypes
 
 #endif  //RDF4CPP_DOUBLE_HPP

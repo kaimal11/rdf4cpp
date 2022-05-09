@@ -48,6 +48,7 @@ TEST_CASE("Datatype Date") {
 
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Date, xsd_date>(value);
     CHECK(lit3.value<xsd::Date, xsd_date>() == value);
+    std::cout<< lit3;
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);

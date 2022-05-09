@@ -13,8 +13,8 @@
 #include <sstream>
 #include <bitset>
 
-/*namespace rdf4cpp::rdf::datatypes::xsd {
-using HexBinary = std::vector<std::byte>;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#hexBinary">xsd:hexBinary</a>
+namespace rdf4cpp::rdf::datatypes::xsd {
+using HexBinary = std::vector<std::>;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#hexBinary">xsd:hexBinary</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
@@ -40,6 +40,6 @@ inline xsd::HexBinary RegisteredDatatype<xsd::HexBinary, xsd_hexBinary>::from_st
         throw std::runtime_error("XSD Parsing Error");
     }
 }
-}  // namespace rdf4cpp::rdf::datatypes*/
+}  // namespace rdf4cpp::rdf::datatypes
 
 #endif  //RDF4CPP_XSD_HEXBINARY_HPP
