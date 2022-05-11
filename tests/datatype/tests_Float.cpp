@@ -23,6 +23,14 @@ TEST_CASE("Datatype Float") {
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
     CHECK(lit4.value<xsd::Float, xsd_float>() == value);
 
+    value = std::numeric_limits<float>::min();
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
+    CHECK(lit5.value<xsd::Float, xsd_float>() == value);
+
+    value = std::numeric_limits<float>::max();;
+    auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
+    CHECK(lit6.value<xsd::Float, xsd_float>() == value);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);

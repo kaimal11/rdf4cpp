@@ -27,14 +27,4 @@ TEST_CASE("Datatype Decimal") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit2);
     CHECK(lit1 == lit4);
-
-    /*    value = 4294967296.2446;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);
-    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit4.value<xsd::Decimal,xsd_decimal>() == value);
-
-    value = -4294967296.24886;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);
-    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::Decimal,xsd_decimal>() == value);*/
 }

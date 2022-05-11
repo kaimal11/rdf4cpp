@@ -24,7 +24,7 @@ inline std::string RegisteredDatatype<xsd::Byte, xsd_byte>::datatype_iri() noexc
 template<>
 inline xsd::Byte RegisteredDatatype<xsd::Byte, xsd_byte>::from_string(std::string_view s) {
 
-    auto int8_val = static_cast<int8_t>(s[0]);
+    auto int8_val = s[0];
     if (int8_val < -128 || int8_val > 127) throw std::runtime_error("XSD Parsing Error");
     return int8_val;
 }

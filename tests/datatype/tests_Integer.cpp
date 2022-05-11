@@ -23,9 +23,16 @@ TEST_CASE("Datatype Integer") {
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);
     CHECK(lit4.value<xsd::Integer, xsd_integer>() == value);
 
+    auto lit5 = rdf4cpp::rdf::Literal{"2147483647", "http://www.w3.org/2001/XMLSchema#integer"};
+    CHECK(lit5.value<xsd::Integer, xsd_integer>() == 2147483647);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
-    CHECK(lit1 == lit4);
+    CHECK(lit3 == lit5);
+
+    auto lit6 = rdf4cpp::rdf::Literal{"2147483649", "http://www.w3.org/2001/XMLSchema#integer"};
+    std::cout<<lit6.value<xsd::Integer, xsd_integer>();
+    CHECK_THROWS_WITH_AS(lit6.value(), "XSD Parsing Error", std::runtime_error);
 
     /*    value = 2147483649;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Integer, xsd_integer>(value);

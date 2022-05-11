@@ -23,17 +23,15 @@ TEST_CASE("Datatype Double") {
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
     CHECK(lit4.value<xsd::Double, xsd_double>() == value);
 
+    value = std::numeric_limits<double>::min();
+    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
+    CHECK(lit5.value<xsd::Double, xsd_double>() == value);
+
+    value = std::numeric_limits<double>::max();;
+    auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
+    CHECK(lit6.value<xsd::Double, xsd_double>() == value);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
-
-    /*    value = 4294967296.2446;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit4.value<xsd::Double,xsd_double>() == value);
-
-    value = -4294967296.24886;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::Double,xsd_double>() == value);*/
 }

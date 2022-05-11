@@ -52,5 +52,4 @@ TEST_CASE("Datatype GDay") {
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit3);
-
 }
