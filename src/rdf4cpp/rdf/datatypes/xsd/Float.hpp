@@ -33,7 +33,6 @@ inline std::string RegisteredDatatype<xsd::Float, xsd_float>::to_string(const xs
     // Get string from output string stream
     std::string str = str_os.str();
     return str;
-
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

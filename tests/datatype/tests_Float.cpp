@@ -31,17 +31,17 @@ TEST_CASE("Datatype Float") {
     auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
     CHECK(lit6.value<xsd::Float, xsd_float>() == value);
 
+    value = 1;
+    auto lit7 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#float"};
+    CHECK(lit7.value<xsd::Float, xsd_float>() == value);
+
+    value = 32568.2350;
+    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#float"};
+    CHECK(lit8.value<xsd::Float, xsd_float>() == value);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
-
-    /*    value = 4294967296;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
-    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit4.value<xsd::Float,xsd_float>() == value);
-
-    value = -4294967296;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
-    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::Float,xsd_float>() == value);*/
+    CHECK(lit1 == lit7);
+    CHECK(lit2 == lit8);
 }

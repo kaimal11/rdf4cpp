@@ -10,22 +10,30 @@ TEST_CASE("Datatype Short") {
     auto value = 1;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Short, xsd_short>(value);
     CHECK(lit1.value<xsd::Short, xsd_short>() == value);
+    CHECK(lit1.lexical_form() == std::to_string(value));
 
     value = -32768;
     auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Short, xsd_short>(value);
     CHECK(lit2.value<xsd::Short, xsd_short>() == value);
+    CHECK(lit2.lexical_form() == std::to_string(value));
 
     value = 32767;
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Short, xsd_short>(value);
     CHECK(lit3.value<xsd::Short, xsd_short>() == value);
+    CHECK(lit3.lexical_form() == std::to_string(value));
 
     value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Short, xsd_short>(value);
+    auto lit4 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#short"};
     CHECK(lit4.value<xsd::Short, xsd_short>() == value);
+
+    value = -32768;
+    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#short"};
+    CHECK(lit5.value<xsd::Short, xsd_short>() == value);
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
+    CHECK(lit2 == lit5);
 
     /*    value = 32768;
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Short, xsd_short>(value);

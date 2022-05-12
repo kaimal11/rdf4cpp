@@ -7,19 +7,22 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype HexBinary") {
 
-    /*std::vector<std::byte> value = {std::byte{0x36}, std::byte{0xd0}};
+    std::vector<std::int16_t> value = {123, 1425};
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
-    CHECK(lit1.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
-    value = -2147483648;
+    std::cout<<lit1;
+
+/*    CHECK(lit1.value<xsd::HexBinary, xsd_hexBinary>() == value);
+
+    value = {123, 1425};
     auto lit2 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
     CHECK(lit2.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
-    value = 2147483647;
+    value = {123, 1425};
     auto lit3 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
     CHECK(lit3.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
-    value = 1;
+    value = {123, 1425};
     auto lit4 = rdf4cpp::rdf::Literal::make<xsd::HexBinary, xsd_hexBinary>(value);
     CHECK(lit4.value<xsd::HexBinary, xsd_hexBinary>() == value);
 
