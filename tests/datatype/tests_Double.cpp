@@ -7,6 +7,12 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Double") {
 
+    auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri());
+
+    auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#double");
+
+    CHECK(iri == iri_str);
+
     double value = 1.00;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
     CHECK(lit1.value<xsd::Double, xsd_double>() == value);
@@ -38,11 +44,11 @@ TEST_CASE("Datatype Double") {
     CHECK(lit6.lexical_form() == std::to_string(value));
 
     value = 1;
-    auto lit7 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#double"};
+    auto lit7 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit7.value<xsd::Double, xsd_double>() == value);
 
     value = 987456321123456.123586987;
-    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#double"};
+    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit8.value<xsd::Double, xsd_double>() == value);
 
     CHECK(lit1 != lit2);

@@ -7,6 +7,12 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Token") {
 
+    auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Token, xsd_token>::datatype_iri());
+
+    auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#token");
+
+    CHECK(iri == iri_str);
+
     std::string value = "12sdfs2df";
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Token, xsd_token>(value);
     CHECK(lit1.value<xsd::Token, xsd_token>() == value);
@@ -23,14 +29,13 @@ TEST_CASE("Datatype Token") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit3);
 
-    /*    value = 22;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
-    CHECK_THROWS_WITH_AS(lit4, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit4.value<xsd::String,xsd_string>() == value);
+    auto lit6 = rdf4cpp::rdf::Literal{"sdfsdf\n", iri};
+    CHECK_THROWS_WITH_AS(lit6.value(), "XSD Parsing Error", std::runtime_error);
 
-    value = -1;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::String, xsd_string>(value);
-    CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::String,xsd_string>() == value);*/
+    auto lit7 = rdf4cpp::rdf::Literal{"sdfsdf\t", iri};
+    CHECK_THROWS_WITH_AS(lit7.value(), "XSD Parsing Error", std::runtime_error);
+
+    auto lit8 = rdf4cpp::rdf::Literal{"sdfsdf\r", iri};
+    CHECK_THROWS_WITH_AS(lit8.value(), "XSD Parsing Error", std::runtime_error);
 }
 

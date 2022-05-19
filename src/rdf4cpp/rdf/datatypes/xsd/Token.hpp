@@ -23,7 +23,7 @@ inline std::string RegisteredDatatype<xsd::Token, xsd_token>::datatype_iri() noe
 
 template<>
 inline xsd::Token RegisteredDatatype<xsd::Token, xsd_token>::from_string(std::string_view s) {
-    const std::regex token_regex("\\n|\\s{1,}");
+    const std::regex token_regex("(.*\\n)|(.*\\t)|(.*\\r)");
     if (std::regex_match(s.data(), token_regex)) {
         throw std::runtime_error("XSD Parsing Error");
     } else {

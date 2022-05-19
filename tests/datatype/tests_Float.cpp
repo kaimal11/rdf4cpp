@@ -7,6 +7,12 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Float") {
 
+    auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Float, xsd_float>::datatype_iri());
+
+    auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#float");
+
+    CHECK(iri == iri_str);
+
     float value = 1.00;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
     CHECK(lit1.value<xsd::Float, xsd_float>() == value);
@@ -32,11 +38,11 @@ TEST_CASE("Datatype Float") {
     CHECK(lit6.value<xsd::Float, xsd_float>() == value);
 
     value = 1;
-    auto lit7 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#float"};
+    auto lit7 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit7.value<xsd::Float, xsd_float>() == value);
 
     value = 32568.2350;
-    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#float"};
+    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit8.value<xsd::Float, xsd_float>() == value);
 
     CHECK(lit1 != lit2);

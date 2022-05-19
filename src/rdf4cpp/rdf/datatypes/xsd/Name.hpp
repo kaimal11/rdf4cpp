@@ -12,18 +12,18 @@
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
-using Name = std::string;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#Name">xsd:Name</a>
+using Name = std::string;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema#name">xsd:Name</a>
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_Name[] = "http://www.w3.org/2001/XMLSchema#Name";
+constexpr const char xsd_Name[] = "http://www.w3.org/2001/XMLSchema#name";
 
 template<>
-inline std::string RegisteredDatatype<xsd::Name, xsd_Name>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#Name"; }
+inline std::string RegisteredDatatype<xsd::Name, xsd_Name>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#name"; }
 
 template<>
 inline xsd::Name RegisteredDatatype<xsd::Name, xsd_Name>::from_string(std::string_view s) {
-    const std::regex name_regex("\\n|\\s{1,}");
+    const std::regex name_regex("(.*\\n)|(.*\\t)|(.*\\r)");
     if (std::regex_match(s.data(), name_regex)) {
         throw std::runtime_error("XSD Parsing Error");
     } else {

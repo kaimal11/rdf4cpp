@@ -7,6 +7,8 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Date") {
 
+    auto iri = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#date");
+
     time_t value;
     struct tm tm{};
 
@@ -54,4 +56,6 @@ TEST_CASE("Datatype Date") {
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit3);
 
+    auto lit4 = rdf4cpp::rdf::Literal{"22-04-2022", iri};
+    CHECK_THROWS_WITH_AS(lit4.value(), "XSD Parsing Error", std::runtime_error);
 }

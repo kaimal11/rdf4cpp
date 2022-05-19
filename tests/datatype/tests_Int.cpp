@@ -7,6 +7,8 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Int") {
 
+    auto iri = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#int");
+
     auto value = 1;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Int, xsd_int>(value);
     CHECK(lit1.value<xsd::Int, xsd_int>() == value);
@@ -23,11 +25,11 @@ TEST_CASE("Datatype Int") {
     CHECK(lit3.lexical_form() == std::to_string(value));
 
     value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#int"};
+    auto lit4 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit4.value<xsd::Int, xsd_int>() == value);
 
     value = 2147483647;
-    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#int"};
+    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit5.value<xsd::Int, xsd_int>() == value);
 
     CHECK(lit1 != lit2);
@@ -35,6 +37,9 @@ TEST_CASE("Datatype Int") {
     CHECK(lit1 == lit4);
     CHECK(lit3 == lit5);
 
-/*    auto lit7 = rdf4cpp::rdf::Literal{"2147483649", "http://www.w3.org/2001/XMLSchema#int"};
-    CHECK_THROWS_WITH_AS(lit7.value(), "XSD Parsing Error", std::runtime_error);*/
+    auto lit6 = rdf4cpp::rdf::Literal{"2147483649", iri};
+    CHECK_THROWS_WITH_AS(lit6.value(), "XSD Parsing Error", std::runtime_error);
+
+    auto lit7 = rdf4cpp::rdf::Literal{"-2147483650", iri};
+    CHECK_THROWS_WITH_AS(lit7.value(), "XSD Parsing Error", std::runtime_error);
 }

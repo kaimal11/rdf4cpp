@@ -6,6 +6,12 @@
 using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Decimal") {
+    
+    auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Decimal, xsd_decimal>::datatype_iri());
+
+    auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#decimal");
+
+    CHECK(iri == iri_str);
 
     double value = 1.00;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Decimal, xsd_decimal>(value);
@@ -23,11 +29,11 @@ TEST_CASE("Datatype Decimal") {
     CHECK(lit3.lexical_form() == std::to_string(value));
 
     value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#decimal"};
+    auto lit4 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit4.value<xsd::Decimal, xsd_decimal>() == value);
 
     value = 64582165456988.235046;
-    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#decimal"};
+    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit5.value<xsd::Decimal, xsd_decimal>() == value);
 
     CHECK(lit1 != lit2);
