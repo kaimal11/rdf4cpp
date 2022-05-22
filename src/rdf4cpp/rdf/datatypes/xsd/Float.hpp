@@ -22,14 +22,13 @@ inline std::string RegisteredDatatype<xsd::Float, xsd_float>::datatype_iri() noe
 
 template<>
 inline float RegisteredDatatype<xsd::Float, xsd_float>::from_string(std::string_view s) {
-    const std::regex double_regex("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)|([Ee](\\+|-)?[0-9]+)? |(\\+|-)?INF|NaN");
+    const std::regex float_regex("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)|([Ee](\\+|-)?[0-9]+)? |(\\+|-)?INF|NaN");
 
-    if (std::regex_match(s.data(), double_regex)) {
+    if (std::regex_match(s.data(), float_regex)) {
         return std::strtof(s.data(), nullptr);
     }else {
         throw std::runtime_error("XSD Parsing Error");
     }
-
 }
 template<>
 inline std::string RegisteredDatatype<xsd::Float, xsd_float>::to_string(const xsd::Float &value) {

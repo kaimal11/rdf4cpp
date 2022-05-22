@@ -36,6 +36,23 @@ TEST_CASE("Datatype Decimal") {
     auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit5.value<xsd::Decimal, xsd_decimal>() == value);
 
+    auto lit6 = rdf4cpp::rdf::Literal{"NAN", iri};
+    CHECK_THROWS_WITH_AS(lit6.value(), "XSD Parsing Error", std::runtime_error);
+
+    auto lit7 = rdf4cpp::rdf::Literal{"INF", iri};
+    CHECK_THROWS_WITH_AS(lit7.value(), "XSD Parsing Error", std::runtime_error);
+
+    value = INFINITY;
+    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
+    CHECK_THROWS_WITH_AS(lit8.value(), "XSD Parsing Error", std::runtime_error);
+
+    value = NAN;
+    auto lit9 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
+    CHECK_THROWS_WITH_AS(lit9.value(), "XSD Parsing Error", std::runtime_error);
+
+    auto lit10 = rdf4cpp::rdf::Literal{"454sdsd", iri};
+    CHECK_THROWS_WITH_AS(lit10.value(), "XSD Parsing Error", std::runtime_error);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);

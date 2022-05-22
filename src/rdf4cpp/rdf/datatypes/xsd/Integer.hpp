@@ -20,10 +20,10 @@ namespace rdf4cpp::rdf::datatypes {
 constexpr const char xsd_integer[] = "http://www.w3.org/2001/XMLSchema#integer";
 
 template<>
-inline std::string RegisteredDatatype<xsd::Integer , xsd_integer>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#integer"; }
+inline std::string RegisteredDatatype<xsd::Integer, xsd_integer>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#integer"; }
 
 template<>
-inline xsd::Integer RegisteredDatatype<xsd::Integer , xsd_integer>::from_string(std::string_view s) {
+inline xsd::Integer RegisteredDatatype<xsd::Integer, xsd_integer>::from_string(std::string_view s) {
 
     const std::regex integer_regex("[\\-+]?[0-9]+");
 

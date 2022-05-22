@@ -32,6 +32,18 @@ TEST_CASE("Datatype String") {
     auto lit5 = rdf4cpp::rdf::Literal{value, iri};
     CHECK(lit5.value<xsd::String, xsd_string>() == value);
 
+    value = "\n";
+    auto lit6 = rdf4cpp::rdf::Literal{value, iri};
+    CHECK(lit6.value<xsd::String, xsd_string>() == value);
+
+    value = "\t";
+    auto lit7 = rdf4cpp::rdf::Literal{value, iri};
+    CHECK(lit7.value<xsd::String, xsd_string>() == value);
+
+    value = "\r";
+    auto lit8 = rdf4cpp::rdf::Literal{value, iri};
+    CHECK(lit8.value<xsd::String, xsd_string>() == value);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);

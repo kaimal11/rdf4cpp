@@ -7,6 +7,12 @@ using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Boolean") {
 
+    auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Boolean, xsd_boolean>::datatype_iri());
+
+    auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#boolean");
+
+    CHECK(iri == iri_str);
+
     bool value = true;
     auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(value);
     CHECK(lit1.value<xsd::Boolean, xsd_boolean>() == value);
@@ -27,11 +33,11 @@ TEST_CASE("Datatype Boolean") {
     CHECK(lit4.value<xsd::Boolean, xsd_boolean>() == value);
 
     value = true;
-    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#boolean"};
+    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri_str};
     CHECK(lit5.value<xsd::Boolean, xsd_boolean>() == value);
 
     value = false;
-    auto lit6 = rdf4cpp::rdf::Literal{std::to_string(value), "http://www.w3.org/2001/XMLSchema#boolean"};
+    auto lit6 = rdf4cpp::rdf::Literal{std::to_string(value), iri_str};
     CHECK(lit6.value<xsd::Boolean, xsd_boolean>() == value);
 
     CHECK(lit1 != lit2);
@@ -43,13 +49,15 @@ TEST_CASE("Datatype Boolean") {
     CHECK(lit3 == lit5);
     CHECK(lit4 == lit6);
 
-/*    auto er_value = 22;
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(er_value);
-    //CHECK_THROWS_WITH_AS(lit5, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit5.value<xsd::Boolean,xsd_boolean>() == er_value);
+    auto lit7 = rdf4cpp::rdf::Literal{"5", iri};
+    CHECK_THROWS_WITH_AS(lit7.value(), "XSD Parsing Error", std::runtime_error);
 
-    er_value = -1;
-    auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Boolean, xsd_boolean>(er_value);
-    //CHECK_THROWS_WITH_AS(lit6, "XSD Parsing Error", std::runtime_error);
-    CHECK(lit6.value<xsd::Boolean,xsd_boolean>() == er_value);*/
+    auto lit8 = rdf4cpp::rdf::Literal{"adsfg", iri};
+    CHECK_THROWS_WITH_AS(lit8.value(), "XSD Parsing Error", std::runtime_error);
+
+    auto lit9 = rdf4cpp::rdf::Literal{"5.64566", iri};
+    CHECK_THROWS_WITH_AS(lit9.value(), "XSD Parsing Error", std::runtime_error);
+
+    auto lit10 = rdf4cpp::rdf::Literal{"1.7e", iri};
+    CHECK_THROWS_WITH_AS(lit10.value(), "XSD Parsing Error", std::runtime_error);
 }

@@ -37,11 +37,15 @@ TEST_CASE("Datatype Integer") {
     auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit5.value<xsd::Integer, xsd_integer>() == value);
 
+/*    auto lit6 = rdf4cpp::rdf::Literal{"+1", iri};
+    CHECK(lit6.value<xsd::Integer, xsd_integer>() == 1);*/
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
     CHECK(lit3 == lit5);
+    //CHECK(lit4 == lit6);
 
-    auto lit6 = rdf4cpp::rdf::Literal{"a23dg", iri};
-    CHECK_THROWS_WITH_AS(lit6.value(), "XSD Parsing Error", std::runtime_error);
+    auto lit7 = rdf4cpp::rdf::Literal{"a23dg", iri};
+    CHECK_THROWS_WITH_AS(lit7.value(), "XSD Parsing Error", std::runtime_error);
 }
