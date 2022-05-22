@@ -7,6 +7,7 @@
 #define RDF4CPP_XSD_DOUBLE_HPP
 
 #include <ostream>
+#include <math.h>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
@@ -21,19 +22,31 @@ inline std::string RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri() n
 
 template<>
 inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(std::string_view s) {
-    return std::strtod(s.data(), nullptr);
+    const std::regex double_regex("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)|([Ee](\\+|-)?[0-9]+)? |(\\+|-)?INF|NaN");
+
+    if (std::regex_match(s.data(), double_regex)) {
+        auto ret = std::strtod(s.data(), nullptr);
+        return ret;
+    }else {
+        throw std::runtime_error("XSD Parsing Error");
+    }
 }
 template<>
 inline std::string RegisteredDatatype<xsd::Double, xsd_double>::to_string(const xsd::Double &value) {
 
-    std::ostringstream str_os;
-    // Set Fixed -Point Notation
-    str_os << std::fixed;
-    str_os << value;
-    // Get string from output string stream
-    std::string str = str_os.str();
-    return str;
-
+    if(isnan(value)){
+        return "NaN";
+    }else if(isinf(value)){
+        return "INF";
+    }else{
+        std::ostringstream str_os;
+        // Set Fixed -Point Notation
+        str_os << std::fixed;
+        str_os << value;
+        // Get string from output string stream
+        std::string str = str_os.str();
+        return str;
+    }
 }
 }  // namespace rdf4cpp::rdf::datatypes
 

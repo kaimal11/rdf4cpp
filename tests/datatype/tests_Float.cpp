@@ -45,6 +45,23 @@ TEST_CASE("Datatype Float") {
     auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit8.value<xsd::Float, xsd_float>() == value);
 
+    auto lit9 = rdf4cpp::rdf::Literal{"NaN", iri};
+    CHECK(isnan(lit9.value<xsd::Float, xsd_float>()));
+
+    auto lit10 = rdf4cpp::rdf::Literal{"INF", iri};
+    CHECK(isinf(lit10.value<xsd::Float, xsd_float>()));
+
+    value = INFINITY;
+    auto lit11 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
+    CHECK(isinf(lit11.value<xsd::Float, xsd_float>()));
+
+    value = NAN;
+    auto lit12 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
+    CHECK(isnan(lit12.value<xsd::Float, xsd_float>()));
+
+    auto lit13 = rdf4cpp::rdf::Literal{"454sdsd", iri};
+    CHECK_THROWS_WITH_AS(lit13.value(), "XSD Parsing Error", std::runtime_error);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
