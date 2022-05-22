@@ -6,7 +6,7 @@
 using namespace rdf4cpp::rdf::datatypes;
 
 TEST_CASE("Datatype Decimal") {
-    
+
     auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Decimal, xsd_decimal>::datatype_iri());
 
     auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#decimal");
@@ -36,6 +36,11 @@ TEST_CASE("Datatype Decimal") {
     auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit5.value<xsd::Decimal, xsd_decimal>() == value);
 
+    CHECK(lit1 != lit2);
+    CHECK(lit2 != lit3);
+    CHECK(lit1 == lit4);
+    CHECK(lit2 == lit5);
+
     auto lit6 = rdf4cpp::rdf::Literal{"NAN", iri};
     CHECK_THROWS_WITH_AS(lit6.value(), "XSD Parsing Error", std::runtime_error);
 
@@ -52,9 +57,4 @@ TEST_CASE("Datatype Decimal") {
 
     auto lit10 = rdf4cpp::rdf::Literal{"454sdsd", iri};
     CHECK_THROWS_WITH_AS(lit10.value(), "XSD Parsing Error", std::runtime_error);
-
-    CHECK(lit1 != lit2);
-    CHECK(lit2 != lit3);
-    CHECK(lit1 == lit4);
-    CHECK(lit2 == lit5);
 }

@@ -59,12 +59,14 @@ TEST_CASE("Datatype Float") {
     auto lit12 = rdf4cpp::rdf::Literal::make<xsd::Float, xsd_float>(value);
     CHECK(isnan(lit12.value<xsd::Float, xsd_float>()));
 
-    auto lit13 = rdf4cpp::rdf::Literal{"454sdsd", iri};
-    CHECK_THROWS_WITH_AS(lit13.value(), "XSD Parsing Error", std::runtime_error);
-
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit4);
     CHECK(lit1 == lit7);
     CHECK(lit2 == lit8);
+    CHECK(lit9 == lit12);
+    CHECK(lit10 == lit11);
+
+    auto lit13 = rdf4cpp::rdf::Literal{"454sdsd", iri};
+    CHECK_THROWS_WITH_AS(lit13.value(), "XSD Parsing Error", std::runtime_error);
 }

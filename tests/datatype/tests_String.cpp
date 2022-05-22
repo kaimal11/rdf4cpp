@@ -49,4 +49,3 @@ TEST_CASE("Datatype String") {
     CHECK(lit1 == lit4);
     CHECK(lit2 == lit5);
 }
-

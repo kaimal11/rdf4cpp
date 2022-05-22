@@ -25,5 +25,4 @@ inline xsd::String RegisteredDatatype<xsd::String, xsd_string>::from_string(std:
     return s.data();
 }
 }  // namespace rdf4cpp::rdf::datatypes
-
 #endif  //RDF4CPP_XSD_STRING_HPP

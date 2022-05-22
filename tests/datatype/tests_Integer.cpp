@@ -37,7 +37,7 @@ TEST_CASE("Datatype Integer") {
     auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
     CHECK(lit5.value<xsd::Integer, xsd_integer>() == value);
 
-/*    auto lit6 = rdf4cpp::rdf::Literal{"+1", iri};
+    /*    auto lit6 = rdf4cpp::rdf::Literal{"+1", iri};
     CHECK(lit6.value<xsd::Integer, xsd_integer>() == 1);*/
 
     CHECK(lit1 != lit2);

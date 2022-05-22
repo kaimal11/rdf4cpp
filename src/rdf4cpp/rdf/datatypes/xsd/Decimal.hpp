@@ -22,7 +22,14 @@ inline std::string RegisteredDatatype<xsd::Decimal, xsd_decimal>::datatype_iri()
 
 template<>
 inline xsd::Decimal RegisteredDatatype<xsd::Decimal, xsd_decimal>::from_string(std::string_view s) {
-    return std::strtod(s.data(), nullptr);
+
+    const std::regex decimal_regex("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)");
+
+    if (std::regex_match(s.data(), decimal_regex)) {
+        return std::strtod(s.data(), nullptr);
+    } else {
+        throw std::runtime_error("XSD Parsing Error");
+    }
 }
 template<>
 inline std::string RegisteredDatatype<xsd::Decimal, xsd_decimal>::to_string(const xsd::Decimal &value) {

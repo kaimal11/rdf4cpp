@@ -6,8 +6,8 @@
 #ifndef RDF4CPP_XSD_DOUBLE_HPP
 #define RDF4CPP_XSD_DOUBLE_HPP
 
-#include <ostream>
 #include <math.h>
+#include <ostream>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
@@ -27,18 +27,18 @@ inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(std::stri
     if (std::regex_match(s.data(), double_regex)) {
         auto ret = std::strtod(s.data(), nullptr);
         return ret;
-    }else {
+    } else {
         throw std::runtime_error("XSD Parsing Error");
     }
 }
 template<>
 inline std::string RegisteredDatatype<xsd::Double, xsd_double>::to_string(const xsd::Double &value) {
 
-    if(isnan(value)){
+    if (isnan(value)) {
         return "NaN";
-    }else if(isinf(value)){
+    } else if (isinf(value)) {
         return "INF";
-    }else{
+    } else {
         std::ostringstream str_os;
         // Set Fixed -Point Notation
         str_os << std::fixed;
@@ -49,5 +49,4 @@ inline std::string RegisteredDatatype<xsd::Double, xsd_double>::to_string(const 
     }
 }
 }  // namespace rdf4cpp::rdf::datatypes
-
 #endif  //RDF4CPP_DOUBLE_HPP
