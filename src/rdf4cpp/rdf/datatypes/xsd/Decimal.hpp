@@ -8,6 +8,7 @@
 
 #include <cstdint>
 #include <ostream>
+#include <regex>
 #include <rdf4cpp/rdf/datatypes/DatatypeRegistry.hpp>
 
 namespace rdf4cpp::rdf::datatypes::xsd {
