@@ -45,11 +45,11 @@ public:
      * @param node_storage NodeStorage used
      * @return literal instance representing compatible_value
      */
-    template<typename T, datatypes::ConstexprString dtype_iri>
-    inline static Literal make(T compatible_value,
+    template<datatypes::ConstexprString dtype_iri>
+    inline static Literal make(datatypes::cpp_datatype<dtype_iri> compatible_value,
                                NodeStorage &node_storage = NodeStorage::default_instance()) {
-        return Literal(datatypes::RegisteredDatatype<std::decay_t<T>, dtype_iri>::to_string(compatible_value),
-                       IRI(datatypes::RegisteredDatatype<std::decay_t<T>, dtype_iri>::datatype_iri(), node_storage),
+        return Literal(datatypes::RegisteredDatatype<dtype_iri>::to_string(compatible_value),
+                       IRI(datatypes::RegisteredDatatype<dtype_iri>::datatype_iri(), node_storage),
                        node_storage);
     }
 
@@ -96,10 +96,9 @@ public:
      * @tparam T datatype of the returned instance
      * @return T instance with the value from this
      */
-    template<typename T, datatypes::ConstexprString dtype_iri>
-    T value() const {
-        // TODO: later, add support have a default template parameter for the second template parameter based on the first
-        return datatypes::RegisteredDatatype<std::decay_t<T>, dtype_iri>::from_string(this->lexical_form());
+    template<datatypes::ConstexprString dtype_iri>
+    datatypes::cpp_datatype<dtype_iri> value() const {
+        return datatypes::RegisteredDatatype<dtype_iri>::from_string(this->lexical_form());
     }
 
     friend class Node;

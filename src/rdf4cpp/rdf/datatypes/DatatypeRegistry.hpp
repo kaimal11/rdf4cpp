@@ -23,8 +23,12 @@ struct ConstexprString {
 
     char value[N];
 
-    operator std::string() const noexcept {
+    constexpr operator std::string() const noexcept {
         return std::string{value};
+    }
+
+    constexpr operator std::string_view() const noexcept {
+        return std::string_view{value};
     }
 
     template<size_t M>
@@ -143,7 +147,16 @@ public:
  * If datatype_t does not overload `operator<<`, to_string(const datatype_t &value) must be specialized.
  * @tparam datatype_t datatype that is being registered
  */
-template<typename datatype_t, ConstexprString type_iri>
+
+template<ConstexprString type_iri_t>
+struct DatatypeMapping {
+    using cpp_datatype = std::false_type;
+};
+
+template<ConstexprString type_iri_t>
+using cpp_datatype = typename DatatypeMapping<type_iri_t>::cpp_datatype;
+
+template<ConstexprString type_iri>
 struct RegisteredDatatype {
 private:
     /**
@@ -156,6 +169,7 @@ private:
     static constexpr bool always_false_v = always_false<T>::value;
 
 public:
+    using datatype_t = cpp_datatype<type_iri>;
     /**
      * Datatype iri
      */
@@ -165,7 +179,7 @@ public:
     /**
      * Datatype iri
      */
-    inline static std::string datatype_iri() noexcept {
+    constexpr static std::string datatype_iri() noexcept {
         return (std::string) type_iri;
     }
     /**
@@ -200,9 +214,9 @@ private:
     // Force `dummy` to be instantiated, even though it's unused.
     static constexpr std::integral_constant<decltype(&dummy), &dummy> dummy_helper{};
 };
-template<typename xsd_datatype_t, ConstexprString xsd_string>
-std::nullptr_t RegisteredDatatype<xsd_datatype_t, xsd_string>::init() {
-    DatatypeRegistry::add<RegisteredDatatype<xsd_datatype_t, xsd_string>>();
+template<ConstexprString xsd_string>
+std::nullptr_t RegisteredDatatype<xsd_string>::init() {
+    DatatypeRegistry::add<RegisteredDatatype<xsd_string>>();
     return nullptr;
 }
 

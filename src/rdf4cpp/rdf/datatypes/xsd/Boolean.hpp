@@ -15,13 +15,15 @@ using Boolean = bool;  //!< Implements <a href="http://www.w3.org/2001/XMLSchema
 }
 
 namespace rdf4cpp::rdf::datatypes {
-constexpr const char xsd_boolean[] = "http://www.w3.org/2001/XMLSchema#boolean";
+constexpr ConstexprString xsd_boolean{"http://www.w3.org/2001/XMLSchema#boolean"};
 
 template<>
-inline std::string RegisteredDatatype<xsd::Boolean, xsd_boolean>::datatype_iri() noexcept { return "http://www.w3.org/2001/XMLSchema#boolean"; }
+struct DatatypeMapping<xsd_boolean> {
+    using cpp_datatype = xsd::Boolean;
+};
 
 template<>
-inline xsd::Boolean RegisteredDatatype<xsd::Boolean, xsd_boolean>::from_string(std::string_view s) {
+inline xsd::Boolean RegisteredDatatype<xsd_boolean>::from_string(std::string_view s) {
     if (s == "true" || s == "1") return true;
     else if (s == "false" || s == "0")
         return false;
