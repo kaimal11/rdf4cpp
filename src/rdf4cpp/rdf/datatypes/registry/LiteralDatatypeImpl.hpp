@@ -1,5 +1,5 @@
-#ifndef RDF4CPP_LITERALDATATYPE_HPP
-#define RDF4CPP_LITERALDATATYPE_HPP
+#ifndef RDF4CPP_LITERALDATATYPEIMPL_HPP
+#define RDF4CPP_LITERALDATATYPEIMPL_HPP
 
 #include <rdf4cpp/rdf/datatypes/registry/ConstexprString.hpp>
 #include <rdf4cpp/rdf/datatypes/registry/DatatypeMapping.hpp>
@@ -14,7 +14,7 @@
 namespace rdf4cpp::rdf::datatypes::registry {
 
 template<ConstexprString type_iri_t>
-struct LiteralDatatype {
+struct LiteralDatatypeImpl {
 private:
     /**
      * static_assert would always trigger if it wasn't dependent on a template parameter.
@@ -42,16 +42,16 @@ public:
      * @return instance of datatype_t
      */
     inline static cpp_type from_string(std::string_view) {
-        //If this implementation is used the user forgot to provide their own.
+        // If this implementation is used the user forgot to provide their own.
         static_assert(always_false_v<cpp_type>, "'from_string' is not implemented for this type!");
     }
     /**
      * Returns string representation of a datatype_t.
-     * @param value an datatype_t instance
+     * @param value the value
      * @return <div>value</div>'s canonical string representation
      */
-    inline static std::string to_string(const cpp_type &value) {
-
+    inline static std::string to_string( cpp_type const &value) {
+        // If not further specified, to_string is instanciated via operator<<. If operator<< is not defined for cpp_type instanciation will fail.
         std::stringstream str_s;
         str_s << value;
         return str_s.str();
@@ -65,9 +65,9 @@ private:
     static constexpr std::integral_constant<decltype(&dummy), &dummy> dummy_helper{};
 };
 template<ConstexprString xsd_string>
-std::nullptr_t LiteralDatatype<xsd_string>::init() {
-    DatatypeRegistry::add<LiteralDatatype<xsd_string>>();
+std::nullptr_t LiteralDatatypeImpl<xsd_string>::init() {
+    DatatypeRegistry::add<LiteralDatatypeImpl<xsd_string>>();
     return nullptr;
 }
 }  // namespace rdf4cpp::rdf::datatypes::registry
-#endif  //RDF4CPP_LITERALDATATYPE_HPP
+#endif  //RDF4CPP_LITERALDATATYPEIMPL_HPP

@@ -7,7 +7,7 @@
 #define RDF4CPP_XSD_BOOLEAN_HPP
 
 #include <rdf4cpp/rdf/datatypes/registry/DatatypeMapping.hpp>
-#include <rdf4cpp/rdf/datatypes/registry/LiteralDatatype.hpp>
+#include <rdf4cpp/rdf/datatypes/registry/LiteralDatatypeImpl.hpp>
 
 #include <cstdint>
 #include <ostream>
@@ -30,7 +30,7 @@ struct DatatypeMapping<xsd_boolean> {
  * Specialisation of from_string template function.
  */
 template<>
-inline LiteralDatatype<xsd_boolean>::cpp_type LiteralDatatype<xsd_boolean>::from_string(std::string_view s) {
+inline LiteralDatatypeImpl<xsd_boolean>::cpp_type LiteralDatatypeImpl<xsd_boolean>::from_string(std::string_view s) {
     if (s == "true" || s == "1") return true;
     else if (s == "false" || s == "0")
         return false;
@@ -44,7 +44,7 @@ namespace rdf4cpp::rdf::datatypes::xsd {
 /**
  * Implementation of xsd::boolean
  */
-using Boolean = registry::LiteralDatatype<registry::xsd_boolean>;
+using Boolean = registry::LiteralDatatypeImpl<registry::xsd_boolean>;
 }  // namespace rdf4cpp::rdf::datatypes::xsd
 
 

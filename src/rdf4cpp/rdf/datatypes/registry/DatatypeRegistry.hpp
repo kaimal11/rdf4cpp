@@ -1,6 +1,8 @@
 #ifndef RDF4CPP_DATATYPEREGISTRY_HPP
 #define RDF4CPP_DATATYPEREGISTRY_HPP
 
+#include <rdf4cpp/rdf/datatypes/LiteralDatatype.hpp>
+
 #include <algorithm>
 #include <any>
 #include <string>
@@ -41,7 +43,7 @@ public:
      * Auto-register a datatype that fulfills DatatypeConcept
      * @tparam datatype_info type that is registered.
      */
-    template<typename datatype_info>
+    template<datatypes::LiteralDatatype datatype_info>
     inline static void add();
 
     /**
@@ -108,11 +110,11 @@ public:
 
 
 /**
- * To register a datatype, datatype_iri and from_string must be defined for `LiteralDatatype<datatype_t>`.
- * If datatype_t does not overload `operator<<`, to_string(const datatype_t &value) must be specialized.
- * @tparam datatype_t datatype that is being registered
+ * To register a datatype, a LiteralDatatypeImpl instantiation must be provided.
+ * If LiteralDatatype_t::cpp_type does not overload `operator<<`, the to_string(const datatype_t &value) must be specialized.
+ * @tparam LiteralDatatype_t datatype that is being registered
  */
-template<typename LiteralDatatype_t>
+template<datatypes::LiteralDatatype LiteralDatatype_t>
 inline void DatatypeRegistry::add() {
     DatatypeRegistry::add(
             LiteralDatatype_t::identifier,

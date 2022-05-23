@@ -4,6 +4,7 @@
 #include <any>
 #include <ostream>
 #include <rdf4cpp/rdf/Node.hpp>
+#include <rdf4cpp/rdf/datatypes/LiteralDatatype.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd.hpp>
 
 namespace rdf4cpp::rdf {
@@ -45,7 +46,7 @@ public:
      * @param node_storage NodeStorage used
      * @return literal instance representing compatible_value
      */
-    template<typename LiteralDatatype_t>
+    template<datatypes::LiteralDatatype LiteralDatatype_t>
     inline static Literal make(typename LiteralDatatype_t::cpp_type compatible_value,
                                NodeStorage &node_storage = NodeStorage::default_instance()) {
         return Literal(LiteralDatatype_t::to_string(compatible_value),
@@ -96,7 +97,7 @@ public:
      * @tparam T datatype of the returned instance
      * @return T instance with the value from this
      */
-    template<typename LiteralDatatype_t>
+    template<datatypes::LiteralDatatype LiteralDatatype_t>
     typename LiteralDatatype_t::cpp_type value() const {
         return LiteralDatatype_t::from_string(this->lexical_form());
     }
