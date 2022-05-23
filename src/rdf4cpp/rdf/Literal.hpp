@@ -45,11 +45,11 @@ public:
      * @param node_storage NodeStorage used
      * @return literal instance representing compatible_value
      */
-    template<datatypes::ConstexprString dtype_iri>
-    inline static Literal make(datatypes::cpp_datatype<dtype_iri> compatible_value,
+    template<typename LiteralDatatype_t>
+    inline static Literal make(typename LiteralDatatype_t::cpp_type compatible_value,
                                NodeStorage &node_storage = NodeStorage::default_instance()) {
-        return Literal(datatypes::RegisteredDatatype<dtype_iri>::to_string(compatible_value),
-                       IRI(datatypes::RegisteredDatatype<dtype_iri>::datatype_iri(), node_storage),
+        return Literal(LiteralDatatype_t::to_string(compatible_value),
+                       IRI(LiteralDatatype_t::identifier, node_storage),
                        node_storage);
     }
 
@@ -96,9 +96,9 @@ public:
      * @tparam T datatype of the returned instance
      * @return T instance with the value from this
      */
-    template<datatypes::ConstexprString dtype_iri>
-    datatypes::cpp_datatype<dtype_iri> value() const {
-        return datatypes::RegisteredDatatype<dtype_iri>::from_string(this->lexical_form());
+    template<typename LiteralDatatype_t>
+    typename LiteralDatatype_t::cpp_type value() const {
+        return LiteralDatatype_t::from_string(this->lexical_form());
     }
 
     friend class Node;
