@@ -41,14 +41,14 @@ inline LiteralDatatypeImpl<xsd_langString>::cpp_type LiteralDatatypeImpl<xsd_lan
         std::string_view lex = s.substr(0, pos);
         std::string_view lang = s.substr(pos + 1);
 
-        auto lit_str = Literal::make<datatypes::xsd::String>(lex);
-        auto lit_lang = Literal::make<datatypes::xsd::Language>(lex);
+        //auto lit_str = Literal::make<datatypes::xsd::String>(lex);
+        //auto lit_lang = Literal::make<datatypes::xsd::Language>(lex);
 
-        if (is_same_v<lit_str.value(), xsd::String> && is_same_v<lit_str.value(), xsd::Language>) {
-            return s.data();
-        } else {
-            throw std::runtime_error("XSD Parsing Error");
-        }
+//        if (is_same_v<lit_str.value(), xsd::String> && is_same_v<lit_str.value(), xsd::Language>) {
+//            return s.data();
+//        } else {
+//            throw std::runtime_error("XSD Parsing Error");
+//        }
     } else {
         throw std::runtime_error("XSD Parsing Error");
     }
