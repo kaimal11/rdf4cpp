@@ -7,41 +7,40 @@ using namespace rdf4cpp::rdf;
 
 TEST_CASE("Datatype LangString") {
 
-    constexpr auto correct_type_iri_cstr = "http://www.w3.org/2001/XMLSchema#langString";
+    constexpr auto correct_type_iri_cstr = "http://www.w3.org/1999/02/22-rdf-syntax-ns#langString";
 
-    CHECK(std::string(datatypes::xsd::String::identifier) == correct_type_iri_cstr);
+    CHECK(std::string(datatypes::xsd::LangString::identifier) == correct_type_iri_cstr);
 
-    auto type_iri = IRI(datatypes::xsd::String::identifier);
+    auto type_iri = IRI(datatypes::xsd::LangString::identifier);
     CHECK(type_iri.identifier() == correct_type_iri_cstr);
 
-    using type = datatypes::xsd::String::cpp_type;
+    using type = datatypes::xsd::LangString::cpp_type;
 
     CHECK(std::is_same_v<type, std::string>);
 
-
     std::string value = "123@en";
-    auto lit1 = Literal::make<datatypes::xsd::String>(value);
-    CHECK(lit1.value<datatypes::xsd::String>() == value);
+    auto lit1 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit1.value<datatypes::xsd::LangString>() == value);
     CHECK(lit1.lexical_form() == value);
 
     value = "asd@de";
-    auto lit2 = Literal::make<datatypes::xsd::String>(value);
-    CHECK(lit2.value<datatypes::xsd::String>() == value);
+    auto lit2 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit2.value<datatypes::xsd::LangString>() == value);
     CHECK(lit2.lexical_form() == value);
 
     value = "asd@de";
-    auto lit3 = Literal::make<datatypes::xsd::String>(value);
-    CHECK(lit3.value<datatypes::xsd::String>() == value);
+    auto lit3 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit3.value<datatypes::xsd::LangString>() == value);
     CHECK(lit3.lexical_form() == value);
 
     value = "asd@en";
-    auto lit4 = Literal::make<datatypes::xsd::String>(value);
-    CHECK(lit4.value<datatypes::xsd::String>() == value);
+    auto lit4 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit4.value<datatypes::xsd::LangString>() == value);
     CHECK(lit4.lexical_form() == value);
 
     CHECK(lit1 != lit2);
-    CHECK(lit2 != lit3);
-    CHECK(lit2 == lit4);
+    CHECK(lit2 == lit3);
+    CHECK(lit2 != lit4);
 
     // suppress warnings regarding attribute ‘nodiscard’
     std::any no_discard_dummy = false;
