@@ -38,6 +38,31 @@ TEST_CASE("Datatype LangString") {
     CHECK(lit4.value<datatypes::xsd::LangString>() == value);
     CHECK(lit4.lexical_form() == value);
 
+    value = "\n@en";
+    auto lit5 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit5.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit5.lexical_form() == value);
+
+    value = "\t@en";
+    auto lit6 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit6.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit6.lexical_form() == value);
+
+    value = "\r@en";
+    auto lit7 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit7.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit7.lexical_form() == value);
+
+    value = "\\@en";
+    auto lit8 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit8.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit8.lexical_form() == value);
+
+    value = "\"@en";
+    auto lit9 = Literal::make<datatypes::xsd::LangString>(value);
+    CHECK(lit9.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit9.lexical_form() == value);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 == lit3);
     CHECK(lit2 != lit4);
@@ -45,15 +70,15 @@ TEST_CASE("Datatype LangString") {
     // suppress warnings regarding attribute ‘nodiscard’
     std::any no_discard_dummy = false;
 
-    auto lit5 = rdf4cpp::rdf::Literal{"qwerty", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit5.value(), "XSD Parsing Error", std::runtime_error);
+    auto lit10 = rdf4cpp::rdf::Literal{"qwerty", type_iri};
+    CHECK_THROWS_WITH_AS(no_discard_dummy = lit10.value(), "XSD Parsing Error", std::runtime_error);
 
-    auto lit6 = rdf4cpp::rdf::Literal{"a@\n", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit6.value(), "XSD Parsing Error", std::runtime_error);
+    auto lit11 = rdf4cpp::rdf::Literal{"a@\n", type_iri};
+    CHECK_THROWS_WITH_AS(no_discard_dummy = lit11.value(), "XSD Parsing Error", std::runtime_error);
 
-    auto lit7 = rdf4cpp::rdf::Literal{"b@\r", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit7.value(), "XSD Parsing Error", std::runtime_error);
+    auto lit12 = rdf4cpp::rdf::Literal{"b@\r", type_iri};
+    CHECK_THROWS_WITH_AS(no_discard_dummy = lit12.value(), "XSD Parsing Error", std::runtime_error);
 
-    auto lit8 = rdf4cpp::rdf::Literal{"c@\t", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit8.value(), "XSD Parsing Error", std::runtime_error);
+    auto lit13 = rdf4cpp::rdf::Literal{"c@\t", type_iri};
+    CHECK_THROWS_WITH_AS(no_discard_dummy = lit13.value(), "XSD Parsing Error", std::runtime_error);
 }
