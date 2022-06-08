@@ -3,78 +3,71 @@
 #include <doctest/doctest.h>
 #include <rdf4cpp/rdf.hpp>
 
-using namespace rdf4cpp::rdf::datatypes;
+using namespace rdf4cpp::rdf;
 
 TEST_CASE("Datatype Double") {
 
-    constexpr auto correct_type_iri_cstr = "http://www.w3.org/2001/XMLSchema#decimal";
+    constexpr auto correct_type_iri_cstr = "http://www.w3.org/2001/XMLSchema#double";
 
-    CHECK(std::string(datatypes::xsd::Decimal::identifier) == correct_type_iri_cstr);
+    CHECK(std::string(datatypes::xsd::Double::identifier) == correct_type_iri_cstr);
 
-    auto type_iri = IRI(datatypes::xsd::Decimal::identifier);
+    auto type_iri = IRI(datatypes::xsd::Double::identifier);
     CHECK(type_iri.identifier() == correct_type_iri_cstr);
 
-    using type = datatypes::xsd::Decimal::cpp_type;
+    using type = datatypes::xsd::Double::cpp_type;
 
     CHECK(std::is_same_v<type, double>);
 
-    auto iri = rdf4cpp::rdf::IRI(RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri());
-
-    auto iri_str = rdf4cpp::rdf::IRI("http://www.w3.org/2001/XMLSchema#double");
-
-    CHECK(iri == iri_str);
-
     double value = 1.00;
-    auto lit1 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit1.value<xsd::Double, xsd_double>() == value);
+    auto lit1 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(lit1.value<datatypes::xsd::Double>() == value);
     CHECK(lit1.lexical_form() == std::to_string(value));
 
     value = 987456321123456.123586987;
-    auto lit2 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit2.value<xsd::Double, xsd_double>() == value);
+    auto lit2 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(lit2.value<datatypes::xsd::Double>() == value);
     CHECK(lit2.lexical_form() == std::to_string(value));
 
     value = -64545352389.2352345670;
-    auto lit3 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit3.value<xsd::Double, xsd_double>() == value);
+    auto lit3 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(lit3.value<datatypes::xsd::Double>() == value);
     CHECK(lit3.lexical_form() == std::to_string(value));
 
     value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit4.value<xsd::Double, xsd_double>() == value);
+    auto lit4 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(lit4.value<datatypes::xsd::Double>() == value);
     CHECK(lit4.lexical_form() == std::to_string(value));
 
-    value = std::numeric_limits<double>::min();
-    auto lit5 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit5.value<xsd::Double, xsd_double>() == value);
-    CHECK(lit5.lexical_form() == std::to_string(value));
+    //minimum value for double
+    auto lit5 = Literal{"2.22e-308", type_iri};
+    CHECK(lit5.value<datatypes::xsd::Double>() == 2.22e-308);
 
     value = std::numeric_limits<double>::max();
-    auto lit6 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(lit6.value<xsd::Double, xsd_double>() == value);
+    auto lit6 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(lit6.value<datatypes::xsd::Double>() == value);
     CHECK(lit6.lexical_form() == std::to_string(value));
 
     value = 1;
-    auto lit7 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
-    CHECK(lit7.value<xsd::Double, xsd_double>() == value);
+    auto lit7 = Literal{std::to_string(value), type_iri};
+    CHECK(lit7.value<datatypes::xsd::Double>() == value);
 
     value = 987456321123456.123586987;
-    auto lit8 = rdf4cpp::rdf::Literal{std::to_string(value), iri};
-    CHECK(lit8.value<xsd::Double, xsd_double>() == value);
+    auto lit8 = Literal{std::to_string(value), type_iri};
+    CHECK(lit8.value<datatypes::xsd::Double>() == value);
 
-    auto lit9 = rdf4cpp::rdf::Literal{"NaN", iri};
-    CHECK(isnan(lit9.value<xsd::Double, xsd_double>()));
+    auto lit9 = Literal{"NaN", type_iri};
+    CHECK(isnan(lit9.value<datatypes::xsd::Double>()));
 
-    auto lit10 = rdf4cpp::rdf::Literal{"INF", iri};
-    CHECK(isinf(lit10.value<xsd::Double, xsd_double>()));
+    auto lit10 = Literal{"INF", type_iri};
+    CHECK(isinf(lit10.value<datatypes::xsd::Double>()));
 
     value = INFINITY;
-    auto lit11 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(isinf(lit11.value<xsd::Double, xsd_double>()));
+    auto lit11 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(isinf(lit11.value<datatypes::xsd::Double>()));
 
     value = NAN;
-    auto lit12 = rdf4cpp::rdf::Literal::make<xsd::Double, xsd_double>(value);
-    CHECK(isnan(lit12.value<xsd::Double, xsd_double>()));
+    auto lit12 = Literal::make<datatypes::xsd::Double>(value);
+    CHECK(isnan(lit12.value<datatypes::xsd::Double>()));
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
@@ -84,6 +77,9 @@ TEST_CASE("Datatype Double") {
     CHECK(lit9 == lit12);
     CHECK(lit10 == lit11);
 
-    auto lit13 = rdf4cpp::rdf::Literal{"454sdsd", iri};
-    CHECK_THROWS_WITH_AS(lit13.value(), "XSD Parsing Error", std::runtime_error);
+    // suppress warnings regarding attribute ‘nodiscard’
+    std::any no_discard_dummy = false;
+
+    auto lit13 = Literal{"454sdsd", type_iri};
+    CHECK_THROWS_WITH_AS(no_discard_dummy = lit13.value(), "XSD Parsing Error", std::runtime_error);
 }
