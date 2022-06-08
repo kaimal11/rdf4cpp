@@ -22,7 +22,8 @@ inline std::string RegisteredDatatype<xsd::Double, xsd_double>::datatype_iri() n
 
 template<>
 inline double RegisteredDatatype<xsd::Double, xsd_double>::from_string(std::string_view s) {
-    const std::regex double_regex("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)|([Ee](\\+|-)?[0-9]+)? |(\\+|-)?INF|NaN");
+    const std::regex double_regex("(\\+|-)?([0-9]+(\\.[0-9]*)?|\\.[0-9]+)([Ee](\\+|-)?[0-9]+)?|(\\+|-)?INF|NaN");
+    std::cout<<s<<std::endl;
 
     if (std::regex_match(s.data(), double_regex)) {
         auto ret = std::strtod(s.data(), nullptr);
