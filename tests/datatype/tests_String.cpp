@@ -49,7 +49,6 @@ TEST_CASE("Datatype String") {
     value = "\t";
     auto lit7 = Literal{value, type_iri};
     CHECK(lit7.value<datatypes::xsd::String>() == value);
-    std::cout<< lit7;
 
     value = "\r";
     auto lit8 = Literal{value, type_iri};
