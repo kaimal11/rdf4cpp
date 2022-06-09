@@ -96,5 +96,33 @@ target_link_libraries(tests_LangString
 set_property(TARGET tests_LangString PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_LangString COMMAND tests_LangString)
 
+#IEEE Floating Point Numbers
+add_executable(tests_Float datatype/tests_Float.cpp)
+target_link_libraries(tests_Float
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Float PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Float COMMAND tests_Float)
+
+add_executable(tests_Double datatype/tests_Double.cpp)
+target_link_libraries(tests_Double
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Double PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Double COMMAND tests_Double)
+
+add_executable(tests_HexBinary datatype/tests_HexBinary.cpp)
+target_link_libraries(tests_HexBinary
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_HexBinary PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_HexBinary COMMAND tests_HexBinary)
+
+# include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
+# doctest_discover_tests(tests_hello_test)
+
 # copy files for testing to the binary folder
 # file(COPY foldername DESTINATION ${CMAKE_CURRENT_BINARY_DIR})

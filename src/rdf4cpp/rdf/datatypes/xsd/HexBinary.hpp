@@ -1,0 +1,80 @@
+
+/**
+ * @file Registers xsd:hexBinary with DatatypeRegistry
+ */
+
+#ifndef RDF4CPP_XSD_HEXBINARY_HPP
+#define RDF4CPP_XSD_HEXBINARY_HPP
+
+#include <rdf4cpp/rdf/datatypes/registry/DatatypeMapping.hpp>
+#include <rdf4cpp/rdf/datatypes/registry/LiteralDatatypeImpl.hpp>
+
+#include <cstdint>
+#include <ostream>
+#include <regex>
+
+namespace rdf4cpp::rdf::datatypes::registry {
+/*
+ * Name of the datatype. This is kept so that we won't need to type it over and over again.
+ */
+constexpr static registry::ConstexprString xsd_hexBinary{"http://www.w3.org/2001/XMLSchema#hexBinary"};
+
+/**
+ * Defines the mapping between the LiteralDatatype IRI and the C++ datatype.
+ */
+template<>
+struct DatatypeMapping<xsd_hexBinary> {
+    using cpp_datatype = std::vector<std::int16_t>;
+};
+
+/**
+ * Specialisation of from_string template function.
+ */
+template<>
+inline LiteralDatatypeImpl<xsd_hexBinary>::cpp_type LiteralDatatypeImpl<xsd_hexBinary>::from_string(std::string_view s) {
+
+    const std::regex hexBinary_regex("([0-9a-fA-F]{2})*");
+    int hexOctet;
+    std::vector<int16_t> hexBinary_val;
+    std::stringstream iss(s.data());
+    while (iss >> std::hex >> hexOctet){
+        if (std::regex_match(std::to_string(hexOctet), hexBinary_regex)) {
+            hexBinary_val.push_back(hexOctet);
+        }else {
+            throw std::runtime_error("XSD Parsing Error");
+        }
+    }
+    return hexBinary_val;
+}
+
+/**
+ * Specialisation of to_string template function.
+ */
+template<>
+inline std::string LiteralDatatypeImpl<xsd_hexBinary>::to_string(const cpp_type &value) {
+
+    std::stringstream result;
+
+    std::copy(value.begin(), value.end(), std::ostream_iterator<int16_t>(result, " "));
+    std::string str = result.str();
+
+    std::string res;
+    int decimal_value;
+    while (result >> decimal_value){
+        std::ostringstream ss;
+        ss << std::setfill('0') << std::setw(4) << std::hex << decimal_value;
+        res.append(ss.str() + " ");
+    }
+
+    return res;
+
+}
+}  // namespace rdf4cpp::rdf::datatypes::registry
+
+namespace rdf4cpp::rdf::datatypes::xsd {
+/**
+ * Implementation of xsd::hexBinary
+ */
+using HexBinary = registry::LiteralDatatypeImpl<registry::xsd_hexBinary>;
+}  // namespace rdf4cpp::rdf::datatypes::xsd
+#endif  //RDF4CPP_XSD_HEXBINARY_HPP
