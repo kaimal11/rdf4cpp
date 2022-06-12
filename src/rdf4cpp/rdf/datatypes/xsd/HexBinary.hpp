@@ -34,7 +34,7 @@ template<>
 inline LiteralDatatypeImpl<xsd_hexBinary>::cpp_type LiteralDatatypeImpl<xsd_hexBinary>::from_string(std::string_view s) {
 
     const std::regex hexBinary_regex("([0-9a-fA-F]{2})*");
-    int hexOctet;
+    int16_t hexOctet;
     std::vector<int16_t> hexBinary_val;
     std::stringstream iss(s.data());
     while (iss >> std::hex >> hexOctet){
@@ -59,11 +59,11 @@ inline std::string LiteralDatatypeImpl<xsd_hexBinary>::to_string(const cpp_type 
     std::string str = result.str();
 
     std::string res;
-    int decimal_value;
+    int16_t decimal_value;
     while (result >> decimal_value){
         std::ostringstream ss;
         ss << std::setfill('0') << std::setw(4) << std::hex << decimal_value;
-        res.append(ss.str() + " ");
+        //res.append(ss.str() + " ");
     }
 
     return res;

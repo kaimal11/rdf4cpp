@@ -41,7 +41,7 @@ TEST_CASE("Datatype HexBinary") {
     auto lit5 = Literal{"4023 2743", type_iri};
     CHECK(lit5.value<datatypes::xsd::HexBinary>() == value);
 
-    auto lit6 = Literal{"0FB7 0AB7", type_iri};
+    auto lit6 = Literal{"0FB70AB7", type_iri};
     CHECK(lit6.value<datatypes::xsd::HexBinary>() == value);
 
     CHECK(lit1 != lit2);

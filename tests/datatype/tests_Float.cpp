@@ -42,7 +42,7 @@ TEST_CASE("Datatype Float") {
     auto lit5 = Literal{"1.17e-38", type_iri};
     CHECK(lit5.value<datatypes::xsd::Float>() == 1.17e-38);
 
-    value = std::numeric_limits<float>::max();;
+    value = std::numeric_limits<float>::max();
     auto lit6 = Literal::make<datatypes::xsd::Float>(value);
     CHECK(lit6.value<datatypes::xsd::Float>() == value);
     CHECK(lit6.lexical_form() == std::to_string(value));
