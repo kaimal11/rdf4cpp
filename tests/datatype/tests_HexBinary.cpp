@@ -22,8 +22,6 @@ TEST_CASE("Datatype HexBinary") {
     auto lit1 = Literal::make<datatypes::xsd::HexBinary>(value);
     CHECK(lit1.value<datatypes::xsd::HexBinary>() == value);
 
-    std::cout<< lit1 <<std::endl;
-
     value = {0x0FB7, 0x0AB7, 0x0FB1};
     auto lit2 = Literal::make<datatypes::xsd::HexBinary>(value);
     CHECK(lit2.value<datatypes::xsd::HexBinary>() == value);
@@ -36,12 +34,11 @@ TEST_CASE("Datatype HexBinary") {
     auto lit4 = Literal::make<datatypes::xsd::HexBinary>(value);
     CHECK(lit4.value<datatypes::xsd::HexBinary>() == value);
 
-    std::cout<< lit4 <<std::endl;
-
-    auto lit5 = Literal{"4023 2743", type_iri};
+    auto lit5 = Literal{"0fb70ab7", type_iri};
     CHECK(lit5.value<datatypes::xsd::HexBinary>() == value);
 
-    auto lit6 = Literal{"0FB70AB7", type_iri};
+    value = {0x0fb7, 0x0a};
+    auto lit6 = Literal{"0fb70a", type_iri};
     CHECK(lit6.value<datatypes::xsd::HexBinary>() == value);
 
     CHECK(lit1 != lit2);
@@ -49,14 +46,20 @@ TEST_CASE("Datatype HexBinary") {
     CHECK(lit1 != lit3);
     CHECK(lit1 == lit4);
     CHECK(lit1 == lit5);
-    CHECK(lit1 == lit6);
     CHECK(lit4 == lit5);
-    CHECK(lit4 == lit6);
-    CHECK(lit5 == lit6);
     CHECK(lit1.value<datatypes::xsd::HexBinary>() == lit5.value<datatypes::xsd::HexBinary>());
-    CHECK(lit1.value<datatypes::xsd::HexBinary>() == lit6.value<datatypes::xsd::HexBinary>());
     CHECK(lit4.value<datatypes::xsd::HexBinary>() == lit5.value<datatypes::xsd::HexBinary>());
-    CHECK(lit4.value<datatypes::xsd::HexBinary>() == lit6.value<datatypes::xsd::HexBinary>());
-    CHECK(lit5.value<datatypes::xsd::HexBinary>() == lit6.value<datatypes::xsd::HexBinary>());
 
+    // suppress warnings regarding attribute ‘nodiscard’
+    Literal no_discard_dummy;
+
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("0fb70", type_iri), "XSD Parsing Error", std::runtime_error);
+
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("0.0", type_iri), "XSD Parsing Error", std::runtime_error);
+
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("f", type_iri), "XSD Parsing Error", std::runtime_error);
+
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("\t", type_iri), "XSD Parsing Error", std::runtime_error);
+
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("0gb70za7", type_iri), "XSD Parsing Error", std::runtime_error);
 }

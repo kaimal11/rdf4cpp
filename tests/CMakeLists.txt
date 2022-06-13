@@ -71,7 +71,6 @@ target_link_libraries(tests_Boolean
 set_property(TARGET tests_Boolean PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_Boolean COMMAND tests_Boolean)
 
-
 add_executable(tests_Decimal datatype/tests_Decimal.cpp)
 target_link_libraries(tests_Decimal
         doctest
@@ -87,14 +86,6 @@ target_link_libraries(tests_Integer
         )
 set_property(TARGET tests_Integer PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_Integer COMMAND tests_Integer)
-
-add_executable(tests_LangString datatype/tests_LangString.cpp)
-target_link_libraries(tests_LangString
-        doctest
-        rdf4cpp
-        )
-set_property(TARGET tests_LangString PROPERTY CXX_STANDARD 20)
-add_test(NAME tests_LangString COMMAND tests_LangString)
 
 #IEEE Floating Point Numbers
 add_executable(tests_Float datatype/tests_Float.cpp)
@@ -120,6 +111,14 @@ target_link_libraries(tests_HexBinary
         )
 set_property(TARGET tests_HexBinary PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_HexBinary COMMAND tests_HexBinary)
+
+add_executable(tests_LangString datatype/tests_LangString.cpp)
+target_link_libraries(tests_LangString
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_LangString PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_LangString COMMAND tests_LangString)
 
 # include(${doctest_SOURCE_DIR}/scripts/cmake/doctest.cmake)
 # doctest_discover_tests(tests_hello_test)

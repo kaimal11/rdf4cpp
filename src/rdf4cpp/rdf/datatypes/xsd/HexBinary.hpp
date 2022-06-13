@@ -36,13 +36,15 @@ inline LiteralDatatypeImpl<xsd_hexBinary>::cpp_type LiteralDatatypeImpl<xsd_hexB
     const std::regex hexBinary_regex("([0-9a-fA-F]{2})*");
     int16_t hexOctet;
     std::vector<int16_t> hexBinary_val;
-    std::stringstream iss(s.data());
-    while (iss >> std::hex >> hexOctet){
-        if (std::regex_match(std::to_string(hexOctet), hexBinary_regex)) {
+    std::string str = s.data();
+    if (std::regex_match(str, hexBinary_regex)) {
+        for(std::string::size_type pos = 0; pos < str.size(); pos+=4) {
+            std::stringstream iss(str.substr(pos, 4));
+            iss >> std::hex >> hexOctet;
             hexBinary_val.push_back(hexOctet);
-        }else {
-            throw std::runtime_error("XSD Parsing Error");
         }
+    }else {
+        throw std::runtime_error("XSD Parsing Error");
     }
     return hexBinary_val;
 }
@@ -63,11 +65,9 @@ inline std::string LiteralDatatypeImpl<xsd_hexBinary>::to_string(const cpp_type 
     while (result >> decimal_value){
         std::ostringstream ss;
         ss << std::setfill('0') << std::setw(4) << std::hex << decimal_value;
-        //res.append(ss.str() + " ");
+        res.append(ss.str());
     }
-
     return res;
-
 }
 }  // namespace rdf4cpp::rdf::datatypes::registry
 
