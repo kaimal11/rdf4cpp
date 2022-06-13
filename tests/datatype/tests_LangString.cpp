@@ -63,6 +63,19 @@ TEST_CASE("Datatype LangString") {
     CHECK(lit9.value<datatypes::xsd::LangString>() == value);
     CHECK(lit9.lexical_form() == value);
 
+    value = "Bugs Bunny@de";
+    auto lit10 = Literal{"Bugs Bunny", "de"};
+    CHECK(lit10.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit10.lexical_form() == value);
+
+    std::cout<<lit4<<std::endl;
+    std::cout<<lit10<<std::endl;
+
+    value = "Bugs Bunny@en";
+    auto lit11 = Literal{"Bugs Bunny", "en"};
+    CHECK(lit11.value<datatypes::xsd::LangString>() == value);
+    CHECK(lit11.lexical_form() == value);
+
     CHECK(lit1 != lit2);
     CHECK(lit2 == lit3);
     CHECK(lit2 != lit4);
@@ -70,15 +83,11 @@ TEST_CASE("Datatype LangString") {
     // suppress warnings regarding attribute ‘nodiscard’
     std::any no_discard_dummy = false;
 
-    auto lit10 = rdf4cpp::rdf::Literal{"qwerty", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit10.value(), "XSD Parsing Error", std::runtime_error);
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("qwerty", type_iri), "XSD Parsing Error", std::runtime_error);
 
-    auto lit11 = rdf4cpp::rdf::Literal{"a@\n", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit11.value(), "XSD Parsing Error", std::runtime_error);
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("a@\n", type_iri), "XSD Parsing Error", std::runtime_error);
 
-    auto lit12 = rdf4cpp::rdf::Literal{"b@\r", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit12.value(), "XSD Parsing Error", std::runtime_error);
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("b@\r", type_iri), "XSD Parsing Error", std::runtime_error);
 
-    auto lit13 = rdf4cpp::rdf::Literal{"c@\t", type_iri};
-    CHECK_THROWS_WITH_AS(no_discard_dummy = lit13.value(), "XSD Parsing Error", std::runtime_error);
+    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("c@\t", type_iri), "XSD Parsing Error", std::runtime_error);
 }
