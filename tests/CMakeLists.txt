@@ -104,6 +104,15 @@ target_link_libraries(tests_Double
 set_property(TARGET tests_Double PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_Double COMMAND tests_Double)
 
+#Limited Range numbers
+add_executable(tests_Byte datatype/tests_Byte.cpp)
+target_link_libraries(tests_Byte
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Byte PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Byte COMMAND tests_Byte)
+
 add_executable(tests_HexBinary datatype/tests_HexBinary.cpp)
 target_link_libraries(tests_HexBinary
         doctest

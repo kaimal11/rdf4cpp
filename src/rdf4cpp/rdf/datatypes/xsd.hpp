@@ -5,10 +5,11 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Decimal.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Integer.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/String.hpp>
-#include <rdf4cpp/rdf/datatypes/xsd/Language.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Float.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Double.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Byte.hpp>
 
+#include <rdf4cpp/rdf/datatypes/xsd/Language.hpp>
 #include <rdf4cpp/rdf/datatypes/rdf-syntax/LangString.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/HexBinary.hpp>
 /*#include <rdf4cpp/rdf/datatypes/xsd/Int.hpp>*/
