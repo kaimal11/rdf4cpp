@@ -42,7 +42,7 @@ inline LiteralDatatypeImpl<xsd_language>::cpp_type LiteralDatatypeImpl<xsd_langu
 }  // namespace rdf4cpp::rdf::datatypes::registry
 namespace rdf4cpp::rdf::datatypes::xsd {
 /**
- * Implementation of xsd::string
+ * Implementation of xsd::language
  */
 using Language = registry::LiteralDatatypeImpl<registry::xsd_language>;
 }  // namespace rdf4cpp::rdf::datatypes::xsd

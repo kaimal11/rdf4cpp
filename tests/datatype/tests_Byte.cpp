@@ -33,18 +33,13 @@ TEST_CASE("Datatype Byte") {
     CHECK(lit3.value<datatypes::xsd::Byte>() == value);
     CHECK(lit3.lexical_form() == std::to_string(value));
 
-
-/*    value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal::make<xsd::Byte, xsd_byte>(value);
-    CHECK(lit4.value<xsd::Byte, xsd_byte>() == value);*/
-
     value = 1;
-    auto lit4 = rdf4cpp::rdf::Literal{std::to_string(value), type_iri};
+    auto lit4 = Literal{std::to_string(value), type_iri};
     CHECK(lit4.value<datatypes::xsd::Byte>() == value);
     CHECK(lit4.lexical_form() == std::to_string(value));
 
     value = 127;
-    auto lit5 = rdf4cpp::rdf::Literal{std::to_string(value), type_iri};
+    auto lit5 = Literal{std::to_string(value), type_iri};
     CHECK(lit5.value<datatypes::xsd::Byte>() == value);
     CHECK(lit5.lexical_form() == std::to_string(value));
 

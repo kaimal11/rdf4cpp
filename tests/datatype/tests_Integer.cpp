@@ -18,7 +18,6 @@ TEST_CASE("Datatype Integer") {
 
     CHECK(std::is_same_v<type, int64_t>);
 
-
     int64_t value = 1.00;
     auto lit1 = Literal::make<datatypes::xsd::Integer>(value);
     CHECK(lit1.value<datatypes::xsd::Integer>() == value);
