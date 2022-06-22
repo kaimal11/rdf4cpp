@@ -210,6 +210,14 @@ target_link_libraries(tests_HexBinary
 set_property(TARGET tests_HexBinary PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_HexBinary COMMAND tests_HexBinary)
 
+add_executable(tests_Duration datatype/tests_Duration.cpp)
+target_link_libraries(tests_Duration
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Duration PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Duration COMMAND tests_Duration)
+
 add_executable(tests_LangString datatype/tests_LangString.cpp)
 target_link_libraries(tests_LangString
         doctest

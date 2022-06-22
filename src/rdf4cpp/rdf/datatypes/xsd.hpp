@@ -23,6 +23,7 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Language.hpp>
 #include <rdf4cpp/rdf/datatypes/rdf-syntax/LangString.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/HexBinary.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/Duration.hpp>
 
 /**
  * Namespace where datatypes from XSD are implemented.
