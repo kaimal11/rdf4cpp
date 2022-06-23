@@ -210,6 +210,38 @@ target_link_libraries(tests_HexBinary
 set_property(TARGET tests_HexBinary PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_HexBinary COMMAND tests_HexBinary)
 
+add_executable(tests_Date datatype/tests_Date.cpp)
+target_link_libraries(tests_Date
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Date PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Date COMMAND tests_Date)
+
+add_executable(tests_Time datatype/tests_Time.cpp)
+target_link_libraries(tests_Time
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Time PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Time COMMAND tests_Time)
+
+add_executable(tests_DateTime datatype/tests_DateTime.cpp)
+target_link_libraries(tests_DateTime
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DateTime PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_DateTime COMMAND tests_DateTime)
+
+add_executable(tests_DateTimeStamp datatype/tests_DateTimeStamp.cpp)
+target_link_libraries(tests_DateTimeStamp
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DateTimeStamp PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_DateTimeStamp COMMAND tests_DateTimeStamp)
+
 add_executable(tests_Duration datatype/tests_Duration.cpp)
 target_link_libraries(tests_Duration
         doctest

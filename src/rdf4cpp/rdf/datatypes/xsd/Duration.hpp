@@ -10,11 +10,10 @@
 #include <rdf4cpp/rdf/datatypes/registry/LiteralDatatypeImpl.hpp>
 
 #include <cstdint>
-#include <iostream>
 #include <ostream>
 #include <regex>
-#include <time.h>
 #include <string>
+#include <time.h>
 namespace rdf4cpp::rdf::datatypes::registry {
 /*
  * Name of the datatype. This is kept so that we won't need to type it over and over again.
@@ -108,6 +107,9 @@ inline LiteralDatatypeImpl<xsd_duration>::cpp_type LiteralDatatypeImpl<xsd_durat
     }
 }
 
+/**
+ * Formats Duration based of rdf specification
+ */
 inline std::string fmt_duration(std::string duration, int value, char tag) {
 
     if (tag == 'T') duration.push_back(tag);
@@ -121,8 +123,8 @@ inline std::string fmt_duration(std::string duration, int value, char tag) {
             default:
                 break;
         }
-        duration.append(std::to_string(value));
-        duration.push_back(tag);
+        duration.append(std::to_string(value));  //Adds value to the duration
+        duration.push_back(tag);                 //Adds identifier of the value
     }
     return duration;
 }
