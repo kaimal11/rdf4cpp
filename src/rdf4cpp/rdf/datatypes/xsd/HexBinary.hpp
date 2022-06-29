@@ -55,19 +55,12 @@ inline LiteralDatatypeImpl<xsd_hexBinary>::cpp_type LiteralDatatypeImpl<xsd_hexB
 template<>
 inline std::string LiteralDatatypeImpl<xsd_hexBinary>::to_string(const cpp_type &value) {
 
-    std::stringstream result;
-
-    std::copy(value.begin(), value.end(), std::ostream_iterator<int16_t>(result, " "));
-    std::string str = result.str();
-
     std::string res;
-    int16_t decimal_value;
-    while (result >> decimal_value){
+    for(auto it = std::begin(value); it != std::end(value); ++it) {
         std::ostringstream ss;
-        ss << std::setfill('0') << std::setw(4) << std::hex << decimal_value;
+        ss << std::setfill('0') << std::setw(4) << std::hex << *it;
         res.append(ss.str());
-    }
-    return res;
+    }return res;
 }
 }  // namespace rdf4cpp::rdf::datatypes::registry
 
