@@ -84,14 +84,14 @@ TEST_CASE("Datatype Duration") {
 
     std::cout<< lit4 <<std::endl;
 
-/*    //default values
+    //default values
     tm.tm_year = 0;  // year
     tm.tm_mon = 0;  // month
     tm.tm_mday = 0;  // day
     tm.tm_sec = 1;   // seconds of minutes
     tm.tm_min = 0;   // minutes of hour
     tm.tm_hour = 0; // hours of day
-    tm.tm_isdst = -1; // daylight saving
+    tm.tm_isdst = 0; // daylight saving
 
     value = mktime(&tm);
 
@@ -99,7 +99,7 @@ TEST_CASE("Datatype Duration") {
     CHECK(lit5.value<datatypes::xsd::Duration>() == value);
 
     std::cout<< lit5 <<std::endl;
-
+/*
     //default values
     tm.tm_year = 0;  // year
     tm.tm_mon = 0;  // month

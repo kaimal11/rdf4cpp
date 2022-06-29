@@ -110,23 +110,22 @@ inline LiteralDatatypeImpl<xsd_duration>::cpp_type LiteralDatatypeImpl<xsd_durat
 /**
  * Formats Duration based of rdf specification
  */
-inline std::string fmt_duration(std::string duration, int value, char tag) {
+inline void fmt_duration(std::string *duration, int value, char tag) {
 
-    if (tag == 'T') duration.push_back(tag);
+    if (tag == 'T') duration->push_back(tag);
     if (value != 0) {
         switch (tag) {
             case 'H':
             case 'm':
             case 'S':
-                if (duration.find('T') == std::string::npos) duration.push_back('T');
+                if (duration->find('T') == std::string::npos) duration->push_back('T');
                 break;
             default:
                 break;
         }
-        duration.append(std::to_string(value));  //Adds value to the duration
-        duration.push_back(tag);                 //Adds identifier of the value
+        duration->append(std::to_string(value));  //Adds value to the duration
+        duration->push_back(tag);                 //Adds identifier of the value
     }
-    return duration;
 }
 
 /**
@@ -136,51 +135,19 @@ template<>
 inline std::string LiteralDatatypeImpl<xsd_duration>::to_string(const cpp_type &value) {
 
     char ch[100];
+    struct tm *tm = localtime(&value);
+
+    tm->tm_isdst = -1;
     strftime(ch, 100, "P%YY%mM%dDT%HH%MM%SS", localtime(&value));
 
     std::string str(ch), duration{"P"};
 
-    ulong start = 0, end = 0;
-    start = str.find('P');
-    end = str.find('Y');
-    if (end != std::string::npos) {
-        start++;
-        duration = fmt_duration(duration, std::stoi(str.substr(start, end - start)) - 1900, 'Y');
-        start = end;
-    }
-    end = str.find('M');
-    if (end != std::string::npos) {
-        start++;
-        duration = fmt_duration(duration, std::stoi(str.substr(start, end - start)) - 1, 'M');
-        start = end;
-    }
-    end = str.find('D');
-    if (end != std::string::npos) {
-        start++;
-        duration = fmt_duration(duration, std::stoi(str.substr(start, end - start)), 'D');
-    }
-    end = str.find('T');
-    if (end != std::string::npos) {
-        start = end;
-        end = str.find('H');
-        if (end != std::string::npos) {
-            start++;
-            duration = fmt_duration(duration, std::stoi(str.substr(start, end - start)), 'H');
-            start = end;
-        }
-        end = str.find('M', start);
-        if (end != std::string::npos) {
-            start++;
-            duration = fmt_duration(duration, std::stoi(str.substr(start, end - start)), 'm');
-            start = end;
-        }
-        end = str.find('S');
-        if (end != std::string::npos) {
-            start++;
-            std::string text = str.substr(start, end - start);
-            duration = fmt_duration(duration, std::stoi(str.substr(start, end - start)), 'S');
-        }
-    }
+    fmt_duration(&duration, tm->tm_year, 'Y');
+    fmt_duration(&duration, tm->tm_mon, 'M');
+    fmt_duration(&duration, tm->tm_mday, 'D');
+    fmt_duration(&duration, tm->tm_hour, 'H');
+    fmt_duration(&duration, tm->tm_min, 'm');
+    fmt_duration(&duration, tm->tm_sec, 'S');
 
     std::transform(duration.begin(), duration.end(), duration.begin(), ::toupper);
 
