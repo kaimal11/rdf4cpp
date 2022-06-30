@@ -308,6 +308,22 @@ target_link_libraries(tests_Duration
 set_property(TARGET tests_Duration PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_Duration COMMAND tests_Duration)
 
+add_executable(tests_YearMonthDuration datatype/tests_YearMonthDuration.cpp)
+target_link_libraries(tests_YearMonthDuration
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_YearMonthDuration PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_YearMonthDuration COMMAND tests_YearMonthDuration)
+
+add_executable(tests_DayTimeDuration datatype/tests_DayTimeDuration.cpp)
+target_link_libraries(tests_DayTimeDuration
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_DayTimeDuration PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_DayTimeDuration COMMAND tests_DayTimeDuration)
+
 add_executable(tests_LangString datatype/tests_LangString.cpp)
 target_link_libraries(tests_LangString
         doctest

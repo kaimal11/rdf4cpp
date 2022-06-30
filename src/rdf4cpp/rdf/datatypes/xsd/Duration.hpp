@@ -57,47 +57,52 @@ inline LiteralDatatypeImpl<xsd_duration>::cpp_type LiteralDatatypeImpl<xsd_durat
         tm.tm_hour = 0;    // hours of day from 0 to 24
         tm.tm_isdst = -1;  // daylight saving
 
-        std::string str = s.data();
+        std::string str = s.data(), dateFrag, timeFrag;
 
-        ulong start = 0, end = 0;
-        start = str.find('P');
-        end = str.find('Y');
-        if (end != std::string::npos) {
-            start++;
-            tm.tm_year = std::stoi(str.substr(start, end - start));
-            start = end;
-        }
-        end = str.find('M');
-        if (end != std::string::npos) {
-            start++;
-            tm.tm_mon = std::stoi(str.substr(start, end - start));
-            start = end;
-        }
-        end = str.find('D');
-        if (end != std::string::npos) {
-            start++;
-            tm.tm_mday = std::stoi(str.substr(start, end - start));
-        }
-        end = str.find('T');
-        start = end;
-        if (end != std::string::npos) {
+        ulong start = 1, end = 0, delim_pos = 0;
 
-            end = str.find('H');
+        char delimiter = 'T';
+        delim_pos = str.find(delimiter);
+        if (delim_pos != std::string::npos) {
+            dateFrag = str.substr(start, delim_pos - start);
+            timeFrag = str.substr(++delim_pos);
+        } else{
+            dateFrag = str.substr(start);
+        }
+
+        if(!dateFrag.empty()) {
+            start = 0;
+            end = dateFrag.find('Y');
             if (end != std::string::npos) {
-                start++;
-                tm.tm_hour = std::stoi(str.substr(start, end - start));
-                start = end;
+                tm.tm_year = std::stoi(dateFrag.substr(start, end - start));
+                start = ++end;
             }
-            end = str.find('M', start);
+            end = dateFrag.find('M');
             if (end != std::string::npos) {
-                start++;
-                tm.tm_min = std::stoi(str.substr(start, end - start));
-                start = end;
+                tm.tm_mon = std::stoi(dateFrag.substr(start, end - start));
+                start = ++end;
             }
-            end = str.find('S');
+            end = dateFrag.find('D');
             if (end != std::string::npos) {
-                start++;
-                tm.tm_sec = std::stoi(str.substr(start, end - start));
+                tm.tm_mday = std::stoi(dateFrag.substr(start, end - start));
+            }
+        }
+
+        if(!timeFrag.empty()){
+            start = 0;
+            end = timeFrag.find('H');
+            if (end != std::string::npos) {
+                tm.tm_hour = std::stoi(timeFrag.substr(start, end - start));
+                start = ++end;
+            }
+            end = timeFrag.find('M', start);
+            if (end != std::string::npos) {
+                tm.tm_min = std::stoi(timeFrag.substr(start, end - start));
+                start = ++end;
+            }
+            end = timeFrag.find('S');
+            if (end != std::string::npos) {
+                tm.tm_sec = std::stoi(timeFrag.substr(start, end - start));
             }
         }
 
@@ -134,17 +139,15 @@ inline void fmt_duration(std::string *duration, int value, char tag) {
 template<>
 inline std::string LiteralDatatypeImpl<xsd_duration>::to_string(const cpp_type &value) {
 
-    char ch[100];
     struct tm *tm = localtime(&value);
 
-    tm->tm_isdst = -1;
-    strftime(ch, 100, "P%YY%mM%dDT%HH%MM%SS", localtime(&value));
+    std::string duration{"P"};
 
-    std::string str(ch), duration{"P"};
-
-    fmt_duration(&duration, tm->tm_year, 'Y');
-    fmt_duration(&duration, tm->tm_mon, 'M');
-    fmt_duration(&duration, tm->tm_mday, 'D');
+    if(tm->tm_year >= 0) {
+        fmt_duration(&duration, tm->tm_year, 'Y');
+        fmt_duration(&duration, tm->tm_mon, 'M');
+        fmt_duration(&duration, tm->tm_mday, 'D');
+    }
     fmt_duration(&duration, tm->tm_hour, 'H');
     fmt_duration(&duration, tm->tm_min, 'm');
     fmt_duration(&duration, tm->tm_sec, 'S');

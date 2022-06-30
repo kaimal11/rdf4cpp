@@ -24,6 +24,8 @@
 #include <rdf4cpp/rdf/datatypes/xsd/DateTime.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DateTimeStamp.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Duration.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/YearMonthDuration.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/DayTimeDuration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Language.hpp>
 #include <rdf4cpp/rdf/datatypes/rdf-syntax/LangString.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/HexBinary.hpp>
