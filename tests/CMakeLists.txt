@@ -210,6 +210,7 @@ target_link_libraries(tests_HexBinary
 set_property(TARGET tests_HexBinary PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_HexBinary COMMAND tests_HexBinary)
 
+#Time and Date Datatypes
 add_executable(tests_Date datatype/tests_Date.cpp)
 target_link_libraries(tests_Date
         doctest
@@ -241,6 +242,63 @@ target_link_libraries(tests_DateTimeStamp
         )
 set_property(TARGET tests_DateTimeStamp PROPERTY CXX_STANDARD 20)
 add_test(NAME tests_DateTimeStamp COMMAND tests_DateTimeStamp)
+
+#Miscellaneous XSD Datatypes
+add_executable(tests_Language datatype/tests_Language.cpp)
+target_link_libraries(tests_Language
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Language PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Language COMMAND tests_Language)
+
+add_executable(tests_Token datatype/tests_Token.cpp)
+target_link_libraries(tests_Token
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Token PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Token COMMAND tests_Token)
+
+add_executable(tests_Name datatype/tests_Name.cpp)
+target_link_libraries(tests_Name
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_Name PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_Name COMMAND tests_Name)
+
+add_executable(tests_NCName datatype/tests_NCName.cpp)
+target_link_libraries(tests_NCName
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_NCName PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_NCName COMMAND tests_NCName)
+
+add_executable(tests_NMTOKEN datatype/tests_NMTOKEN.cpp)
+target_link_libraries(tests_NMTOKEN
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_NMTOKEN PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_NMTOKEN COMMAND tests_NMTOKEN)
+
+add_executable(tests_AnyURI datatype/tests_AnyURI.cpp)
+target_link_libraries(tests_AnyURI
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_AnyURI PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_AnyURI COMMAND tests_AnyURI)
+
+add_executable(tests_NormalizedString datatype/tests_NormalizedString.cpp)
+target_link_libraries(tests_NormalizedString
+        doctest
+        rdf4cpp
+        )
+set_property(TARGET tests_NormalizedString PROPERTY CXX_STANDARD 20)
+add_test(NAME tests_NormalizedString COMMAND tests_NormalizedString)
 
 add_executable(tests_Duration datatype/tests_Duration.cpp)
 target_link_libraries(tests_Duration

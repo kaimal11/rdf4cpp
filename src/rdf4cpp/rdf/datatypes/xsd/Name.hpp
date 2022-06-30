@@ -32,8 +32,8 @@ struct DatatypeMapping<xsd_name> {
  */
 template<>
 inline LiteralDatatypeImpl<xsd_name>::cpp_type LiteralDatatypeImpl<xsd_name>::from_string(std::string_view s) {
-    const std::regex name_regex("(.*\\n)|(.*\\t)|(.*\\r)");
-    if (std::regex_match(s.data(), name_regex)) {
+    const std::regex non_name_regex("(\\n)|(\\t)|(\\r)|([ ]{2,})|(^[ ].*)|(.*[ ]$)");
+    if (std::regex_search(s.data(), non_name_regex)) {
         throw std::runtime_error("XSD Parsing Error");
     } else {
         return s.data();

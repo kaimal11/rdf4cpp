@@ -32,8 +32,8 @@ struct DatatypeMapping<xsd_token> {
  */
 template<>
 inline LiteralDatatypeImpl<xsd_token>::cpp_type LiteralDatatypeImpl<xsd_token>::from_string(std::string_view s) {
-    const std::regex token_regex("(.*\\n)|(.*\\t)|(.*\\r)");
-    if (std::regex_match(s.data(), token_regex)) {
+    const std::regex non_token_regex("(\\n)|(\\t)|(\\r)|([ ]{2,})|(^[ ].*)|(.*[ ]$)");
+    if (std::regex_search(s.data(), non_token_regex)) {
         throw std::runtime_error("XSD Parsing Error");
     } else {
         return s.data();

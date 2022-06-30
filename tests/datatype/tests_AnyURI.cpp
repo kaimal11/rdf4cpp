@@ -28,18 +28,11 @@ TEST_CASE("Datatype AnyURI") {
     CHECK(lit2.lexical_form() == value);
 
     auto lit3 = Literal{correct_type_iri_cstr, type_iri};
-    CHECK(lit3.value<datatypes::xsd::AnyURI>() == value);
+    CHECK(lit3.value<datatypes::xsd::AnyURI>() == correct_type_iri_cstr);
 
     CHECK(lit1 != lit2);
     CHECK(lit2 != lit3);
     CHECK(lit1 == lit3);
-
-    // suppress warnings regarding attribute ‘nodiscard’
-    Literal no_discard_dummy;
-
-    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("22", type_iri), "XSD Parsing Error", std::runtime_error);
-
-    CHECK_THROWS_WITH_AS(no_discard_dummy = Literal("-32769", type_iri), "XSD Parsing Error", std::runtime_error);
 }
 
 
