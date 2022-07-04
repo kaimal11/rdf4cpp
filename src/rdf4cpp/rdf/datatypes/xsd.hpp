@@ -23,6 +23,11 @@
 #include <rdf4cpp/rdf/datatypes/xsd/Time.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DateTime.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DateTimeStamp.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/GDay.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/GMonth.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/GYear.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/GMonthDay.hpp>
+#include <rdf4cpp/rdf/datatypes/xsd/GYearMonth.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Duration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/YearMonthDuration.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/DayTimeDuration.hpp>
@@ -36,7 +41,6 @@
 #include <rdf4cpp/rdf/datatypes/xsd/NMTOKEN.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/NormalizedString.hpp>
 #include <rdf4cpp/rdf/datatypes/xsd/Token.hpp>
-
 
 /**
  * Namespace where datatypes from XSD are implemented.
