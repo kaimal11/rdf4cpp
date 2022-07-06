@@ -9,6 +9,14 @@ set(THREADS_PREFER_PTHREAD_FLAG TRUE)
 find_package(Threads REQUIRED)
 find_package(serd 0 QUIET)
 
+include(FetchContent)
+FetchContent_Declare(
+        Date
+        GIT_REPOSITORY "https://github.com/HowardHinnant/date.git"
+        GIT_TAG  "v3.0.1"
+)
+FetchContent_MakeAvailable(Date)
+
 # find system libraries
 if (NOT serd-FOUND)
     find_library(serd
@@ -67,6 +75,7 @@ target_include_directories(
 target_link_libraries(rdf4cpp PRIVATE
         Threads::Threads
         $<IF:$<BOOL:serd-FOUND>,${serd},serd:serd> # ${VAR}-FOUND is only defined if the system library is used
+        PUBLIC date::date
         )
 
 set_target_properties(rdf4cpp PROPERTIES
